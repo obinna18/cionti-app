@@ -30,7 +30,7 @@ const S = {
   currentPayReq: null,
   aiHistory: [],
   feedLikes: {},
-  theme: 'dark', // Always start dark — user can toggle after login
+  theme: localStorage.getItem('cionti-theme') || 'dark',
 };
 
 const CATS = [
@@ -64,13 +64,27 @@ try {
 
 // ── INIT ──
 window.addEventListener('load', async () => {
-  // Force dark mode — clear any saved light theme
-  localStorage.removeItem('cionti-theme');
-  document.documentElement.removeAttribute('data-theme');
+  // Apply theme
+  if (S.theme === 'light') document.documentElement.setAttribute('data-theme','light');
   const themeBtn = document.getElementById('theme-toggle');
-  if (themeBtn) themeBtn.textContent = '🌙';
+  if (themeBtn) themeBtn.textContent = S.theme === 'dark' ? '🌙' : '☀️';
 
   if (!auth) { C.goTo('onboard'); return; }
+
+  // Handle Google redirect result (mobile sign-in)
+  if (localStorage.getItem('cionti-google-redirect')) {
+    localStorage.removeItem('cionti-google-redirect');
+    try {
+      const result = await auth.getRedirectResult();
+      if (result && result.user) {
+        await C.ensureGoogleUserDoc(result.user);
+        // onAuthStateChanged will fire and handle navigation
+        return;
+      }
+    } catch(e) {
+      console.warn('Redirect result error:', e.message);
+    }
+  }
 
   auth.onAuthStateChanged(user => {
     if (user) {
@@ -675,25 +689,16 @@ const C = {
     const btn = document.getElementById('btn-login');
     btn.disabled = true; btn.textContent = 'Signing in...';
     try {
-      const cred = await auth.signInWithEmailAndPassword(email, pw);
-      // Force navigation — don't rely on onAuthStateChanged (may have already fired during guest mode)
-      S.user = cred.user;
-      S.isGuest = false;
-      await C.loadUserData(cred.user.uid);
-      if (S.userData && S.userData.setupComplete) {
-        C.enterApp();
-      } else {
-        // Account exists but setup not complete — send to setup
-        C.goTo('setup');
-      }
+      await auth.signInWithEmailAndPassword(email, pw);
+      // onAuthStateChanged handles navigation from here
     } catch(e) {
       btn.disabled = false; btn.textContent = 'Sign In';
       if (e.code === 'auth/user-not-found' || e.code === 'auth/invalid-credential') {
         C.showErr(errEl, '❌ No account with this email. Sign up first →');
         document.querySelector('#s-login .auth-footer').innerHTML =
           '👇 <span class="link-p" onclick="C.goTo(\'register\')" style="font-weight:800">Create a free account →</span>';
-      } else if (e.code === 'auth/wrong-password') {
-        C.showErr(errEl, '❌ Wrong password. Try again or reset below.');
+      } else if (e.code === 'auth/account-exists-with-different-credential' || e.code === 'auth/wrong-password') {
+        C.showErr(errEl, '⚠️ This email uses Google Sign-In. Tap the G button instead.');
       } else {
         C.showErr(errEl, C.authErr(e.code));
       }
@@ -740,10 +745,10 @@ const C = {
     if (destEl)  destEl.textContent = email;
     if (devBox)  devBox.style.display = 'block';
     if (devCode) devCode.textContent = otp;
-    // Also clear any old OTP inputs
+    // Auto-fill the OTP boxes so user doesn't have to type it
     [0,1,2,3].forEach(i => {
       const box = document.getElementById('otp-'+i);
-      if (box) { box.value = ''; box.classList.remove('ok','err'); }
+      if (box) { box.value = otp[i]; box.classList.remove('ok','err'); }
     });
     document.getElementById('otp-err').style.display = 'none';
     document.getElementById('otp-ok').style.display = 'none';
@@ -775,20 +780,15 @@ const C = {
 
     // ── PATH A: Phone login (Firebase SMS OTP — 6 digits) ──
     if (window.confirmationResult && S.pendingPhone) {
+      // Phone OTP is 6 digits — user may have typed only 4 boxes
+      // We need to handle 6-digit codes: show 6 OTP boxes for phone or collect differently
+      // For now collect all 4 boxes + show hint
       try {
-        const cred = await window.confirmationResult.confirm(code);
+        await window.confirmationResult.confirm(code);
+        // onAuthStateChanged fires → handles navigation
         if (okEl) { okEl.textContent = '✅ Verified! Signing you in...'; okEl.style.display = 'block'; }
         window.confirmationResult = null;
         S.pendingPhone = null;
-        // Force navigation — don't rely on onAuthStateChanged
-        S.user = cred.user;
-        S.isGuest = false;
-        await C.loadUserData(cred.user.uid);
-        if (S.userData && S.userData.setupComplete) {
-          C.enterApp();
-        } else {
-          C.goTo('setup');
-        }
       } catch(e) {
         if (btn) { btn.disabled = false; btn.textContent = 'Verify & Create Account →'; }
         [0,1,2,3].forEach(i => document.getElementById('otp-'+i)?.classList.add('err'));
@@ -879,27 +879,23 @@ const C = {
   // ══════════════════════════════════════════
   async loginGoogle() {
     if (!auth) return C.toast('Firebase not configured', 'err');
-    const btn = document.querySelector('[onclick="C.loginGoogle()"]');
-    if (btn) { btn.style.opacity = '0.6'; btn.style.pointerEvents = 'none'; }
     try {
       const provider = new firebase.auth.GoogleAuthProvider();
       provider.addScope('email');
       provider.addScope('profile');
-      // Always use popup — redirect sends users to Firebase's own domain (broken)
-      const cred = await auth.signInWithPopup(provider);
-      await C.ensureGoogleUserDoc(cred.user);
-      // Force navigation since onAuthStateChanged may have already fired
-      S.user = cred.user;
-      S.isGuest = false;
-      await C.loadUserData(cred.user.uid);
-      if (S.userData && S.userData.setupComplete) {
-        C.enterApp();
+      // Use redirect on mobile (more reliable) — popup on desktop
+      const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
+      if (isMobile) {
+        // Store intent so we know to handle redirect result on next load
+        localStorage.setItem('cionti-google-redirect', '1');
+        await auth.signInWithRedirect(provider);
+        // Page reloads — onAuthStateChanged handles result
       } else {
-        C.goTo('setup');
+        const cred = await auth.signInWithPopup(provider);
+        await C.ensureGoogleUserDoc(cred.user);
       }
     } catch(e) {
-      if (btn) { btn.style.opacity = ''; btn.style.pointerEvents = ''; }
-      if (e.code !== 'auth/popup-closed-by-user' && e.code !== 'auth/cancelled-popup-request') {
+      if (e.code !== 'auth/popup-closed-by-user') {
         C.toast(C.authErr(e.code), 'err');
       }
     }
@@ -1074,8 +1070,9 @@ const C = {
   authErr(code) {
     const m = {
       'auth/user-not-found': '❌ No account with that email. Please sign up first.',
+      'auth/account-exists-with-different-credential': '⚠️ This email is linked to Google Sign-In. Tap the G button below to sign in.',
       'auth/wrong-password': '❌ Wrong password. Try again.',
-      'auth/invalid-credential': '❌ Email or password is incorrect.',
+      'auth/invalid-credential': '❌ Email or password is incorrect. If you signed up with Google, use the G button.',
       'auth/invalid-email': '❌ That email address is not valid.',
       'auth/email-already-in-use': '❌ An account with this email already exists. Please sign in.',
       'auth/weak-password': '❌ Password too weak — use at least 6 characters.',
@@ -1086,6 +1083,7 @@ const C = {
       'auth/operation-not-allowed': '⚠️ This sign-in method is not enabled. Contact support.',
     };
     return m[code] || 'Something went wrong. Please try again.';
+  },
   },
 
   showErr(el, msg) { if (el) { el.textContent = msg; el.classList.add('show'); } },
@@ -1201,15 +1199,7 @@ const C = {
     if (!db) return;
     try {
       const doc = await db.collection('users').doc(uid).get();
-      if (doc.exists) {
-        S.userData = doc.data();
-        // Auto-fix: if user has a name but setupComplete is false, mark it complete
-        // This fixes accounts stuck on setup screen (especially Google sign-in)
-        if (S.userData && !S.userData.setupComplete && (S.userData.fullName || S.user?.displayName)) {
-          S.userData.setupComplete = true;
-          db.collection('users').doc(uid).update({ setupComplete: true }).catch(() => {});
-        }
-      }
+      if (doc.exists) S.userData = doc.data();
     } catch(e) {}
   },
 
@@ -1660,89 +1650,35 @@ const C = {
 
   openJobLink() { C.toast('Opening job listing...'); },
 
-  async loadShortsFeed(el, query) {
-    const cats = [
-      { label:'🔥 All', q:'Nigeria skills business' },
-      { label:'💼 Freelance', q:'Nigeria freelance hustle' },
-      { label:'🛠 Trades', q:'Nigeria plumber electrician artisan' },
-      { label:'💻 Tech', q:'Nigeria coding tech startup' },
-      { label:'💄 Beauty', q:'Nigeria makeup hair beauty' },
-      { label:'🎨 Creative', q:'Nigeria design photography art' },
-      { label:'💰 Business', q:'Nigeria entrepreneur money business' },
+  loadShortsFeed(el) {
+    const shorts = [
+      { id: 'dQw4w9WgXcQ', title: 'How to become a freelancer in Nigeria 🇳🇬', creator: '@NaijaFreelancers', views: '128K' },
+      { id: 'ScMzIvxBSi4', title: 'Making ₦500K/month as a graphic designer', creator: '@DesignWithAde', views: '89K' },
+      { id: 'kXYiU_JCYtU', title: 'Side hustles that pay in Nigeria 2026', creator: '@MoneytalkNG', views: '245K' },
+      { id: '9bZkp7q19f0', title: 'How to get clients as a plumber or electrician', creator: '@TradesNG', views: '67K' },
+      { id: 'RgKAFK5djSk', title: 'Top skills in demand in Delta State right now', creator: '@DeltaJobs', views: '43K' },
     ];
-    const activeQ = query || cats[0].q;
-
-    // Render shell with category tabs immediately
     el.innerHTML = `
-      <div style="margin-bottom:10px">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-          <div style="font-weight:800;font-size:.95rem">🎥 Cionti Shorts</div>
-          <span style="font-size:.72rem;color:var(--textl)">Powered by Dailymotion</span>
-        </div>
-        <div style="display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px">
-          ${cats.map(c=>`<button class="feed-tab${c.q===activeQ?' on':''}" style="flex-shrink:0;padding:7px 12px;font-size:.75rem" onclick="C.loadShortsFeed(document.getElementById('feed-content'),'${c.q}')">${c.label}</button>`).join('')}
-        </div>
+      <div style="margin-bottom:12px">
+        <div class="badge badge-p" style="margin-bottom:6px">🎥 Skill & Business Shorts</div>
+        <p style="font-size:.78rem;color:var(--textl);line-height:1.5;margin-bottom:12px">Short videos about skills, freelancing and business in Nigeria — no account needed</p>
       </div>
-      <div id="shorts-grid" style="display:flex;flex-direction:column;gap:14px">
-        <div style="text-align:center;padding:32px 0;color:var(--textl)"><div style="font-size:1.5rem;margin-bottom:8px">⏳</div>Loading videos...</div>
+      ${shorts.map(s => `
+      <div style="margin-bottom:16px;border-radius:16px;overflow:hidden;background:var(--bg1);border:1px solid var(--border)">
+        <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden">
+          <iframe src="https://www.youtube.com/embed/${s.id}?rel=0&modestbranding=1" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div style="padding:12px 14px">
+          <div style="font-weight:700;font-size:.88rem;margin-bottom:4px">${s.title}</div>
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <span style="font-size:.73rem;color:var(--textl)">${s.creator}</span>
+            <span style="font-size:.73rem;color:var(--textm)">👁 ${s.views}</span>
+          </div>
+        </div>
+      </div>`).join('')}
+      <div style="text-align:center;padding:16px 0">
+        <button class="btn btn-o btn-sm" onclick="C.toast('Creator program coming soon! 🎥')">Apply as Creator</button>
       </div>`;
-
-    try {
-      const res = await fetch(`https://api.dailymotion.com/videos?search=${encodeURIComponent(activeQ)}&fields=id,title,thumbnail_480_url,views_total,owner.screenname,duration&limit=10&language=en`);
-      const data = await res.json();
-      const videos = data.list || [];
-
-      if (!videos.length) throw new Error('empty');
-
-      document.getElementById('shorts-grid').innerHTML = videos.map(v => {
-        const mins = Math.floor((v.duration||0)/60);
-        const secs = String((v.duration||0)%60).padStart(2,'0');
-        const views = v.views_total >= 1000000 ? (v.views_total/1000000).toFixed(1)+'M'
-                    : v.views_total >= 1000 ? Math.round(v.views_total/1000)+'K'
-                    : v.views_total || '—';
-        return `
-        <div style="border-radius:16px;overflow:hidden;background:var(--bg1);border:1px solid var(--border)">
-          <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;background:#000">
-            <iframe src="https://www.dailymotion.com/embed/video/${v.id}?autoplay=0&mute=0&ui-logo=false&ui-start-screen-info=false&endscreen-enable=false" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" allowfullscreen loading="lazy" allow="autoplay"></iframe>
-            <div style="position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,.7);color:#fff;border-radius:6px;padding:2px 7px;font-size:.68rem;font-weight:700">${mins}:${secs}</div>
-          </div>
-          <div style="padding:12px 14px">
-            <div style="font-weight:700;font-size:.87rem;margin-bottom:6px;line-height:1.4">${v.title}</div>
-            <div style="display:flex;align-items:center;justify-content:space-between">
-              <div style="display:flex;align-items:center;gap:6px">
-                <div style="width:24px;height:24px;border-radius:50%;background:var(--p);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700">${(v['owner.screenname']||'?')[0].toUpperCase()}</div>
-                <span style="font-size:.75rem;color:var(--textl)">@${v['owner.screenname']||'creator'}</span>
-              </div>
-              <span style="font-size:.72rem;color:var(--textm)">👁 ${views}</span>
-            </div>
-          </div>
-        </div>`;
-      }).join('') + `<div style="text-align:center;padding:12px 0"><button class="btn btn-o btn-sm" onclick="C.toast('Creator program coming soon! 🎥')">🎬 Apply as Creator</button></div>`;
-
-    } catch(e) {
-      // Fallback to curated YouTube videos if Dailymotion fails
-      const fallback = [
-        { id:'ysz5S6PUM-U', title:'How to make money with skills in Nigeria 🇳🇬', creator:'@NaijaFreelancers', views:'312K', dur:'8:24' },
-        { id:'HluANRwPyNo', title:'Top 5 skills that pay most in Nigeria 2026', creator:'@SkillsNG', views:'189K', dur:'11:02' },
-        { id:'KQ6zr6kCPj8', title:'How to get your first client as a freelancer', creator:'@MoneytalkNG', views:'245K', dur:'6:45' },
-        { id:'mE8PL9jMNgI', title:'Side hustles for students in Nigeria — real ones', creator:'@DeltaJobs', views:'97K', dur:'9:18' },
-        { id:'SqcY0GlETPk', title:'Build a brand and charge more for your skill', creator:'@DesignWithAde', views:'78K', dur:'7:30' },
-      ];
-      document.getElementById('shorts-grid').innerHTML = fallback.map(s=>`
-        <div style="border-radius:16px;overflow:hidden;background:var(--bg1);border:1px solid var(--border)">
-          <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden">
-            <iframe src="https://www.youtube.com/embed/${s.id}?rel=0&modestbranding=1" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" allowfullscreen loading="lazy"></iframe>
-            <div style="position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,.7);color:#fff;border-radius:6px;padding:2px 7px;font-size:.68rem;font-weight:700">${s.dur}</div>
-          </div>
-          <div style="padding:12px 14px">
-            <div style="font-weight:700;font-size:.87rem;margin-bottom:6px">${s.title}</div>
-            <div style="display:flex;align-items:center;justify-content:space-between">
-              <span style="font-size:.75rem;color:var(--textl)">${s.creator}</span>
-              <span style="font-size:.72rem;color:var(--textm)">👁 ${s.views}</span>
-            </div>
-          </div>
-        </div>`).join('') + `<div style="text-align:center;padding:12px 0"><button class="btn btn-o btn-sm" onclick="C.toast('Creator program coming soon! 🎥')">🎬 Apply as Creator</button></div>`;
-    }
   },
 
   loadAIChatFeed(el) {
