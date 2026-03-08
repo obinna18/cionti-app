@@ -1151,6 +1151,14 @@ img{max-width:100%;display:block}
 .home-post-head{display:flex;gap:10px;align-items:center;margin-bottom:10px}
 .home-post-body{font-size:.87rem;line-height:1.7;color:var(--text)}
 
+
+.ai-mode-tab{padding:7px 14px;border-radius:20px;font-size:.75rem;font-weight:700;background:var(--bg2);color:var(--textl);border:1.5px solid var(--border);cursor:pointer;white-space:nowrap;transition:all .18s;flex-shrink:0}
+.ai-mode-tab.active{background:var(--p);color:#fff;border-color:var(--p)}
+.ai-result-card{background:var(--bg1);border:1.5px solid var(--border);border-radius:14px;padding:12px 14px;margin:6px 0;cursor:pointer;transition:all .18s}
+.ai-result-card:active{transform:scale(.98);background:var(--bg2)}
+.ai-result-card .arc-name{font-weight:700;font-size:.88rem;margin-bottom:2px}
+.ai-result-card .arc-meta{font-size:.75rem;color:var(--textl);display:flex;gap:10px;flex-wrap:wrap}
+
 </style>
 </head>
 <body>
@@ -1593,21 +1601,36 @@ img{max-width:100%;display:block}
 
 <!-- AI MATCHER -->
 <div id="s-ai" class="screen main-screen" style="flex-direction:column">
-  <div class="ai-header">
-    <div style="display:flex;align-items:center;gap:12px">
-      <div style="width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:1.3rem">🤖</div>
-      <div>
-        <div class="ai-title">Cionti AI</div>
-        <div class="ai-sub">Describe what you need — I'll find your match</div>
+  <!-- HEADER -->
+  <div class="ai-header" style="padding-bottom:0">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#2952FF,#8B5CF6);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0">🤖</div>
+        <div>
+          <div class="ai-title">Cionti AI</div>
+          <div class="ai-sub" id="ai-mode-label">Powered by Llama 3 · Open Source</div>
+        </div>
       </div>
+      <button class="btn btn-sm btn-o" onclick="C.resetAI()" style="font-size:.72rem">↺ Reset</button>
+    </div>
+    <!-- MODE TABS -->
+    <div style="display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:10px">
+      <button class="ai-mode-tab active" data-mode="chat" onclick="C.switchAIMode('chat',this)">💬 Chat</button>
+      <button class="ai-mode-tab" data-mode="match" onclick="C.switchAIMode('match',this)">🎯 Job Match</button>
+      <button class="ai-mode-tab" data-mode="bio" onclick="C.switchAIMode('bio',this)">✍️ Bio Writer</button>
+      <button class="ai-mode-tab" data-mode="price" onclick="C.switchAIMode('price',this)">💰 Price Advisor</button>
+      <button class="ai-mode-tab" data-mode="advisor" onclick="C.switchAIMode('advisor',this)">🧠 Advisor</button>
     </div>
   </div>
+  <!-- MESSAGES -->
   <div class="ai-msgs" id="ai-msgs"></div>
-  <div style="padding:10px 14px 4px;background:var(--bg1);border-top:1px solid var(--border);overflow-x:auto;white-space:nowrap;scrollbar-width:none">
-    <div id="ai-suggestions" style="display:flex;gap:8px;padding-bottom:4px"></div>
+  <!-- QUICK SUGGESTIONS -->
+  <div style="padding:8px 14px 4px;background:var(--bg1);border-top:1px solid var(--border);overflow-x:auto;scrollbar-width:none">
+    <div id="ai-suggestions" style="display:flex;gap:6px;padding-bottom:4px"></div>
   </div>
+  <!-- INPUT ROW -->
   <div class="ai-input-row">
-    <textarea class="ai-inp" id="ai-inp" placeholder="e.g. I need a plumber in Effurun today..." rows="1" onkeydown="C.aiKey(event)" oninput="C.aiTyping(this)"></textarea>
+    <textarea class="ai-inp" id="ai-inp" placeholder="Ask Cionti AI anything..." rows="1" onkeydown="C.aiKey(event)" oninput="C.aiTyping(this)"></textarea>
     <button class="ai-send" onclick="C.sendAiMsg()"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
   </div>
 </div>
