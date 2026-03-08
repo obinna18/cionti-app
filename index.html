@@ -1410,7 +1410,7 @@ img{max-width:100%;display:block}
 
 <!-- SETUP -->
 <div id="s-setup" class="screen" style="flex-direction:column;background:var(--bg0)">
-  <div class="top-bar"><h2>Your Profile</h2><span class="link-p fw6 text-sm" onclick="C.skipSetup()">Skip</span></div>
+  <div class="top-bar"><button class="icon-btn" onclick="C.goTo('login-options')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><h2>Your Profile</h2><span class="link-p fw6 text-sm" onclick="C.skipSetup()">Skip</span></div>
   <div class="screen-scroll" style="flex:1;padding:20px 24px 40px">
     <div style="text-align:center;margin-bottom:24px">
       <div id="setup-av" class="setup-av" onclick="document.getElementById('setup-ph').click()">📷</div>
@@ -1611,7 +1611,7 @@ img{max-width:100%;display:block}
           <div class="ai-sub" id="ai-mode-label">Powered by Llama 3 · Open Source</div>
         </div>
       </div>
-      <button class="btn btn-sm btn-o" onclick="C.resetAI()" style="font-size:.72rem">↺ Reset</button>
+      <div style="display:flex;gap:6px"><button class="icon-btn" onclick="C.navTo('discover')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><button class="btn btn-sm btn-o" onclick="C.resetAI()" style="font-size:.72rem">↺ Reset</button></div>
     </div>
     <!-- MODE TABS -->
     <div style="display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:10px">
@@ -1637,7 +1637,7 @@ img{max-width:100%;display:block}
 
 <!-- REQUESTS -->
 <div id="s-requests" class="screen main-screen" style="flex-direction:column">
-  <div class="top-bar"><h2>Requests</h2><div></div></div>
+  <div class="top-bar"><button class="icon-btn" onclick="C.navTo('discover')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><h2>Requests</h2><div style="width:40px"></div></div>
   <div style="padding:12px 20px 0;flex-shrink:0">
     <div class="tab-bar">
       <button class="tab on" id="tab-recv" onclick="C.switchReqTab('recv')">📩 Received</button>
@@ -1649,7 +1649,7 @@ img{max-width:100%;display:block}
 
 <!-- MESSAGES -->
 <div id="s-messages" class="screen main-screen" style="flex-direction:column">
-  <div class="top-bar"><h2>Messages</h2><div></div></div>
+  <div class="top-bar"><button class="icon-btn" onclick="C.navTo('discover')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><h2>Messages</h2><div style="width:40px"></div></div>
   <div id="chats-list" class="screen-scroll" style="flex:1"></div>
 </div>
 
@@ -1729,6 +1729,7 @@ img{max-width:100%;display:block}
 <!-- MY PROFILE -->
 <div id="s-profile" class="screen main-screen" style="flex-direction:column;background:var(--bg0)">
   <div class="top-bar">
+    <button class="icon-btn" onclick="C.navTo('discover')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
     <h2>My Profile</h2>
     <div style="display:flex;gap:8px">
       <div class="theme-btn" onclick="C.toggleTheme()">🌙</div>
@@ -1958,6 +1959,7 @@ img{max-width:100%;display:block}
 <!-- MARKETPLACE SCREEN -->
 <div id="s-market" class="screen main-screen" style="flex-direction:column;background:var(--bg0)">
   <div class="top-bar">
+    <button class="icon-btn" onclick="C.navTo('discover')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
     <h2>Marketplace</h2>
     <div style="display:flex;gap:8px">
       <div class="theme-btn" onclick="C.toggleTheme()">🌙</div>
