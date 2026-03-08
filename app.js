@@ -697,8 +697,8 @@ const C = {
         C.showErr(errEl, '❌ No account with this email. Sign up first →');
         document.querySelector('#s-login .auth-footer').innerHTML =
           '👇 <span class="link-p" onclick="C.goTo(\'register\')" style="font-weight:800">Create a free account →</span>';
-      } else if (e.code === 'auth/account-exists-with-different-credential' || e.code === 'auth/wrong-password') {
-        C.showErr(errEl, '⚠️ This email uses Google Sign-In. Tap the G button instead.');
+      } else if (e.code === 'auth/wrong-password') {
+        C.showErr(errEl, '❌ Wrong password. Try again or reset below.');
       } else {
         C.showErr(errEl, C.authErr(e.code));
       }
@@ -745,10 +745,10 @@ const C = {
     if (destEl)  destEl.textContent = email;
     if (devBox)  devBox.style.display = 'block';
     if (devCode) devCode.textContent = otp;
-    // Auto-fill the OTP boxes so user doesn't have to type it
+    // Also clear any old OTP inputs
     [0,1,2,3].forEach(i => {
       const box = document.getElementById('otp-'+i);
-      if (box) { box.value = otp[i]; box.classList.remove('ok','err'); }
+      if (box) { box.value = ''; box.classList.remove('ok','err'); }
     });
     document.getElementById('otp-err').style.display = 'none';
     document.getElementById('otp-ok').style.display = 'none';
@@ -1070,9 +1070,8 @@ const C = {
   authErr(code) {
     const m = {
       'auth/user-not-found': '❌ No account with that email. Please sign up first.',
-      'auth/account-exists-with-different-credential': '⚠️ This email is linked to Google Sign-In. Tap the G button below to sign in.',
       'auth/wrong-password': '❌ Wrong password. Try again.',
-      'auth/invalid-credential': '❌ Email or password is incorrect. If you signed up with Google, use the G button.',
+      'auth/invalid-credential': '❌ Email or password is incorrect.',
       'auth/invalid-email': '❌ That email address is not valid.',
       'auth/email-already-in-use': '❌ An account with this email already exists. Please sign in.',
       'auth/weak-password': '❌ Password too weak — use at least 6 characters.',
@@ -1083,7 +1082,6 @@ const C = {
       'auth/operation-not-allowed': '⚠️ This sign-in method is not enabled. Contact support.',
     };
     return m[code] || 'Something went wrong. Please try again.';
-  },
   },
 
   showErr(el, msg) { if (el) { el.textContent = msg; el.classList.add('show'); } },
@@ -1781,64 +1779,128 @@ const C = {
 
   // ── AI MATCHER ──
   aiInited: false,
+  // ═══════════════════════════════════════════════════
+  // CIONTI AI — Groq (Llama 3.1 Open Source) + Claude fallback
+  // ═══════════════════════════════════════════════════
+
+  GROQ_KEY: 'PASTE_YOUR_GROQ_API_KEY_HERE',
+  AI_MODE: 'chat',
+
+  switchAIMode(mode, btn) {
+    C.AI_MODE = mode;
+    document.querySelectorAll('.ai-mode-tab').forEach(t => t.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    S.aiHistory = [];
+    const msgs = document.getElementById('ai-msgs');
+    if (msgs) msgs.innerHTML = '';
+    C.initAI();
+  },
+
+  resetAI() {
+    S.aiHistory = [];
+    const msgs = document.getElementById('ai-msgs');
+    if (msgs) msgs.innerHTML = '';
+    C.initAI();
+    C.toast('Chat cleared');
+  },
+
   initAI() {
-    if (S.aiHistory.length) return;
     const msgs = document.getElementById('ai-msgs');
     const suggs = document.getElementById('ai-suggestions');
     if (!msgs) return;
-    const welcome = `<div class="ai-bubble">👋 Hi${S.userData?' '+S.userData.fullName.split(' ')[0]:''}! I'm Cionti AI.<br><br>Tell me what skill or service you need and I'll find the best match near you. Try: <em>"I need an electrician in Effurun"</em> or <em>"Find me a graphic designer under ₦10,000"</em></div>`;
-    msgs.innerHTML = welcome;
-    if (suggs) suggs.innerHTML = ['🔧 Plumber near me','💻 Web developer','✂️ Barber or stylist','📸 Photographer','🍽️ Caterer for events'].map(s=>`<div class="ai-suggestion" onclick="C.sendAiSuggestion('${s}')">${s}</div>`).join('');
+    const firstName = S.userData?.fullName?.split(' ')[0] || 'there';
+    const mode = C.AI_MODE;
+    const welcomes = {
+      chat: `👋 Hi ${firstName}! I'm Cionti AI, powered by <strong>Llama 3.1</strong> (open source).<br><br>I know all the skills posted on Cionti right now. Ask me anything — finding talent, pricing, growing your business in Nigeria.<br><br>Try: <em>"Find me a graphic designer under ₦15,000 in Warri"</em>`,
+      match: `🎯 <strong>Job Match Mode</strong><br><br>Hi ${firstName}! Tell me what you need — budget, location, skill. I'll scan all ${S.skills.length} skills on Cionti and find your best match.`,
+      bio: `✍️ <strong>Bio Writer Mode</strong><br><br>I'll write a professional profile bio for you. Tell me:<br>• Your skill/profession<br>• Years of experience<br>• Your city<br>• What makes you stand out<br><br>Example: <em>"I'm Emeka, a plumber with 5 years in Effurun. I specialise in burst pipes and bathroom installation."</em>`,
+      price: `💰 <strong>Price Advisor Mode</strong><br><br>Tell me your skill and city. I'll give you exact ₦ rates for the Nigerian market — entry, mid, and expert level.<br><br>Example: <em>"I'm a web developer in Warri with 2 years experience"</em>`,
+      advisor: `🧠 <strong>Business Advisor Mode</strong><br><br>Hi ${firstName}! I'm your no-nonsense career and business advisor.<br><br>I help with: getting clients, marketing your skill, pricing strategy, what's in demand in Nigeria right now, and growing from ₦0 to real income.<br><br>What do you want to work on?`,
+    };
+    const suggestions = {
+      chat: ['🔧 Find a plumber near me','💻 Web developer in Warri','📸 Photographer under ₦20k','🍽️ Caterer for events','✂️ Fashion designer Effurun'],
+      match: ['Logo designer, budget ₦10k','Tutor for my child in Effurun','Electrician urgently needed','Makeup artist for Saturday wedding'],
+      bio: ['Bio for a photographer','Bio for software developer','Bio for fashion designer','Bio for electrician or plumber'],
+      price: ['What should a barber charge?','Web developer rates in Nigeria','Event photography pricing','Freelance writing rates Nigeria'],
+      advisor: ['How do I get my first client?','How to market my skill locally','What skills earn most in Warri?','How to grow to ₦100k/month'],
+    };
+    msgs.innerHTML = `<div class="ai-bubble">${welcomes[mode]||welcomes.chat}</div>`;
+    if (suggs) {
+      suggs.style.display = 'flex';
+      suggs.innerHTML = (suggestions[mode]||suggestions.chat).map(s=>`<button class="ai-suggestion" onclick="C.sendAiSuggestion('${s.replace(/'/g,'').replace(/₦/g,'N')}')">${s}</button>`).join('');
+    }
   },
 
   sendAiSuggestion(text) {
     const inp = document.getElementById('ai-inp');
-    if (inp) inp.value = text;
-    C.sendAiMsg();
+    if (inp) { inp.value = text; C.sendAiMsg(); }
   },
 
-  aiKey(e) { if (e.key==='Enter' && !e.shiftKey) { e.preventDefault(); C.sendAiMsg(); } },
+  aiKey(e) { if (e.key==='Enter'&&!e.shiftKey){e.preventDefault();C.sendAiMsg();} },
   aiTyping(el) { el.style.height='auto'; el.style.height=Math.min(el.scrollHeight,100)+'px'; },
 
   async sendAiMsg() {
     const inp = document.getElementById('ai-inp');
     const msgs = document.getElementById('ai-msgs');
-    if (!inp || !msgs) return;
+    if (!inp||!msgs) return;
     const text = inp.value.trim();
     if (!text) return;
-    inp.value = ''; inp.style.height = 'auto';
+    inp.value=''; inp.style.height='auto';
+    document.getElementById('ai-suggestions').style.display='none';
     msgs.innerHTML += `<div class="ai-bubble user">${text}</div>`;
     msgs.innerHTML += `<div class="ai-bubble" id="ai-typing"><span class="ai-typing"><span></span><span></span><span></span></span></div>`;
     msgs.scrollTop = msgs.scrollHeight;
-    S.aiHistory.push({ role:'user', content:text });
+    S.aiHistory.push({role:'user',content:text});
+
+    const skillCtx = S.skills.slice(0,30).map(s=>`${s.userName||'?'} | ${s.title} | ${s.city||'Effurun'} | ${C.formatPrice(s)} | ⭐${s.averageRating||'New'} | ${s.isAvailable?'Available':'Busy'}`).join('\n') || 'No skills yet.';
+    const userCtx = S.userData ? `User: ${S.userData.fullName}, City: ${S.userData.city||'Effurun'}` : 'Guest in Effurun';
+
+    const systems = {
+      chat:`You are Cionti AI — assistant for a Nigerian local talent platform in Effurun/Warri/Delta State.\n\nLIVE SKILLS:\n${skillCtx}\n\n${userCtx}\n\nWhen skills match the request, name the person, price, and city. Suggest "Want me to open their profile?". Be warm, direct, Nigerian-context aware. Use ₦. Under 120 words.`,
+      match:`You are Cionti AI in JOB MATCH mode.\n\nLIVE SKILLS:\n${skillCtx}\n\n${userCtx}\n\nFind best 1-3 matches. Format:\n✅ BEST MATCH: [Name] — [Skill] — [Price] — [City]\nWhy: [1 reason]\n\nOther options: [1-2 more]\n\nEnd: "Tap their card in People tab to message them."`,
+      bio:`You are Cionti AI in BIO WRITER mode. Write a 3-4 sentence professional bio for Nigerian freelancers. First person. Confident, specific, local context. End with availability CTA. Under 80 words. Human tone, not robotic.\n\n${userCtx}`,
+      price:`You are Cionti AI in PRICE ADVISOR mode for Nigerian market.\n\nPlatform rates reference:\n${skillCtx}\n\n${userCtx}\n\nGive specific ₦ range: Entry / Mid / Expert. Give "sweet spot" starting price. Consider city and experience. How to raise rates. Under 100 words. Be specific.`,
+      advisor:`You are Cionti AI — no-nonsense Nigerian startup and freelance career advisor.\n\nPlatform: Cionti in Effurun/Warri/Delta. ${S.skills.length} live skills.\n${userCtx}\n\nStraight talk, real actionable advice, deep knowledge of Nigerian hustle. Real steps. Reference local platforms and culture. Under 130 words. Be the mentor they can't afford.`,
+    };
+
     try {
-      const systemPrompt = `You are Cionti AI, a skill-matching assistant for a Nigerian local talent platform. Users describe what they need and you help them find local talent.
-
-Current platform skills available: ${S.skills.slice(0,20).map(s=>`${s.title} (${s.category}, ${s.city||'Effurun'}, ${C.formatPrice(s)})`).join('; ') || 'No skills posted yet — encourage them to post or browse.'}
-
-User location: ${S.userData?.city || 'Effurun'}, Nigeria.
-
-Reply in 2-3 short paragraphs. Be helpful, conversational, and match Nigerian context. If relevant skills exist, mention them specifically. End with a quick action suggestion like "Want me to filter the map?" or "Should I show you their profiles?". Keep responses under 150 words.`;
-
-      const response = await fetch('https://api.anthropic.com/v1/messages', {
-        method:'POST',
-        headers:{ 'Content-Type':'application/json' },
-        body:JSON.stringify({
-          model:'claude-sonnet-4-20250514',
-          max_tokens:300,
-          system:systemPrompt,
-          messages: S.aiHistory,
-        })
-      });
-      const data = await response.json();
-      const reply = data.content?.[0]?.text || 'I couldn\'t find a match right now. Try browsing the map or adjusting your search!';
-      S.aiHistory.push({ role:'assistant', content:reply });
+      let reply = '';
+      // Try Groq/Llama3 first (open source, free)
+      if (C.GROQ_KEY && C.GROQ_KEY !== 'PASTE_YOUR_GROQ_API_KEY_HERE') {
+        const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+          method:'POST',
+          headers:{'Content-Type':'application/json','Authorization':`Bearer ${C.GROQ_KEY}`},
+          body:JSON.stringify({model:'llama-3.1-70b-versatile',max_tokens:350,messages:[{role:'system',content:systems[C.AI_MODE]||systems.chat},...S.aiHistory]})
+        });
+        const d = await res.json();
+        reply = d.choices?.[0]?.message?.content||'';
+      }
+      // Fallback: Claude Haiku
+      if (!reply) {
+        const res = await fetch('https://api.anthropic.com/v1/messages', {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:350,system:systems[C.AI_MODE]||systems.chat,messages:S.aiHistory})
+        });
+        const d = await res.json();
+        reply = d.content?.[0]?.text||'';
+      }
+      if (!reply) throw new Error('empty');
+      S.aiHistory.push({role:'assistant',content:reply});
       document.getElementById('ai-typing')?.remove();
-      msgs.innerHTML += `<div class="ai-bubble">${reply.replace(/\n/g,'<br>')}</div>`;
+      let html = reply.replace(/\n/g,'<br>');
+      // Job match: add clickable profile cards for matched users
+      if (C.AI_MODE==='match') {
+        const matched = S.skills.filter(s=>s.userName&&reply.toLowerCase().includes(s.userName.split(' ')[0].toLowerCase())).slice(0,3);
+        if (matched.length) html += '<div style="margin-top:10px;display:flex;flex-direction:column;gap:6px">'+matched.map(s=>`<div class="ai-result-card" onclick="C.viewProfile('${s.userId}')"><div class="arc-name">${s.userName} — ${s.title}</div><div class="arc-meta"><span>📍${s.city||'Effurun'}</span><span>💰${C.formatPrice(s)}</span><span>${s.averageRating?'⭐'+s.averageRating:'🆕New'}</span><span style="margin-left:auto;color:var(--p);font-weight:700">View →</span></div></div>`).join('')+'</div>';
+      }
+      // Bio mode: add copy button
+      if (C.AI_MODE==='bio') html+=`<br><button class="btn btn-o btn-sm" style="margin-top:8px" onclick="navigator.clipboard?.writeText(${JSON.stringify(reply)});C.toast('Bio copied!','ok')">📋 Copy Bio</button>`;
+      msgs.innerHTML += `<div class="ai-bubble">${html}</div>`;
       msgs.scrollTop = msgs.scrollHeight;
     } catch(e) {
       document.getElementById('ai-typing')?.remove();
-      msgs.innerHTML += `<div class="ai-bubble">I'm having trouble connecting right now. Try browsing the <span class="link-p" onclick="C.navTo('discover')">map view</span> to find local talent!</div>`;
+      msgs.innerHTML += `<div class="ai-bubble">Connection issue. <a class="link-p" href="https://console.groq.com" target="_blank">Get your free Groq key</a> and paste it in app.js as GROQ_KEY.<br><br><span class="link-p" onclick="C.navTo('discover')">Browse talent manually →</span></div>`;
       msgs.scrollTop = msgs.scrollHeight;
     }
   },
