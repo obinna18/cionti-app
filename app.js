@@ -1783,7 +1783,7 @@ const C = {
   // CIONTI AI — Groq (Llama 3.1 Open Source) + Claude fallback
   // ═══════════════════════════════════════════════════
 
-  GROQ_KEY: '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',
+  GROQ_KEY: 'past_your_API_Key_here',
   AI_MODE: 'chat',
 
   switchAIMode(mode, btn) {
