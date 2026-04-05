@@ -3,363 +3,202 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#06070F">
+<meta name="theme-color" content="#ffffff">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="description" content="Cionti — Community Of Talent In One Network. Find skilled people near you.">
 <title>Cionti</title>
 <link rel="manifest" href="manifest.json">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,opsz,wght@0,6..30,300;0,6..30,400;0,6..30,500;0,6..30,600;0,6..30,700;1,6..30,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.Default.css">
-<link rel="stylesheet" href="design.css">
-<link rel="stylesheet" href="screens.css">
+<link rel="stylesheet" href="c.css">
 </head>
 <body>
 <div id="app">
 
-<!-- ═══════════════════════════════════════
-     ONBOARDING
-═══════════════════════════════════════ -->
-<div id="s-onboard" class="screen active" style="flex-direction:column;position:relative;overflow:hidden">
-  <div class="onboard-slides" id="ob-slides">
+<!-- ①  SPLASH -->
+<div id="s-splash" class="screen active">
+  <div class="sp-mark">
+    <svg viewBox="0 0 120 120" width="88" height="88" fill="none">
+      <path d="M72 8L98 8L112 22L112 52L100 64L112 76L112 98L98 112L72 112L72 100L90 100L100 90L100 78L86 64L100 50L100 30L90 20L72 20Z" fill="#3730A3"/>
+      <path d="M66 24L86 24L94 32L94 48L82 60L94 72L94 88L86 96L66 96L66 84L78 84L82 80L82 70L70 60L82 50L82 40L78 36L66 36Z" fill="#4F46E5"/>
+      <circle cx="56" cy="60" r="10" fill="#fff"/>
+      <circle cx="56" cy="58" r="5" fill="#4F46E5"/>
+      <line x1="56" y1="63" x2="56" y2="70" stroke="#4F46E5" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="16" cy="38" r="4" fill="#4F46E5"/><circle cx="10" cy="60" r="3" fill="#818CF8"/><circle cx="16" cy="82" r="4" fill="#4F46E5"/>
+      <line x1="16" y1="38" x2="10" y2="60" stroke="#818CF8" stroke-width="1.5" opacity=".6"/>
+      <line x1="10" y1="60" x2="16" y2="82" stroke="#818CF8" stroke-width="1.5" opacity=".6"/>
+    </svg>
+  </div>
+  <div class="sp-word">
+    <div class="sp-name">Cionti</div>
+    <div class="sp-tag">Community of Talent in One Network</div>
+  </div>
+  <div class="sp-dots"><div class="sp-d"></div><div class="sp-d"></div><div class="sp-d"></div></div>
+</div>
 
-    <!-- Slide 1 -->
-    <div class="onboard-slide">
-      <div class="ob-illus-wrap">
-        <svg class="ob-illus" viewBox="0 0 320 280" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <radialGradient id="og1" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#4F46E5" stop-opacity=".09"/>
-              <stop offset="100%" stop-color="#4F46E5" stop-opacity="0"/>
-            </radialGradient>
-          </defs>
-          <circle cx="160" cy="140" r="130" fill="url(#og1)"/>
-          <line x1="40" y1="80" x2="280" y2="80" stroke="#4F46E5" stroke-width=".8" opacity=".18"/>
-          <line x1="40" y1="110" x2="280" y2="110" stroke="#4F46E5" stroke-width=".8" opacity=".18"/>
-          <line x1="40" y1="140" x2="280" y2="140" stroke="#4F46E5" stroke-width=".8" opacity=".18"/>
-          <line x1="40" y1="170" x2="280" y2="170" stroke="#4F46E5" stroke-width=".8" opacity=".18"/>
-          <line x1="80" y1="50" x2="80" y2="240" stroke="#4F46E5" stroke-width=".8" opacity=".18"/>
-          <line x1="120" y1="50" x2="120" y2="240" stroke="#4F46E5" stroke-width=".8" opacity=".18"/>
-          <line x1="160" y1="50" x2="160" y2="240" stroke="#4F46E5" stroke-width=".8" opacity=".18"/>
-          <line x1="200" y1="50" x2="200" y2="240" stroke="#4F46E5" stroke-width=".8" opacity=".18"/>
-          <line x1="240" y1="50" x2="240" y2="240" stroke="#4F46E5" stroke-width=".8" opacity=".18"/>
-          <path d="M58 155 Q118 122 160 142 Q202 162 262 132" stroke="#4F46E5" stroke-width="3" opacity=".3" stroke-linecap="round" fill="none"/>
-          <circle cx="160" cy="100" r="24" fill="rgba(79,70,229,.12)"/>
-          <circle cx="160" cy="100" r="16" fill="rgba(79,70,229,.22)"/>
-          <circle cx="160" cy="100" r="11" fill="#4F46E5"/>
-          <circle cx="160" cy="100" r="4.5" fill="white" opacity=".95"/>
-          <line x1="160" y1="111" x2="160" y2="122" stroke="#4F46E5" stroke-width="2.5"/>
-          <ellipse cx="160" cy="124" rx="5" ry="2.5" fill="#4F46E5" opacity=".4"/>
-          <circle cx="82" cy="142" r="11" fill="rgba(129,140,248,.18)"/>
-          <circle cx="82" cy="142" r="7.5" fill="#818CF8" opacity=".85"/>
-          <circle cx="82" cy="142" r="3" fill="white" opacity=".9"/>
-          <circle cx="222" cy="126" r="11" fill="rgba(16,185,129,.18)"/>
-          <circle cx="222" cy="126" r="7.5" fill="#10B981" opacity=".85"/>
-          <circle cx="222" cy="126" r="3" fill="white" opacity=".9"/>
-          <circle cx="140" cy="178" r="10" fill="rgba(245,158,11,.18)"/>
-          <circle cx="140" cy="178" r="7" fill="#F59E0B" opacity=".85"/>
-          <circle cx="140" cy="178" r="2.8" fill="white" opacity=".9"/>
-          <line x1="89" y1="142" x2="149" y2="107" stroke="#4F46E5" stroke-width="1.4" stroke-dasharray="5,4" opacity=".55" fill="none"/>
-          <line x1="171" y1="107" x2="215" y2="126" stroke="#4F46E5" stroke-width="1.4" stroke-dasharray="5,4" opacity=".55" fill="none"/>
-          <circle cx="192" cy="80" r="17" fill="#0C0D1D"/>
-          <circle cx="192" cy="80" r="16" fill="none" stroke="#4F46E5" stroke-width="1.5"/>
-          <circle cx="192" cy="76" r="5" fill="#818CF8"/>
-          <path d="M183 91 Q192 87 201 91" fill="#818CF8" opacity=".85"/>
-          <circle cx="60" cy="155" r="14" fill="#0C0D1D"/>
-          <circle cx="60" cy="155" r="13" fill="none" stroke="#818CF8" stroke-width="1.3"/>
-          <circle cx="60" cy="152" r="4" fill="#4F46E5"/>
-          <path d="M53 162 Q60 158 67 162" fill="#4F46E5" opacity=".8"/>
-          <circle cx="244" cy="112" r="14" fill="#0C0D1D"/>
-          <circle cx="244" cy="112" r="13" fill="none" stroke="#10B981" stroke-width="1.3"/>
-          <circle cx="244" cy="109" r="4" fill="#10B981"/>
-          <path d="M237 119 Q244 115 251 119" fill="#10B981" opacity=".8"/>
-          <rect x="94" y="218" width="132" height="22" rx="11" fill="rgba(79,70,229,.13)" stroke="rgba(79,70,229,.3)" stroke-width="1"/>
-          <text x="160" y="232" font-size="9.5" fill="#818CF8" font-family="sans-serif" font-weight="700" text-anchor="middle" letter-spacing="2">WARRI · EFFURUN · LAGOS</text>
-        </svg>
-        <div class="ob-illus-fade"></div>
-      </div>
-      <div class="ob-content">
-        <div class="ob-num">01 / 03</div>
-        <h1 class="ob-h">Talent lives<br><span style="color:var(--p2)">near you</span></h1>
-        <p class="ob-sub">Discover skilled people on a live map — developers, tailors, plumbers, designers — all in your community.</p>
-        <div class="ob-dots" id="ob-dots">
-          <div class="ob-dot on"></div><div class="ob-dot"></div><div class="ob-dot"></div>
-        </div>
-      </div>
+<!-- ② WELCOME -->
+<div id="s-welcome" class="screen">
+  <div class="wl-top">
+    <div class="wl-icon">
+      <svg viewBox="0 0 120 120" width="44" height="44" fill="none">
+        <path d="M72 8L98 8L112 22L112 52L100 64L112 76L112 98L98 112L72 112L72 100L90 100L100 90L100 78L86 64L100 50L100 30L90 20L72 20Z" fill="#fff" opacity=".9"/>
+        <path d="M66 24L86 24L94 32L94 48L82 60L94 72L94 88L86 96L66 96L66 84L78 84L82 80L82 70L70 60L82 50L82 40L78 36L66 36Z" fill="#fff" opacity=".6"/>
+        <circle cx="56" cy="60" r="10" fill="#fff"/>
+        <circle cx="56" cy="58" r="5" fill="#3730A3"/>
+      </svg>
     </div>
-
-    <!-- Slide 2 -->
-    <div class="onboard-slide">
-      <div class="ob-illus-wrap">
-        <svg class="ob-illus" viewBox="0 0 320 280" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="160" cy="128" r="92" fill="rgba(79,70,229,.06)"/>
-          <circle cx="160" cy="128" r="38" fill="rgba(79,70,229,.12)"/>
-          <circle cx="160" cy="128" r="27" fill="rgba(79,70,229,.22)"/>
-          <circle cx="160" cy="128" r="18" fill="#4F46E5"/>
-          <circle cx="154" cy="122" r="2.5" fill="white" opacity=".9"/>
-          <circle cx="166" cy="122" r="2.5" fill="white" opacity=".9"/>
-          <circle cx="154" cy="134" r="2.5" fill="white" opacity=".9"/>
-          <circle cx="166" cy="134" r="2.5" fill="white" opacity=".9"/>
-          <circle cx="160" cy="128" r="2" fill="white"/>
-          <line x1="154" y1="122" x2="166" y2="122" stroke="white" stroke-width="1" opacity=".55"/>
-          <line x1="154" y1="134" x2="166" y2="134" stroke="white" stroke-width="1" opacity=".55"/>
-          <line x1="154" y1="122" x2="154" y2="134" stroke="white" stroke-width="1" opacity=".55"/>
-          <line x1="166" y1="122" x2="166" y2="134" stroke="white" stroke-width="1" opacity=".55"/>
-          <circle cx="160" cy="128" r="50" stroke="#4F46E5" stroke-width="1" opacity=".28" stroke-dasharray="3,5"/>
-          <circle cx="160" cy="128" r="72" stroke="#4F46E5" stroke-width=".8" opacity=".14" stroke-dasharray="4,8"/>
-          <rect x="28" y="88" width="82" height="64" rx="15" fill="#0C0D1D" stroke="rgba(79,70,229,.45)" stroke-width="1.5"/>
-          <circle cx="69" cy="107" r="11" fill="#818CF8" opacity=".82"/>
-          <rect x="43" y="123" width="52" height="5" rx="2.5" fill="#4F46E5" opacity=".42"/>
-          <rect x="50" y="132" width="38" height="4" rx="2" fill="#4F46E5" opacity=".25"/>
-          <rect x="210" y="88" width="82" height="64" rx="15" fill="#0C0D1D" stroke="rgba(16,185,129,.6)" stroke-width="2"/>
-          <circle cx="251" cy="107" r="11" fill="#10B981" opacity=".85"/>
-          <rect x="225" y="123" width="52" height="5" rx="2.5" fill="#10B981" opacity=".45"/>
-          <rect x="232" y="132" width="38" height="4" rx="2" fill="#10B981" opacity=".28"/>
-          <rect x="218" y="144" width="47" height="14" rx="7" fill="rgba(16,185,129,.2)" stroke="rgba(16,185,129,.45)" stroke-width="1"/>
-          <text x="241" y="154" font-size="7.5" fill="#10B981" font-family="sans-serif" font-weight="700" text-anchor="middle">98% MATCH</text>
-          <circle cx="286" cy="89" r="9" fill="#10B981"/>
-          <path d="M282 89 l3 3 l5-5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-          <line x1="110" y1="118" x2="138" y2="124" stroke="#4F46E5" stroke-width="1.8" stroke-dasharray="4,3" opacity=".65"/>
-          <line x1="182" y1="124" x2="210" y2="118" stroke="#10B981" stroke-width="2.2" opacity=".8"/>
-          <circle cx="210" cy="118" r="4.5" fill="#10B981" opacity=".7"/>
-          <rect x="80" y="196" width="160" height="46" rx="15" fill="#0C0D1D" stroke="rgba(79,70,229,.38)" stroke-width="1.5"/>
-          <text x="100" y="215" font-size="8.5" fill="#9896C0" font-family="sans-serif">"Find a tailor near Effurun..."</text>
-          <rect x="100" y="221" width="96" height="5" rx="2.5" fill="#4F46E5" opacity=".35"/>
-          <rect x="100" y="230" width="68" height="5" rx="2.5" fill="#4F46E5" opacity=".2"/>
-        </svg>
-        <div class="ob-illus-fade"></div>
-      </div>
-      <div class="ob-content">
-        <div class="ob-num">02 / 03</div>
-        <h1 class="ob-h">AI finds the<br><span style="color:var(--p2)">right match</span></h1>
-        <p class="ob-sub">Describe what you need in plain English. Our AI searches thousands of local profiles and finds your perfect fit instantly.</p>
-        <div class="ob-dots">
-          <div class="ob-dot"></div><div class="ob-dot on"></div><div class="ob-dot"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Slide 3 -->
-    <div class="onboard-slide">
-      <div class="ob-illus-wrap">
-        <svg class="ob-illus" viewBox="0 0 320 280" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="160" cy="122" r="105" fill="rgba(79,70,229,.05)"/>
-          <path d="M160 48 L226 74 L226 124 C226 162 198 190 160 206 C122 190 94 162 94 124 L94 74 Z" fill="rgba(79,70,229,.12)"/>
-          <path d="M160 56 L218 80 L218 124 C218 158 193 184 160 198 C127 184 102 158 102 124 L102 80 Z" fill="rgba(79,70,229,.18)" stroke="#4F46E5" stroke-width="1.8"/>
-          <path d="M160 65 L210 87 L210 124 C210 154 188 178 160 191 C132 178 110 154 110 124 L110 87 Z" fill="#0C0D1D"/>
-          <path d="M138 124 l16 16 l26-28" stroke="#10B981" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-          <text x="64" y="84" font-size="18" opacity=".75" fill="#F59E0B">★</text>
-          <text x="238" y="90" font-size="15" opacity=".7" fill="#F59E0B">★</text>
-          <text x="68" y="172" font-size="12" opacity=".5" fill="#F59E0B">★</text>
-          <text x="242" y="162" font-size="13" opacity=".6" fill="#F59E0B">★</text>
-          <rect x="118" y="212" width="84" height="26" rx="13" fill="rgba(245,158,11,.14)" stroke="rgba(245,158,11,.4)" stroke-width="1"/>
-          <text x="160" y="229" font-size="10.5" fill="#F59E0B" font-family="sans-serif" font-weight="700" text-anchor="middle">★ 4.9 TRUSTED</text>
-          <rect x="44" y="200" width="64" height="30" rx="11" fill="rgba(16,185,129,.1)" stroke="rgba(16,185,129,.32)" stroke-width="1"/>
-          <text x="76" y="212" font-size="7.5" fill="#10B981" font-family="sans-serif" font-weight="700" text-anchor="middle">ESCROW</text>
-          <text x="76" y="223" font-size="7.5" fill="#10B981" font-family="sans-serif" text-anchor="middle">PROTECTED</text>
-          <rect x="212" y="200" width="64" height="30" rx="11" fill="rgba(79,70,229,.1)" stroke="rgba(79,70,229,.32)" stroke-width="1"/>
-          <text x="244" y="212" font-size="7.5" fill="#818CF8" font-family="sans-serif" font-weight="700" text-anchor="middle">VERIFIED</text>
-          <text x="244" y="223" font-size="7.5" fill="#818CF8" font-family="sans-serif" text-anchor="middle">PROVIDER</text>
-        </svg>
-        <div class="ob-illus-fade"></div>
-      </div>
-      <div class="ob-content">
-        <div class="ob-num">03 / 03</div>
-        <h1 class="ob-h">Safe, trusted<br><span style="color:var(--gold)">every time</span></h1>
-        <p class="ob-sub">Trust Score, escrow payments, and verified reviews mean you are always protected — whether hiring or being hired.</p>
-        <div class="ob-dots">
-          <div class="ob-dot"></div><div class="ob-dot"></div><div class="ob-dot on"></div>
-        </div>
-      </div>
+    <div class="wl-brand">Cionti</div>
+    <p class="wl-sub">Discover, connect, and work with skilled people right in your community.</p>
+    <div class="wl-stats">
+      <div class="wl-stat" style="background:#EEF2FF;border:1px solid #C7D2FE"><div class="wl-stat-val" style="color:#3730A3">12K+</div><div class="wl-stat-lbl">Skilled People</div></div>
+      <div class="wl-stat" style="background:#D1FAE5;border:1px solid #A7F3D0"><div class="wl-stat-val" style="color:#059669">8K+</div><div class="wl-stat-lbl">Jobs Done</div></div>
+      <div class="wl-stat" style="background:#FEF3C7;border:1px solid #FDE68A"><div class="wl-stat-val" style="color:#D97706">4.9★</div><div class="wl-stat-lbl">Avg Rating</div></div>
     </div>
   </div>
-
-  <div class="ob-actions" id="ob-actions">
-    <button class="btn btn-p btn-full" id="ob-next-btn" onclick="C.obNext()">Next</button>
-    <button class="btn btn-g btn-full" onclick="C.goTo('login-options')">Skip</button>
+  <div class="wl-bot">
+    <button class="btn btn-p btn-f" onclick="C.goTo('acc-type')">Create Account</button>
+    <button class="btn btn-o btn-f" onclick="C.goTo('login')">Sign In</button>
+    <div class="wl-hint"><span onclick="C.browseGuest()">Browse as guest</span> — no account needed</div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     LOGIN OPTIONS
-═══════════════════════════════════════ -->
-<div id="s-login-options" class="screen auth-screen" style="flex-direction:column">
-  <div class="auth-top-deco"></div>
-  <button class="auth-back" onclick="C.goTo('onboard')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-  </button>
-  <div class="auth-top">
-    <div class="auth-logo-wrap">
-      <div class="auth-logo-icon">
-        <svg viewBox="0 0 28 28" fill="none" width="22" height="22">
-          <circle cx="14" cy="11" r="7" stroke="white" stroke-width="2.5" stroke-dasharray="100" stroke-dashoffset="28" stroke-linecap="round"/>
-          <circle cx="14" cy="11" r="2.5" fill="white"/>
-          <line x1="14" y1="18" x2="14" y2="24" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-        </svg>
+<!-- ③ ACCOUNT TYPE -->
+<div id="s-acc-type" class="screen" style="background:#fff">
+  <div class="ah"><button class="bk" onclick="C.goTo('welcome')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><div class="step-lbl">Step 1 of 4</div></div>
+  <div class="prog-wrap"><div class="prog-fill" style="width:25%"></div></div>
+  <div class="scroll" style="flex:1;padding:28px 24px 40px">
+    <div class="ah2">Who are you?</div>
+    <p class="as2">Choose the account type that fits you best.</p>
+    <div class="at-grid" id="acc-type-grid">
+      <div class="at-card sel" data-type="individual" onclick="C.selAccType('individual',this)">
+        <div class="at-icon i">👤</div>
+        <div style="flex:1"><div class="at-name">Individual</div><div class="at-hint">Freelancer, artisan, or independent professional</div></div>
+        <div class="at-chk"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" width="11" height="11"><polyline points="20 6 9 17 4 12"/></svg></div>
       </div>
-      <div class="auth-logo">Cionti</div>
-    </div>
-    <div class="auth-tagline">Community Of Talent In One Network</div>
-    <h2 class="auth-h">Welcome back</h2>
-    <p class="auth-sub">Choose how you would like to sign in</p>
-  </div>
-  <div class="auth-body">
-    <div class="lo-card" onclick="C.goTo('login')">
-      <div class="lo-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      <div class="at-card" data-type="business" onclick="C.selAccType('business',this)">
+        <div class="at-icon b">🏪</div>
+        <div style="flex:1"><div class="at-name">Business</div><div class="at-hint">Small business, agency, or service shop</div></div>
+        <div class="at-chk"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" width="11" height="11"><polyline points="20 6 9 17 4 12"/></svg></div>
       </div>
-      <div style="flex:1"><div class="lo-name">Email and Password</div><div class="lo-hint">Sign in with your email address</div></div>
-      <svg viewBox="0 0 24 24" fill="none" stroke="var(--textm)" stroke-width="2" width="16" height="16" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-    </div>
-    <div class="lo-card" onclick="C.goTo('phone-login')">
-      <div class="lo-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-      </div>
-      <div style="flex:1"><div class="lo-name">Phone Number</div><div class="lo-hint">Receive a one-time SMS code</div></div>
-      <svg viewBox="0 0 24 24" fill="none" stroke="var(--textm)" stroke-width="2" width="16" height="16" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-    </div>
-    <div class="lo-card" onclick="C.loginGoogle()">
-      <div class="lo-icon" style="font-weight:800;font-size:1.25rem;color:#EA4335;font-family:'Sora',sans-serif">G</div>
-      <div style="flex:1"><div class="lo-name">Continue with Google</div><div class="lo-hint">Fast and secure sign-in</div></div>
-      <svg viewBox="0 0 24 24" fill="none" stroke="var(--textm)" stroke-width="2" width="16" height="16" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-    </div>
-    <div style="margin-top:18px;text-align:center">
-      <span class="badge badge-ok" style="cursor:pointer;padding:6px 14px;font-size:.72rem" onclick="C.browseGuest()">Browse as guest — no account needed</span>
-    </div>
-  </div>
-  <div class="auth-footer">No account yet? <span class="link-p" onclick="C.goTo('register')">Sign Up free</span></div>
-</div>
-
-<!-- ═══════════════════════════════════════
-     LOGIN
-═══════════════════════════════════════ -->
-<div id="s-login" class="screen auth-screen" style="flex-direction:column">
-  <div class="auth-top-deco"></div>
-  <button class="auth-back" onclick="C.goTo('login-options')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-  </button>
-  <div class="auth-top">
-    <div class="auth-logo-wrap">
-      <div class="auth-logo-icon">
-        <svg viewBox="0 0 28 28" fill="none" width="22" height="22"><circle cx="14" cy="11" r="7" stroke="white" stroke-width="2.5" stroke-dasharray="100" stroke-dashoffset="28" stroke-linecap="round"/><circle cx="14" cy="11" r="2.5" fill="white"/><line x1="14" y1="18" x2="14" y2="24" stroke="white" stroke-width="2.5" stroke-linecap="round"/></svg>
-      </div>
-      <div class="auth-logo">Cionti</div>
-    </div>
-    <h2 class="auth-h">Sign in</h2>
-    <p class="auth-sub">Welcome back — good to see you again</p>
-  </div>
-  <div class="auth-body">
-    <div class="form-group">
-      <label class="form-label">Email address</label>
-      <div class="inp-w">
-        <span class="inp-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
-        <input type="email" id="l-email" class="form-input" placeholder="your@email.com" autocomplete="email">
+      <div class="at-card" data-type="company" onclick="C.selAccType('company',this)">
+        <div class="at-icon c">🏢</div>
+        <div style="flex:1"><div class="at-name">Company</div><div class="at-hint">Registered firm, startup, or enterprise</div></div>
+        <div class="at-chk"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" width="11" height="11"><polyline points="20 6 9 17 4 12"/></svg></div>
       </div>
     </div>
-    <div class="form-group">
-      <label class="form-label">Password</label>
-      <div class="inp-w">
-        <span class="inp-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></span>
-        <input type="password" id="l-pw" class="form-input has-r" placeholder="Your password" autocomplete="current-password">
-        <span class="inp-ic-r" onclick="C.togglePw('l-pw',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span>
-      </div>
-      <div style="text-align:right;margin-top:7px"><span class="link-p text-sm" onclick="C.forgotPw()">Forgot password?</span></div>
-    </div>
-    <div id="l-err" class="p-err"></div>
-    <button class="btn btn-p btn-full" id="btn-login" onclick="C.login()">Sign In</button>
-    <div class="or-row">Or continue with</div>
-    <div class="social-row">
-      <div class="social-btn" onclick="C.loginGoogle()" style="color:#EA4335;font-weight:800;font-family:'Sora',sans-serif;font-size:1.1rem">G</div>
-      <div class="social-btn" onclick="C.goTo('phone-login')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
-    </div>
-  </div>
-  <div class="auth-footer">No account? <span class="link-p" onclick="C.goTo('register')">Sign Up free</span></div>
-</div>
-
-<!-- ═══════════════════════════════════════
-     PHONE LOGIN
-═══════════════════════════════════════ -->
-<div id="s-phone-login" class="screen auth-screen" style="flex-direction:column">
-  <div class="auth-top-deco"></div>
-  <button class="auth-back" onclick="C.goTo('login-options')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
-  <div class="auth-top">
-    <div class="auth-logo-wrap"><div class="auth-logo-icon"><svg viewBox="0 0 28 28" fill="none" width="22" height="22"><circle cx="14" cy="11" r="7" stroke="white" stroke-width="2.5" stroke-dasharray="100" stroke-dashoffset="28" stroke-linecap="round"/><circle cx="14" cy="11" r="2.5" fill="white"/><line x1="14" y1="18" x2="14" y2="24" stroke="white" stroke-width="2.5" stroke-linecap="round"/></svg></div><div class="auth-logo">Cionti</div></div>
-    <h2 class="auth-h">Phone login</h2>
-    <p class="auth-sub">We will send a 6-digit code via SMS</p>
-  </div>
-  <div class="auth-body">
-    <div class="form-group">
-      <label class="form-label">Phone Number</label>
-      <div class="inp-w"><span class="inp-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></span><input type="tel" id="ph-num" class="form-input" placeholder="+234 800 000 0000"></div>
-    </div>
-    <div id="recaptcha-phone"></div>
-    <div id="ph-err" class="p-err"></div>
-    <button class="btn btn-p btn-full" onclick="C.sendPhoneCode()">Send Code</button>
+    <button class="btn btn-p btn-f" style="margin-top:28px" onclick="C.goTo('services')">Continue</button>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     REGISTER
-═══════════════════════════════════════ -->
-<div id="s-register" class="screen auth-screen" style="flex-direction:column">
-  <div class="auth-top-deco"></div>
-  <button class="auth-back" onclick="C.goTo('login-options')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
-  <div class="auth-top" style="padding-top:46px">
-    <div class="auth-logo-wrap"><div class="auth-logo-icon"><svg viewBox="0 0 28 28" fill="none" width="22" height="22"><circle cx="14" cy="11" r="7" stroke="white" stroke-width="2.5" stroke-dasharray="100" stroke-dashoffset="28" stroke-linecap="round"/><circle cx="14" cy="11" r="2.5" fill="white"/><line x1="14" y1="18" x2="14" y2="24" stroke="white" stroke-width="2.5" stroke-linecap="round"/></svg></div><div class="auth-logo">Cionti</div></div>
-    <h2 class="auth-h">Create Account</h2>
-    <p class="auth-sub">Join thousands of talents across Nigeria</p>
+<!-- ④ SERVICES -->
+<div id="s-services" class="screen" style="background:#fff">
+  <div class="ah"><button class="bk" onclick="C.goTo('acc-type')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><div class="step-lbl">Step 2 of 4</div></div>
+  <div class="prog-wrap"><div class="prog-fill" style="width:50%"></div></div>
+  <div class="scroll" style="flex:1;padding:28px 24px 40px">
+    <div class="ah2">What do you offer?</div>
+    <p class="as2">Pick all the services you provide. This helps people discover you faster.</p>
+    <div style="font-size:.72rem;color:var(--tl);margin-bottom:14px;font-weight:500" id="svc-count">0 selected</div>
+    <div class="sv-grid" id="services-grid">
+      <div class="sv-chip" onclick="C.togSvc(this)">💻 Web Development</div>
+      <div class="sv-chip" onclick="C.togSvc(this)">📱 Mobile Apps</div>
+      <div class="sv-chip" onclick="C.togSvc(this)">🎨 Graphic Design</div>
+      <div class="sv-chip" onclick="C.togSvc(this)">📷 Photography</div>
+      <div class="sv-chip" onclick="C.togSvc(this)">🎬 Video Editing</div>
+      <div class="sv-chip" onclick="C.togSvc(this)">👗 Fashion</div>
+      <div class="sv-chip" onclick="C.togSvc(this)">🔧 Plumbing</div>
+      <div class="sv-chip" onclick="C.togSvc(this)">⚡ Electrical</div>
+      <div class="sv-chip" onclick="C.togSvc(this)">🪚 Carpentry</div>
+      <div class="sv-chip" onclick="C.togSvc(this)">🖌 Painting</div>
+      <div class="sv-chip" onclick="C.togSvc(this)">🚗 Auto Repair</div>
+      <div class="sv-chip" onclick="C.togSvc(this)">🍽 Catering</div>
+      <div class="sv-chip" onclick="C.togSvc(this)">💈 Hair & Beauty</div>
+      <div class="sv-chip" onclick="C.togSvc(this)">🧹 Cleaning</div>
+      <div class="sv-chip" onclick="C.togSvc(this)">📚 Tutoring</div>
+      <div class="sv-chip" onclick="C.togSvc(this)">🎵 Music</div>
+      <div class="sv-chip" onclick="C.togSvc(this)">🎉 Event Planning</div>
+      <div class="sv-chip" onclick="C.togSvc(this)">🛡 Security</div>
+      <div class="sv-chip" onclick="C.togSvc(this)">🚘 Driving</div>
+      <div class="sv-chip" onclick="C.togSvc(this)">🧾 Accounting</div>
+      <div class="sv-chip" onclick="C.togSvc(this)">⚖️ Legal</div>
+      <div class="sv-chip" onclick="C.togSvc(this)">🏥 Healthcare</div>
+      <div class="sv-chip" onclick="C.togSvc(this)">✍️ Writing</div>
+      <div class="sv-chip" onclick="C.togSvc(this)">📣 Marketing</div>
+      <div class="sv-chip" onclick="C.togSvc(this)">➕ Other</div>
+    </div>
+    <button class="btn btn-p btn-f" onclick="C.goTo('register')">Continue</button>
+    <button class="btn btn-g btn-f mt8" onclick="C.goTo('register')">Skip for now</button>
   </div>
-  <div class="auth-body">
-    <div class="form-group"><label class="form-label">Full Name *</label><input type="text" id="r-name" class="form-input" placeholder="e.g. Obinna Egenti" autocomplete="name"></div>
-    <div class="form-group"><label class="form-label">Email Address *</label><input type="email" id="r-email" class="form-input" placeholder="you@email.com" autocomplete="email"></div>
-    <div class="form-group"><label class="form-label">Phone Number *</label><input type="tel" id="r-phone" class="form-input" placeholder="+234 800 000 0000"></div>
-    <div class="form-group"><label class="form-label">Gender</label>
+</div>
+
+<!-- ⑤ REGISTER -->
+<div id="s-register" class="screen" style="background:#fff">
+  <div class="ah"><button class="bk" onclick="C.goTo('services')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><div class="step-lbl">Step 3 of 4</div></div>
+  <div class="prog-wrap"><div class="prog-fill" style="width:75%"></div></div>
+  <div class="scroll" style="flex:1;padding:28px 24px 44px">
+    <div class="ah2">Create your account</div>
+    <p class="as2">Fill in your details below to get started on Cionti.</p>
+    <div class="fg"><label class="fl">Full Name *</label><input type="text" id="r-name" class="fi" placeholder="e.g. Obinna Egenti" autocomplete="name"></div>
+    <div class="fg"><label class="fl">Email Address *</label><input type="email" id="r-email" class="fi" placeholder="you@email.com" autocomplete="email"></div>
+    <div class="fg"><label class="fl">Phone Number *</label><input type="tel" id="r-phone" class="fi" placeholder="+234 800 000 0000"></div>
+    <div id="biz-name-wrap" class="fg" style="display:none"><label class="fl" id="biz-name-lbl">Business Name *</label><input type="text" id="r-bizname" class="fi" placeholder="Your business or company name"></div>
+    <div class="fr"><div class="fg"><label class="fl">City *</label><input type="text" id="r-city" class="fi" placeholder="Effurun"></div><div class="fg"><label class="fl">State</label><input type="text" id="r-state" class="fi" placeholder="Delta"></div></div>
+    <div class="fg"><label class="fl">Gender</label>
       <div class="tgl-row" id="r-gender-row">
         <div class="tgl on" data-v="male" onclick="C.selGender('male',this)">Male</div>
         <div class="tgl" data-v="female" onclick="C.selGender('female',this)">Female</div>
         <div class="tgl" data-v="other" onclick="C.selGender('other',this)">Other</div>
       </div>
     </div>
-    <div class="form-group"><label class="form-label">Address / Area</label><input type="text" id="r-address" class="form-input" placeholder="e.g. Refinery Road, Effurun"></div>
-    <div class="form-group"><label class="form-label">City *</label><input type="text" id="r-city" class="form-input" placeholder="e.g. Effurun, Warri, Lagos"></div>
-    <div class="form-group"><label class="form-label">State</label><input type="text" id="r-state" class="form-input" placeholder="e.g. Delta State"></div>
-    <div class="form-group"><label class="form-label">I want to...</label>
-      <div class="type-grid">
-        <div class="type-opt on" id="to-both" onclick="C.selType('both')">🤝 Both</div>
-        <div class="type-opt" id="to-provider" onclick="C.selType('provider')">🛠 Offer Skills</div>
-        <div class="type-opt" id="to-seeker" onclick="C.selType('seeker')">🔍 Find Talent</div>
-      </div>
-    </div>
-    <div class="form-group"><label class="form-label">Password *</label>
-      <div style="position:relative"><input type="password" id="r-pw" class="form-input" placeholder="Min. 6 characters" autocomplete="new-password" style="padding-right:44px"><span class="inp-ic-r" onclick="C.togglePw('r-pw',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span></div>
-    </div>
-    <label class="check-row"><input type="checkbox" id="r-terms"><span>I agree to the <a class="link-p" href="#">Terms of Service</a> and <a class="link-p" href="#">Privacy Policy</a></span></label>
-    <div id="r-err" class="p-err"></div>
-    <button class="btn btn-p btn-full" id="btn-register" onclick="C.register()">Send Verification Code</button>
-    <p style="font-size:.75rem;color:var(--textl);text-align:center;margin-top:10px">A 4-digit code will be sent to your email</p>
+    <div class="fg"><label class="fl">Password *</label><div class="ir"><input type="password" id="r-pw" class="fi hr" placeholder="Min. 6 characters" autocomplete="new-password"><span class="ir2" onclick="C.togglePw('r-pw',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span></div></div>
+    <label class="ck-row"><input type="checkbox" id="r-terms"><span>I agree to the <a class="lnk" href="#">Terms of Service</a> and <a class="lnk" href="#">Privacy Policy</a></span></label>
+    <div id="r-err" class="pe"></div>
+    <button class="btn btn-p btn-f" id="btn-register" onclick="C.register()">Create Account</button>
+    <p style="font-size:.75rem;color:var(--tl);text-align:center;margin-top:10px">A 4-digit code will be sent to your email</p>
+    <div style="text-align:center;margin-top:20px;font-size:.84rem;color:var(--tl)">Already have an account? <span class="lnk" onclick="C.goTo('login')">Sign In</span></div>
   </div>
-  <div class="auth-footer">Already have an account? <span class="link-p" onclick="C.goTo('login')">Sign In</span></div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     OTP VERIFY
-═══════════════════════════════════════ -->
-<div id="s-verify" class="screen" style="flex-direction:column;background:var(--bg0)">
-  <div class="top-bar">
-    <button class="icon-btn" onclick="S.pendingPhone ? C.goTo('phone-login') : C.goTo('register')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
-    <h2>Verify Code</h2><div style="width:40px"></div>
+<!-- LOGIN -->
+<div id="s-login" class="screen" style="background:#fff">
+  <div class="ah"><button class="bk" onclick="C.goTo('welcome')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><div class="step-lbl">Sign In</div></div>
+  <div class="scroll" style="flex:1;padding:28px 24px 44px">
+    <div class="ah2">Welcome back</div>
+    <p class="as2">Sign in to your Cionti account</p>
+    <div class="fg"><label class="fl">Email address</label><div class="ir"><span class="ii"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span><input type="email" id="l-email" class="fi" placeholder="your@email.com" autocomplete="email"></div></div>
+    <div class="fg"><label class="fl">Password</label><div class="ir"><span class="ii"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></span><input type="password" id="l-pw" class="fi hr" placeholder="Your password" autocomplete="current-password"><span class="ir2" onclick="C.togglePw('l-pw',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span></div><div style="text-align:right;margin-top:8px"><span class="lnk text-sm" onclick="C.forgotPw()">Forgot password?</span></div></div>
+    <div id="l-err" class="pe"></div>
+    <button class="btn btn-p btn-f" id="btn-login" onclick="C.login()">Sign In</button>
+    <div class="ord">Or continue with</div>
+    <div style="display:flex;justify-content:center;gap:14px">
+      <div onclick="C.loginGoogle()" style="width:52px;height:52px;border-radius:50%;border:1.5px solid var(--bd);background:#fff;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:800;cursor:pointer;color:#EA4335;font-family:'Sora',sans-serif;transition:all .2s" onmouseover="this.style.background='var(--off)'" onmouseout="this.style.background='#fff'">G</div>
+      <div onclick="C.goTo('phone-login')" style="width:52px;height:52px;border-radius:50%;border:1.5px solid var(--bd);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--tl);transition:all .2s" onmouseover="this.style.background='var(--off)'" onmouseout="this.style.background='#fff'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+    </div>
+    <div style="text-align:center;margin-top:24px;font-size:.84rem;color:var(--tl)">No account? <span class="lnk" onclick="C.goTo('acc-type')">Create one free</span></div>
   </div>
-  <div class="screen-scroll" style="flex:1;display:flex;flex-direction:column;align-items:center;padding:32px 24px;text-align:center">
-    <div class="verify-icon">📨</div>
-    <h3 style="font-size:1.25rem;font-weight:800;margin-bottom:9px;font-family:'Sora',sans-serif;letter-spacing:-.025em">Check your inbox</h3>
-    <p style="font-size:.86rem;color:var(--textl);margin-bottom:8px">Code sent to <strong id="v-dest" class="text-p"></strong></p>
-    <div id="dev-otp-box" style="background:var(--pl);border:1.5px solid var(--p);border-radius:14px;padding:12px 20px;margin-bottom:22px;display:none;width:100%">
-      <div style="font-size:.67rem;font-weight:700;color:var(--textl);margin-bottom:5px;text-transform:uppercase;letter-spacing:1.2px">Your verification code</div>
-      <div id="dev-otp-code" style="font-size:2.2rem;font-weight:800;color:var(--p2);letter-spacing:10px;font-family:'Sora',sans-serif"></div>
-      <div style="font-size:.67rem;color:var(--textm);margin-top:5px">Shown here because email is not yet configured</div>
+</div>
+
+<!-- PHONE LOGIN -->
+<div id="s-phone-login" class="screen" style="background:#fff">
+  <div class="ah"><button class="bk" onclick="C.goTo('login')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><div class="step-lbl">Phone Login</div></div>
+  <div style="flex:1;padding:28px 24px">
+    <div class="ah2">Phone login</div><p class="as2">We will send a 6-digit code via SMS</p>
+    <div class="fg"><label class="fl">Phone Number</label><input type="tel" id="ph-num" class="fi" placeholder="+234 800 000 0000"></div>
+    <div id="recaptcha-phone"></div><div id="ph-err" class="pe"></div>
+    <button class="btn btn-p btn-f" onclick="C.sendPhoneCode()">Send Code</button>
+  </div>
+</div>
+
+<!-- OTP -->
+<div id="s-verify" class="screen" style="background:#fff">
+  <div class="tb2"><button class="ib" onclick="S.pendingPhone ? C.goTo('phone-login') : C.goTo('register')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><h2>Verify Code</h2><div style="width:40px"></div></div>
+  <div class="scroll" style="flex:1;display:flex;flex-direction:column;align-items:center;padding:40px 24px;text-align:center">
+    <div style="font-size:3.5rem;margin-bottom:16px">📨</div>
+    <div style="font-size:1.3rem;font-weight:800;margin-bottom:9px;font-family:'Sora',sans-serif">Check your email</div>
+    <p style="font-size:.87rem;color:var(--tl);margin-bottom:8px">Code sent to <strong id="v-dest" class="tp"></strong></p>
+    <div id="dev-otp-box" style="background:var(--inb);border:1.5px solid var(--inx);border-radius:14px;padding:12px 20px;margin-bottom:22px;display:none;width:100%">
+      <div style="font-size:.67rem;font-weight:700;color:var(--tl);margin-bottom:5px;text-transform:uppercase;letter-spacing:1px">Your verification code</div>
+      <div id="dev-otp-code" style="font-size:2.2rem;font-weight:800;color:var(--in);letter-spacing:10px;font-family:'Sora',sans-serif"></div>
+      <div style="font-size:.67rem;color:var(--tm);margin-top:5px">Shown here because email is not yet configured</div>
     </div>
     <div class="otp-row">
       <input class="otp-box" type="tel" maxlength="1" id="otp-0" oninput="C.otpIn(0)" onkeydown="C.otpKey(event,0)" inputmode="numeric">
@@ -367,602 +206,341 @@
       <input class="otp-box" type="tel" maxlength="1" id="otp-2" oninput="C.otpIn(2)" onkeydown="C.otpKey(event,2)" inputmode="numeric">
       <input class="otp-box" type="tel" maxlength="1" id="otp-3" oninput="C.otpIn(3)" onkeydown="C.otpKey(event,3)" inputmode="numeric">
     </div>
-    <p id="otp-err" class="otp-err" style="display:none;color:var(--bad);font-size:.83rem;margin:10px 0"></p>
+    <p id="otp-err" style="display:none;color:var(--er);font-size:.83rem;margin:10px 0;font-weight:500"></p>
     <p id="otp-ok" style="display:none;color:var(--ok);font-size:.83rem;margin:10px 0;font-weight:600"></p>
-    <button class="btn btn-p btn-full" id="btn-verify" onclick="C.verifyOtp()" style="margin-bottom:16px">Verify and Continue</button>
-    <p class="text-sm" style="color:var(--textl)">Did not get it? <span class="link-p" id="resend-lnk" onclick="C.resendOtp()" style="font-weight:700;cursor:pointer">Resend</span></p>
-    <p id="resend-tmr" style="display:none;font-size:.75rem;color:var(--textm);margin-top:7px"></p>
+    <button class="btn btn-p btn-f" id="btn-verify" onclick="C.verifyOtp()" style="margin-bottom:16px">Verify and Continue</button>
+    <p class="text-sm" style="color:var(--tl)">Did not get it? <span class="lnk" id="resend-lnk" onclick="C.resendOtp()">Resend</span></p>
+    <p id="resend-tmr" style="display:none;font-size:.75rem;color:var(--tm);margin-top:7px"></p>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     SETUP PROFILE
-═══════════════════════════════════════ -->
-<div id="s-setup" class="screen" style="flex-direction:column;background:var(--bg0)">
-  <div class="top-bar">
-    <button class="icon-btn" onclick="C.goTo('login-options')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
-    <h2>Your Profile</h2>
-    <span class="link-p fw6 text-sm" onclick="C.skipSetup()" style="cursor:pointer">Skip</span>
-  </div>
-  <div class="screen-scroll" style="flex:1;padding:22px 24px 44px">
+<!-- SETUP (Step 4) -->
+<div id="s-setup" class="screen" style="background:#fff">
+  <div class="ah"><button class="ib" onclick="C.goTo('login-options')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><div class="step-lbl">Step 4 of 4</div></div>
+  <div class="prog-wrap"><div class="prog-fill" style="width:100%"></div></div>
+  <div class="scroll" style="flex:1;padding:28px 24px 44px">
+    <div class="ah2">Almost done!</div>
+    <p class="as2">Add a photo and location so people can find you easily.</p>
     <div style="text-align:center;margin-bottom:26px">
-      <div id="setup-av" class="setup-av" onclick="document.getElementById('setup-ph').click()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28" opacity=".5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
-      </div>
-      <span class="link-p text-sm fw6" onclick="document.getElementById('setup-ph').click()" style="cursor:pointer">Add photo</span>
+      <div id="setup-av" class="sv-av" onclick="document.getElementById('setup-ph').click()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28" opacity=".4" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+      <span class="lnk text-sm fw7" onclick="document.getElementById('setup-ph').click()" style="cursor:pointer">Add profile photo</span>
       <input type="file" id="setup-ph" accept="image/*" style="display:none" onchange="C.previewSetupAv(this)">
     </div>
-    <div class="form-group"><label class="form-label">Bio</label><textarea id="setup-bio" class="form-textarea" placeholder="Tell people about yourself — skills, experience, what you offer..."></textarea></div>
-    <div class="form-group"><label class="form-label">City / Area *</label><input type="text" id="setup-city" class="form-input" placeholder="e.g. Effurun, Warri, Lagos Island"></div>
-    <div class="form-group"><label class="form-label">State</label><input type="text" id="setup-state" class="form-input" placeholder="e.g. Delta State"></div>
-    <button class="btn btn-g btn-full mb-8" onclick="C.detectLoc()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
-      Auto-detect location
-    </button>
-    <div id="loc-ok" class="loc-ok">Location detected</div>
-    <button class="btn btn-p btn-full" onclick="C.saveSetup()">Continue</button>
+    <div class="fg"><label class="fl">Bio</label><textarea id="setup-bio" class="ft" placeholder="Tell people about yourself — skills, experience, what you offer..."></textarea></div>
+    <div class="fg"><label class="fl">City / Area *</label><input type="text" id="setup-city" class="fi" placeholder="e.g. Effurun, Warri, Lagos Island"></div>
+    <div class="fg"><label class="fl">State</label><input type="text" id="setup-state" class="fi" placeholder="e.g. Delta State"></div>
+    <button class="btn btn-g btn-f mb8" onclick="C.detectLoc()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>Auto-detect my location</button>
+    <div id="loc-ok" style="color:var(--ok);font-size:.82rem;margin-bottom:12px;display:none;font-weight:600">Location detected</div>
+    <button class="btn btn-p btn-f" onclick="C.saveSetup()">Finish Setup</button>
+    <button class="btn btn-g btn-f mt8" onclick="C.skipSetup()">Skip for now</button>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     DISCOVER / HOME
-═══════════════════════════════════════ -->
-<div id="s-discover" class="screen main-screen" style="flex-direction:column;background:var(--bg0)">
-  <div class="disc-header">
-    <div class="disc-top-row">
-      <div>
-        <div class="disc-loc-lbl" id="disc-loc">📍 Effurun, Nigeria</div>
-        <div class="disc-name-lbl" id="disc-name">Hi, Friend 👋</div>
-      </div>
-      <div style="display:flex;align-items:center;gap:10px">
-        <div class="theme-btn" onclick="C.toggleTheme()" id="theme-toggle">🌙</div>
-        <div class="notif-btn" onclick="C.openNotifs()">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg>
-          <span class="notif-dot" id="notif-dot" style="display:none"></span>
-        </div>
-        <div id="disc-av" class="disc-av" onclick="C.navTo('profile')"></div>
+<!-- HOME / DISCOVER -->
+<div id="s-discover" class="screen main-pad" style="background:var(--off)">
+  <div class="hh">
+    <div class="hh-top">
+      <div><div class="hh-name" id="disc-name">Good morning 👋</div><div class="hh-loc" id="disc-loc">📍 Effurun, Delta State</div></div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div class="nb" onclick="C.openNotifs()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--tl)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg><span class="nb-dot" id="notif-dot" style="display:none"></span></div>
+        <div id="disc-av" class="hh-av" onclick="C.navTo('profile')"></div>
       </div>
     </div>
-    <div class="search-pill">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-      <input type="text" id="disc-search" placeholder="Search skills, people, services..." oninput="C.filterSkills()">
-      <span onclick="C.openFilters()" style="cursor:pointer;padding:4px 12px;background:rgba(255,255,255,.14);border-radius:8px;font-size:.72rem;color:#fff;white-space:nowrap;font-weight:600">Filter</span>
-    </div>
-    <div style="display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px" id="home-tabs">
-      <button class="home-tab on" data-htab="feed" onclick="C.switchHomeTab('feed',this)">🔥 Feed</button>
-      <button class="home-tab" data-htab="people" onclick="C.switchHomeTab('people',this)">👥 People</button>
-      <button class="home-tab" data-htab="events" onclick="C.switchHomeTab('events',this)">📅 Events</button>
-      <button class="home-tab" data-htab="jobs" onclick="C.switchHomeTab('jobs',this)">💼 Jobs</button>
-      <button class="home-tab" data-htab="map" onclick="C.switchHomeTab('map',this)">🗺 Map</button>
+    <div class="sb"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--tm)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg><input type="text" id="disc-search" placeholder="Search skills, people, services..." oninput="C.filterSkills()"><span class="fp" onclick="C.openFilters()">Filter</span></div>
+    <div class="htabs" id="home-tabs">
+      <button class="htab on" data-htab="feed" onclick="C.switchHomeTab('feed',this)">Feed</button>
+      <button class="htab" data-htab="people" onclick="C.switchHomeTab('people',this)">People</button>
+      <button class="htab" data-htab="events" onclick="C.switchHomeTab('events',this)">Events</button>
+      <button class="htab" data-htab="jobs" onclick="C.switchHomeTab('jobs',this)">Jobs</button>
+      <button class="htab" data-htab="map" onclick="C.switchHomeTab('map',this)">Map</button>
     </div>
   </div>
 
-  <div id="htab-feed" class="screen-scroll" style="flex:1;padding-bottom:8px">
-    <div id="home-stats" style="display:flex;gap:8px;padding:12px 16px 0;overflow-x:auto;scrollbar-width:none"></div>
-    <div id="quote-card" style="margin:12px 16px 0;border-radius:18px;background:linear-gradient(135deg,var(--p),#7C3AED);padding:15px 18px;color:#fff;display:none">
-      <div style="font-size:.65rem;opacity:.7;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">💡 Tip of the Day</div>
-      <div id="quote-text" style="font-size:.9rem;font-weight:600;line-height:1.65;font-style:italic"></div>
-      <div id="quote-author" style="font-size:.72rem;opacity:.7;margin-top:6px"></div>
-    </div>
-    <div style="padding:14px 16px 0"><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px" id="quick-actions"></div></div>
-    <div style="padding:14px 16px 0">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-        <div style="font-weight:800;font-size:.9rem;font-family:'Sora',sans-serif">🔥 Trending Skills</div>
-        <span class="link-p" style="font-size:.78rem;font-weight:700;cursor:pointer" onclick="C.switchHomeTab('people',document.querySelector('[data-htab=people]'))">See all</span>
-      </div>
-      <div id="trending-scroll" style="display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px"></div>
-    </div>
-    <div style="padding:14px 16px 0">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-        <div style="font-weight:800;font-size:.9rem;font-family:'Sora',sans-serif">📢 Requests Near You</div>
-        <button class="btn btn-sm btn-p" style="font-size:.7rem;padding:5px 10px" onclick="C.showCreatePicker()">+ Post Request</button>
-      </div>
-      <div id="requests-near"></div>
-    </div>
-    <div style="padding:14px 16px 0">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-        <div style="font-weight:800;font-size:.9rem;font-family:'Sora',sans-serif">⚡ Live Activity</div>
-        <span class="badge" style="background:var(--okl);color:var(--ok);font-size:.63rem;font-weight:700">● LIVE</span>
-      </div>
-      <div id="activity-feed"></div>
-    </div>
-    <div style="padding:14px 16px 0">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-        <div style="font-weight:800;font-size:.9rem;font-family:'Sora',sans-serif">🌍 Community Posts</div>
-        <span class="link-p" style="font-size:.78rem;font-weight:700;cursor:pointer" onclick="C.navTo('feed')">See all</span>
-      </div>
-      <div id="community-posts-home"></div>
-    </div>
-    <div id="weather-card" style="margin:14px 16px 0;display:none;border-radius:16px;border:1px solid var(--border);background:var(--bg1);padding:15px 16px;display:flex;align-items:center;gap:14px">
+  <div id="htab-feed" class="scroll" style="flex:1">
+    <div style="display:flex;gap:10px;padding:16px 20px 0;overflow-x:auto;scrollbar-width:none" id="home-stats"></div>
+    <div style="padding:16px 20px 0"><div class="st" style="margin-bottom:12px">Quick Actions</div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px" id="quick-actions"></div></div>
+    <div class="sh"><div class="st">🔥 Trending Skills</div><span class="sl" onclick="C.switchHomeTab('people',document.querySelector('[data-htab=people]'))">See all</span></div>
+    <div class="hs" id="trending-scroll"></div>
+    <div class="sh"><div class="st">📢 Requests Near You</div><button class="btn btn-p btn-sm" style="font-size:.7rem;padding:5px 12px" onclick="C.showCreatePicker()">+ Post</button></div>
+    <div style="padding:0 20px"><div id="requests-near"></div></div>
+    <div class="sh"><div class="st">⚡ Live Activity</div><span class="badge bg" style="font-size:.63rem">● LIVE</span></div>
+    <div style="padding:0 20px"><div id="activity-feed"></div></div>
+    <div class="sh"><div class="st">🌍 Community</div><span class="sl" onclick="C.navTo('feed')">See all</span></div>
+    <div style="padding:0 20px"><div id="community-posts-home"></div></div>
+    <div id="weather-card" style="margin:14px 20px 0;display:none;border-radius:16px;border:1px solid var(--bd);background:#fff;padding:15px 16px;align-items:center;gap:14px">
       <div id="weather-icon" style="font-size:2.2rem">🌤</div>
-      <div><div id="weather-temp" style="font-size:1.3rem;font-weight:800;font-family:'Sora',sans-serif"></div><div id="weather-desc" style="font-size:.76rem;color:var(--textl);margin-top:2px"></div><div id="weather-note" style="font-size:.7rem;color:var(--textm);margin-top:2px"></div></div>
+      <div><div id="weather-temp" style="font-size:1.3rem;font-weight:800;font-family:'Sora',sans-serif"></div><div id="weather-desc" style="font-size:.76rem;color:var(--tl);margin-top:2px"></div><div id="weather-note" style="font-size:.7rem;color:var(--tm);margin-top:2px"></div></div>
     </div>
-    <div style="padding:14px 16px">
-      <div style="font-weight:800;font-size:.9rem;margin-bottom:10px;font-family:'Sora',sans-serif">📚 Skill Tips and Guides</div>
-      <div id="articles-list"></div>
-    </div>
+    <div class="sh"><div class="st">📚 Skill Tips</div></div>
+    <div style="padding:0 20px 20px"><div id="articles-list"></div></div>
   </div>
 
-  <div id="htab-people" class="screen-scroll" style="flex:1;padding:12px 16px;display:none">
-    <div style="font-weight:800;font-size:.9rem;margin-bottom:12px;font-family:'Sora',sans-serif">⭐ Featured Professionals</div>
-    <div id="featured-pros-grid"></div>
-    <div style="font-weight:800;font-size:.9rem;margin:14px 0 12px;font-family:'Sora',sans-serif">🗂 Browse by Skill</div>
-    <div id="cat-chips-people" class="chips" style="flex-wrap:wrap"></div>
-    <div id="people-skill-list" style="margin-top:12px"></div>
+  <div id="htab-people" class="scroll" style="flex:1;display:none;padding-bottom:8px">
+    <div style="padding:16px 20px 0"><div class="st" style="margin-bottom:12px">⭐ Featured Professionals</div><div id="featured-pros-grid" class="pgrid"></div><div class="st" style="margin:16px 0 12px">🗂 Browse by Skill</div><div id="cat-chips-people" class="chips" style="flex-wrap:wrap"></div><div id="people-skill-list" style="margin-top:12px"></div></div>
   </div>
 
-  <div id="htab-events" class="screen-scroll" style="flex:1;padding:12px 16px;display:none">
-    <div style="font-weight:800;font-size:.9rem;margin-bottom:12px;font-family:'Sora',sans-serif">📅 Events Near You</div>
+  <div id="htab-events" class="scroll" style="flex:1;padding:16px 20px;display:none">
+    <div class="st" style="margin-bottom:12px">📅 Events Near You</div>
     <div id="events-list"><div class="loading-c"><div class="spinner"></div></div></div>
   </div>
 
-  <div id="htab-jobs" class="screen-scroll" style="flex:1;padding:12px 16px;display:none">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-      <div style="font-weight:800;font-size:.9rem;font-family:'Sora',sans-serif">💼 Remote Opportunities</div>
-      <span id="jobs-count" class="badge badge-n" style="font-size:.65rem"></span>
-    </div>
+  <div id="htab-jobs" class="scroll" style="flex:1;padding:16px 20px;display:none">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><div class="st">💼 Remote Opportunities</div><span id="jobs-count" class="badge bn" style="font-size:.65rem"></span></div>
     <div id="jobs-list"><div class="loading-c"><div class="spinner"></div></div></div>
   </div>
 
   <div id="htab-map" style="flex:1;display:none;flex-direction:column">
-    <div style="display:flex;align-items:center;gap:8px;padding:10px 16px;flex-shrink:0;border-bottom:1px solid var(--border)">
-      <button class="vt-btn on" id="vt-map" onclick="C.switchView('map')" style="font-size:.75rem">🗺 Map</button>
-      <button class="vt-btn" id="vt-list" onclick="C.switchView('list')" style="font-size:.75rem">☰ List</button>
-      <div style="display:flex;align-items:center;gap:6px;margin-left:auto">
-        <span style="font-size:.72rem;color:var(--textl)">Radius:</span>
-        <input type="range" id="rad-slider" min="1" max="50" value="10" oninput="C.updateRadius(this.value)" style="width:80px;accent-color:var(--p)">
-        <span id="rad-label" style="font-size:.75rem;font-weight:700;color:var(--p2);min-width:32px">10km</span>
-      </div>
+    <div style="display:flex;align-items:center;gap:8px;padding:10px 16px;flex-shrink:0;background:#fff;border-bottom:1px solid var(--bd)">
+      <button class="vt on" id="vt-map" onclick="C.switchView('map')" style="font-size:.75rem">🗺 Map</button>
+      <button class="vt" id="vt-list" onclick="C.switchView('list')" style="font-size:.75rem">☰ List</button>
+      <div style="display:flex;align-items:center;gap:6px;margin-left:auto"><span style="font-size:.72rem;color:var(--tl)">Radius:</span><input type="range" id="rad-slider" min="1" max="50" value="10" oninput="C.updateRadius(this.value)" style="width:80px;accent-color:var(--inm)"><span id="rad-label" style="font-size:.75rem;font-weight:700;color:var(--inm);min-width:32px">10km</span></div>
     </div>
-    <div id="map-view" style="flex:1;position:relative;min-height:0">
-      <div id="cionti-map" style="width:100%;height:100%;min-height:400px"></div>
-      <div id="map-peek" class="map-peek" style="display:none"></div>
-    </div>
-    <div id="list-view" style="display:none;flex:1;overflow-y:auto;padding:12px 16px"><div id="skill-list"></div></div>
+    <div id="map-view" style="flex:1;position:relative;min-height:0"><div id="cionti-map" style="width:100%;height:100%;min-height:400px"></div><div id="map-peek" class="map-peek" style="display:none"></div></div>
+    <div id="list-view" style="display:none;flex:1;overflow-y:auto;padding:12px 20px"><div id="skill-list"></div></div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     FEED / EXPLORE
-═══════════════════════════════════════ -->
-<div id="s-feed" class="screen main-screen" style="flex-direction:column">
-  <div class="top-bar">
-    <h2>Explore</h2>
-    <div style="display:flex;gap:8px">
-      <div class="theme-btn" onclick="C.toggleTheme()" id="theme-toggle-feed">🌙</div>
-      <div class="icon-btn" onclick="C.openNotifs()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg></div>
-    </div>
+<!-- EXPLORE / FEED -->
+<div id="s-feed" class="screen main-pad" style="background:var(--off)">
+  <div class="tb2"><h2>Explore</h2><div style="display:flex;gap:8px"><div class="ib" onclick="C.openNotifs()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg></div></div></div>
+  <div class="ftabs" id="feed-tabs">
+    <button class="ftab on" data-tab="community" onclick="C.switchFeedTab(this,'community')">🔥 Community</button>
+    <button class="ftab" data-tab="shorts" onclick="C.switchFeedTab(this,'shorts')">🎥 Shorts</button>
+    <button class="ftab" data-tab="jobs" onclick="C.switchFeedTab(this,'jobs')">💼 Jobs</button>
+    <button class="ftab" data-tab="trending" onclick="C.switchFeedTab(this,'trending')">📈 Trending</button>
+    <button class="ftab" data-tab="news" onclick="C.switchFeedTab(this,'news')">📰 News</button>
+    <button class="ftab" data-tab="ai-chat" onclick="C.switchFeedTab(this,'ai-chat')">🤖 AI</button>
   </div>
-  <div class="feed-tabs" id="feed-tabs">
-    <button class="feed-tab on" data-tab="community" onclick="C.switchFeedTab(this,'community')">🔥 Community</button>
-    <button class="feed-tab" data-tab="shorts" onclick="C.switchFeedTab(this,'shorts')">🎥 Shorts</button>
-    <button class="feed-tab" data-tab="jobs" onclick="C.switchFeedTab(this,'jobs')">💼 Jobs</button>
-    <button class="feed-tab" data-tab="trending" onclick="C.switchFeedTab(this,'trending')">📈 Trending</button>
-    <button class="feed-tab" data-tab="news" onclick="C.switchFeedTab(this,'news')">📰 News</button>
-    <button class="feed-tab" data-tab="ai-chat" onclick="C.switchFeedTab(this,'ai-chat')">🤖 AI Chat</button>
-  </div>
-  <div id="feed-content" class="screen-scroll" style="flex:1;padding:12px 16px"></div>
+  <div id="feed-content" class="scroll" style="flex:1;padding:12px 20px"></div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     AI MATCHER
-═══════════════════════════════════════ -->
-<div id="s-ai" class="screen main-screen" style="flex-direction:column">
-  <div class="ai-header" style="padding-bottom:0">
+<!-- AI MATCHER -->
+<div id="s-ai" class="screen main-pad" style="background:var(--off)">
+  <div style="background:var(--in);padding:20px 20px 0;flex-shrink:0">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
       <div style="display:flex;align-items:center;gap:10px">
-        <div style="width:40px;height:40px;border-radius:13px;background:linear-gradient(135deg,var(--p),#7C3AED);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0">🤖</div>
-        <div><div class="ai-title">Cionti AI</div><div class="ai-sub" id="ai-mode-label">Powered by Llama 3 · Open Source</div></div>
+        <div style="width:40px;height:40px;border-radius:13px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0">🤖</div>
+        <div><div style="font-size:1rem;font-weight:800;color:#fff;font-family:'Sora',sans-serif">Cionti AI</div><div style="font-size:.78rem;color:rgba(255,255,255,.65);margin-top:2px" id="ai-mode-label">Powered by Llama 3</div></div>
       </div>
-      <div style="display:flex;gap:6px">
-        <button class="icon-btn" onclick="C.navTo('discover')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
-        <button class="btn btn-sm btn-o" onclick="C.resetAI()" style="font-size:.72rem">Reset</button>
-      </div>
+      <div style="display:flex;gap:6px"><button class="ib" style="background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.2);color:#fff" onclick="C.navTo('discover')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><button class="btn btn-sm" style="background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.2);font-size:.72rem" onclick="C.resetAI()">Reset</button></div>
     </div>
     <div style="display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:10px">
-      <button class="ai-mode-tab active" data-mode="chat" onclick="C.switchAIMode('chat',this)">💬 Chat</button>
-      <button class="ai-mode-tab" data-mode="match" onclick="C.switchAIMode('match',this)">🎯 Job Match</button>
-      <button class="ai-mode-tab" data-mode="bio" onclick="C.switchAIMode('bio',this)">✍️ Bio Writer</button>
-      <button class="ai-mode-tab" data-mode="price" onclick="C.switchAIMode('price',this)">💰 Price Advisor</button>
-      <button class="ai-mode-tab" data-mode="advisor" onclick="C.switchAIMode('advisor',this)">🧠 Advisor</button>
+      <button class="ai-mt active" data-mode="chat" onclick="C.switchAIMode('chat',this)">💬 Chat</button>
+      <button class="ai-mt" data-mode="match" onclick="C.switchAIMode('match',this)">🎯 Job Match</button>
+      <button class="ai-mt" data-mode="bio" onclick="C.switchAIMode('bio',this)">✍️ Bio Writer</button>
+      <button class="ai-mt" data-mode="price" onclick="C.switchAIMode('price',this)">💰 Pricing</button>
+      <button class="ai-mt" data-mode="advisor" onclick="C.switchAIMode('advisor',this)">🧠 Advisor</button>
     </div>
   </div>
-  <div class="ai-msgs" id="ai-msgs"></div>
-  <div style="padding:8px 14px 4px;background:var(--bg1);border-top:1px solid var(--border);overflow-x:auto;scrollbar-width:none">
-    <div id="ai-suggestions" style="display:flex;gap:6px;padding-bottom:4px"></div>
-  </div>
-  <div class="ai-input-row">
-    <textarea class="ai-inp" id="ai-inp" placeholder="Ask Cionti AI anything..." rows="1" onkeydown="C.aiKey(event)" oninput="C.aiTyping(this)"></textarea>
+  <div class="scroll" id="ai-msgs" style="flex:1;padding:16px;display:flex;flex-direction:column;gap:8px;background:var(--off)"></div>
+  <div style="padding:8px 14px 4px;background:#fff;border-top:1px solid var(--bd);overflow-x:auto;scrollbar-width:none"><div id="ai-suggestions" style="display:flex;gap:6px;padding-bottom:4px"></div></div>
+  <div style="padding:10px 14px;background:#fff;border-top:1px solid var(--bd);display:flex;align-items:flex-end;gap:8px">
+    <textarea style="flex:1;padding:11px 15px;border:1.5px solid var(--bd);border-radius:22px;font-family:'Plus Jakarta Sans',sans-serif;font-size:.87rem;resize:none;max-height:100px;line-height:1.5;color:var(--tx);background:var(--off);transition:border-color .18s" id="ai-inp" placeholder="Ask Cionti AI anything..." rows="1" onkeydown="C.aiKey(event)" oninput="C.aiTyping(this)" onfocus="this.style.borderColor='var(--inm)';this.style.background='#fff'" onblur="this.style.borderColor='var(--bd)';this.style.background='var(--off)'"></textarea>
     <button class="ai-send" onclick="C.sendAiMsg()"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     REQUESTS
-═══════════════════════════════════════ -->
-<div id="s-requests" class="screen main-screen" style="flex-direction:column">
-  <div class="top-bar"><button class="icon-btn" onclick="C.navTo('discover')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><h2>Requests</h2><div style="width:40px"></div></div>
-  <div style="padding:12px 20px 0;flex-shrink:0"><div class="tab-bar"><button class="tab on" id="tab-recv" onclick="C.switchReqTab('recv')">📩 Received</button><button class="tab" id="tab-sent" onclick="C.switchReqTab('sent')">📤 Sent</button></div></div>
-  <div id="req-list" class="screen-scroll" style="flex:1;padding:12px 16px"></div>
+<!-- REQUESTS -->
+<div id="s-requests" class="screen main-pad" style="background:var(--off)">
+  <div class="tb2"><button class="ib" onclick="C.navTo('discover')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><h2>Requests</h2><div style="width:40px"></div></div>
+  <div style="padding:12px 20px 0;flex-shrink:0;background:#fff;border-bottom:1px solid var(--bd)"><div class="tab-bar"><button class="tab on" id="tab-recv" onclick="C.switchReqTab('recv')">📩 Received</button><button class="tab" id="tab-sent" onclick="C.switchReqTab('sent')">📤 Sent</button></div></div>
+  <div id="req-list" class="scroll" style="flex:1;padding:12px 20px"></div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     MESSAGES
-═══════════════════════════════════════ -->
-<div id="s-messages" class="screen main-screen" style="flex-direction:column">
-  <div class="top-bar"><button class="icon-btn" onclick="C.navTo('discover')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><h2>Messages</h2><div style="width:40px"></div></div>
-  <div id="chats-list" class="screen-scroll" style="flex:1"></div>
+<!-- MESSAGES -->
+<div id="s-messages" class="screen main-pad" style="background:var(--off)">
+  <div class="tb2"><button class="ib" onclick="C.navTo('discover')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><h2>Messages</h2><div style="width:40px"></div></div>
+  <div id="chats-list" class="scroll" style="flex:1;background:#fff"></div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     CHAT
-═══════════════════════════════════════ -->
-<div id="s-chat" class="screen" style="flex-direction:column;padding-bottom:0!important;background:var(--bg0)">
-  <div class="top-bar" style="flex-shrink:0">
-    <button class="icon-btn" id="chat-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
-    <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:0">
-      <div id="chat-av" class="avatar av-sm"></div>
-      <div style="min-width:0">
-        <div id="chat-name" style="font-weight:700;font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:'Sora',sans-serif"></div>
-        <div id="chat-status" style="font-size:.7rem;color:var(--ok)"></div>
-      </div>
-    </div>
+<!-- CHAT -->
+<div id="s-chat" class="screen" style="padding-bottom:0!important;background:#fff">
+  <div class="tb2" style="flex-shrink:0"><button class="ib" id="chat-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+    <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:0"><div id="chat-av" class="avatar av-sm"></div><div style="min-width:0"><div id="chat-name" style="font-weight:700;font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:'Sora',sans-serif"></div><div id="chat-status" style="font-size:.7rem;color:var(--ok)"></div></div></div>
     <div style="width:40px"></div>
   </div>
-  <div id="chat-msgs" class="chat-body"></div>
-  <div class="chat-foot">
-    <button class="attach-btn" onclick="document.getElementById('chat-img').click()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/></svg></button>
+  <div id="chat-msgs" class="cbody"></div>
+  <div class="cfoot">
+    <button style="width:40px;height:40px;border-radius:50%;background:var(--off);border:1.5px solid var(--bd);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--tl);flex-shrink:0" onclick="document.getElementById('chat-img').click()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="17" height="17" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/></svg></button>
     <input type="file" id="chat-img" accept="image/*" style="display:none" onchange="C.sendImg(this)">
-    <textarea id="chat-inp" class="chat-ta" placeholder="Type a message..." rows="1" oninput="C.chatTyping()" onkeydown="C.chatKey(event)"></textarea>
+    <textarea id="chat-inp" class="cta" placeholder="Type a message..." rows="1" oninput="C.chatTyping()" onkeydown="C.chatKey(event)"></textarea>
     <button class="send-btn" onclick="C.sendMsg()"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     VIEW PROFILE
-═══════════════════════════════════════ -->
-<div id="s-view-profile" class="screen" style="flex-direction:column;background:var(--bg0)">
-  <div class="top-bar">
-    <button class="icon-btn" id="vp-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
-    <h2>Profile</h2>
-    <button class="btn btn-sm btn-o" onclick="C.openReferModal()">Refer 🤝</button>
-  </div>
-  <div id="vp-content" class="screen-scroll" style="flex:1"></div>
-  <div class="vp-actions">
-    <button id="vp-msg-btn" class="btn btn-o" style="flex:1" onclick="C.openChatWith()">💬 Message</button>
-    <button id="vp-req-btn" class="btn btn-p" style="flex:2;display:none" onclick="C.openReqModal()">Send Request</button>
-  </div>
+<!-- VIEW PROFILE -->
+<div id="s-view-profile" class="screen" style="background:var(--off)">
+  <div class="tb2"><button class="ib" id="vp-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><h2>Profile</h2><button class="btn btn-o btn-sm" onclick="C.openReferModal()">Refer 🤝</button></div>
+  <div id="vp-content" class="scroll" style="flex:1"></div>
+  <div class="vpa"><button id="vp-msg-btn" class="btn btn-o" style="flex:1" onclick="C.openChatWith()">💬 Message</button><button id="vp-req-btn" class="btn btn-p" style="flex:2;display:none" onclick="C.openReqModal()">Send Request</button></div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     POST SKILL
-═══════════════════════════════════════ -->
-<div id="s-post-skill" class="screen" style="flex-direction:column;background:var(--bg0)">
-  <div class="top-bar"><button class="icon-btn" id="ps-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><h2 id="ps-title">Post a Skill</h2><div style="width:40px"></div></div>
-  <div class="screen-scroll" style="flex:1;padding:20px 24px 40px">
-    <div class="form-group"><label class="form-label">Skill Title *</label><input type="text" id="ps-skill-title" class="form-input" placeholder="e.g. Android Developer, Fashion Designer"></div>
-    <div class="form-group"><label class="form-label">Category *</label><select id="ps-cat" class="form-select"><option value="">Choose category...</option></select></div>
-    <div class="form-group"><label class="form-label">Description *</label><textarea id="ps-desc" class="form-textarea" style="min-height:90px" placeholder="Describe your skill, experience, tools and what clients get..."></textarea></div>
-    <div class="form-group"><label class="form-label">Service Type</label>
-      <div class="stype-row" id="ps-stype">
-        <div class="stype-card on" data-v="both" onclick="C.selStype(this)">🔄 Both</div>
-        <div class="stype-card" data-v="physical" onclick="C.selStype(this)">📍 In-Person</div>
-        <div class="stype-card" data-v="remote" onclick="C.selStype(this)">🌐 Remote</div>
-      </div>
-    </div>
-    <div class="form-group"><label class="form-label">Pricing</label>
-      <div class="stype-row" id="ps-ptype">
-        <div class="stype-card on" data-v="negotiable" onclick="C.selPtype(this)">Negotiate</div>
-        <div class="stype-card" data-v="fixed" onclick="C.selPtype(this)">Fixed Rate</div>
-        <div class="stype-card" data-v="free" onclick="C.selPtype(this)">Free</div>
-      </div>
-      <input type="number" id="ps-price" class="form-input mt-8" placeholder="Amount in ₦" style="display:none">
-    </div>
-    <div class="form-group"><label class="form-label">Tags <span class="text-muted fw4">(comma-separated)</span></label><input type="text" id="ps-tags" class="form-input" placeholder="e.g. android, flutter, firebase"></div>
-    <div class="form-group">
-      <label class="form-label">Portfolio Image <span class="text-muted fw4">(optional)</span></label>
-      <div id="portfolio-prev" style="display:none;margin-bottom:8px;border-radius:14px;overflow:hidden;max-height:180px"></div>
-      <button class="btn btn-g btn-full" onclick="document.getElementById('ps-portfolio').click()">📷 Add Portfolio Image</button>
-      <input type="file" id="ps-portfolio" accept="image/*" style="display:none" onchange="C.prevPortfolio(this)">
-    </div>
-    <button id="btn-post-skill" class="btn btn-p btn-full" onclick="C.postSkill()">Post Skill 🚀</button>
-    <button id="btn-del-skill" class="btn btn-bad btn-full mt-8" style="display:none" onclick="C.deleteSkill()">Delete Skill</button>
+<!-- POST SKILL -->
+<div id="s-post-skill" class="screen" style="background:#fff">
+  <div class="tb2"><button class="ib" id="ps-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><h2 id="ps-title">Post a Skill</h2><div style="width:40px"></div></div>
+  <div class="scroll" style="flex:1;padding:20px 24px 40px">
+    <div class="fg"><label class="fl">Skill Title *</label><input type="text" id="ps-skill-title" class="fi" placeholder="e.g. Android Developer, Fashion Designer"></div>
+    <div class="fg"><label class="fl">Category *</label><select id="ps-cat" class="fse"><option value="">Choose category...</option></select></div>
+    <div class="fg"><label class="fl">Description *</label><textarea id="ps-desc" class="ft" style="min-height:90px" placeholder="Describe your skill, experience, tools and what clients get..."></textarea></div>
+    <div class="fg"><label class="fl">Service Type</label><div class="stype-row" id="ps-stype"><div class="stype-card on" data-v="both" onclick="C.selStype(this)">🔄 Both</div><div class="stype-card" data-v="physical" onclick="C.selStype(this)">📍 In-Person</div><div class="stype-card" data-v="remote" onclick="C.selStype(this)">🌐 Remote</div></div></div>
+    <div class="fg"><label class="fl">Pricing</label><div class="stype-row" id="ps-ptype"><div class="stype-card on" data-v="negotiable" onclick="C.selPtype(this)">Negotiate</div><div class="stype-card" data-v="fixed" onclick="C.selPtype(this)">Fixed Rate</div><div class="stype-card" data-v="free" onclick="C.selPtype(this)">Free</div></div><input type="number" id="ps-price" class="fi mt8" placeholder="Amount in ₦" style="display:none"></div>
+    <div class="fg"><label class="fl">Tags <span class="tmuted" style="font-weight:400">(comma-separated)</span></label><input type="text" id="ps-tags" class="fi" placeholder="e.g. android, flutter, firebase"></div>
+    <div class="fg"><label class="fl">Portfolio Image <span class="tmuted" style="font-weight:400">(optional)</span></label><div id="portfolio-prev" style="display:none;margin-bottom:8px;border-radius:14px;overflow:hidden;max-height:180px"></div><button class="btn btn-g btn-f" onclick="document.getElementById('ps-portfolio').click()">📷 Add Portfolio Image</button><input type="file" id="ps-portfolio" accept="image/*" style="display:none" onchange="C.prevPortfolio(this)"></div>
+    <button id="btn-post-skill" class="btn btn-p btn-f" onclick="C.postSkill()">Post Skill 🚀</button>
+    <button id="btn-del-skill" class="btn btn-d btn-f mt8" style="display:none" onclick="C.deleteSkill()">Delete Skill</button>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     MY PROFILE
-═══════════════════════════════════════ -->
-<div id="s-profile" class="screen main-screen" style="flex-direction:column;background:var(--bg0)">
-  <div class="top-bar">
-    <button class="icon-btn" onclick="C.navTo('discover')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
-    <h2>My Profile</h2>
-    <div style="display:flex;gap:8px"><div class="theme-btn" onclick="C.toggleTheme()">🌙</div><button class="btn btn-sm btn-o" onclick="C.openEditProfile()">Edit</button></div>
+<!-- MY PROFILE -->
+<div id="s-profile" class="screen main-pad" style="background:var(--off)">
+  <div class="tb2"><button class="ib" onclick="C.navTo('discover')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><h2>My Profile</h2><div style="display:flex;gap:8px"><div class="theme-btn" onclick="C.toggleTheme()">🌙</div><button class="btn btn-o btn-sm" onclick="C.openEditProfile()">Edit</button></div></div>
+  <div id="my-profile" class="scroll" style="flex:1"></div>
+</div>
+
+<!-- WALLET -->
+<div id="s-wallet" class="screen" style="background:var(--off)">
+  <div class="tb2"><button class="ib" onclick="C.navTo('profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><h2>Wallet</h2><div style="width:40px"></div></div>
+  <div id="wallet-content" class="scroll" style="flex:1;padding:16px 20px"></div>
+</div>
+
+<!-- SETTINGS -->
+<div id="s-settings" class="screen" style="background:var(--off)">
+  <div class="tb2"><button class="ib" onclick="C.navTo('profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><h2>Settings</h2><div style="width:40px"></div></div>
+  <div id="settings-content" class="scroll" style="flex:1;padding:8px 0;background:#fff"></div>
+</div>
+
+<!-- MARKETPLACE -->
+<div id="s-market" class="screen main-pad" style="background:var(--off)">
+  <div class="tb2"><button class="ib" onclick="C.navTo('discover')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><h2>Marketplace</h2><button class="btn btn-p btn-sm" onclick="C.openCreate('shop')">+ Sell</button></div>
+  <div style="padding:10px 16px;background:#fff;border-bottom:1px solid var(--bd);flex-shrink:0"><div style="display:flex;align-items:center;gap:8px;background:var(--off);border:1.5px solid var(--bd);border-radius:14px;padding:9px 14px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--tm)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg><input type="text" id="market-search" style="flex:1;background:none;border:none;font-size:.85rem;color:var(--tx);outline:none;font-family:'Plus Jakarta Sans',sans-serif" placeholder="Search products, shops, deals..." oninput="C.filterMarket()"></div></div>
+  <div class="ftabs" id="market-cats" style="flex-shrink:0;background:#fff">
+    <button class="ftab on" data-mcat="all" onclick="C.filterMarketCat('all',this)">🛍 All</button>
+    <button class="ftab" data-mcat="products" onclick="C.filterMarketCat('products',this)">📦 Products</button>
+    <button class="ftab" data-mcat="deals" onclick="C.filterMarketCat('deals',this)">🔥 Deals</button>
+    <button class="ftab" data-mcat="events" onclick="C.filterMarketCat('events',this)">📅 Events</button>
+    <button class="ftab" data-mcat="collabs" onclick="C.filterMarketCat('collabs',this)">🤝 Collabs</button>
+    <button class="ftab" data-mcat="shops" onclick="C.filterMarketCat('shops',this)">🏪 Shops</button>
   </div>
-  <div id="my-profile" class="screen-scroll" style="flex:1"></div>
+  <div id="market-content" class="scroll" style="flex:1;padding:12px 20px"></div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     WALLET
-═══════════════════════════════════════ -->
-<div id="s-wallet" class="screen" style="flex-direction:column;background:var(--bg0)">
-  <div class="top-bar"><button class="icon-btn" onclick="C.navTo('profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><h2>Wallet</h2><div style="width:40px"></div></div>
-  <div id="wallet-content" class="screen-scroll" style="flex:1;padding:16px 20px"></div>
+<!-- MY SHOP -->
+<div id="s-my-shop" class="screen" style="background:var(--off)">
+  <div class="tb2"><button class="ib" onclick="C.navTo('profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><h2>My Shop</h2><button class="btn btn-p btn-sm" onclick="C.openCreate('shop')">+ Add</button></div>
+  <div id="my-shop-content" class="scroll" style="flex:1;padding:12px 20px"></div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     SETTINGS
-═══════════════════════════════════════ -->
-<div id="s-settings" class="screen" style="flex-direction:column;background:var(--bg0)">
-  <div class="top-bar"><button class="icon-btn" onclick="C.navTo('profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><h2>Settings</h2><div style="width:40px"></div></div>
-  <div id="settings-content" class="screen-scroll" style="flex:1;padding:8px 0"></div>
+<!-- CONTENT DETAIL -->
+<div id="s-content-detail" class="screen" style="background:var(--off)">
+  <div class="tb2"><button class="ib" id="cd-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><h2 id="cd-title">Post</h2><div style="width:40px"></div></div>
+  <div id="cd-content" class="scroll" style="flex:1;padding:16px 20px"></div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     FILTER DRAWER
-═══════════════════════════════════════ -->
-<div id="s-filters" class="drawer-overlay" style="display:none" onclick="C.closeFilters(event)">
-  <div class="drawer">
-    <div class="drawer-handle"></div>
-    <h3 class="drawer-title">Filter Results</h3>
-    <div class="form-group"><label class="form-label">Category</label><select id="f-cat" class="form-select"><option value="">All Categories</option></select></div>
-    <div class="form-group"><label class="form-label">Service Type</label>
-      <div class="tgl-row" id="f-stype">
-        <div class="tgl on" data-v="all" onclick="C.selTgl('f-stype',this)">All</div>
-        <div class="tgl" data-v="remote" onclick="C.selTgl('f-stype',this)">Remote</div>
-        <div class="tgl" data-v="physical" onclick="C.selTgl('f-stype',this)">In-Person</div>
-      </div>
-    </div>
-    <div class="form-group"><label class="form-label">Pricing</label>
-      <div class="tgl-row" id="f-price">
-        <div class="tgl on" data-v="all" onclick="C.selTgl('f-price',this)">All</div>
-        <div class="tgl" data-v="free" onclick="C.selTgl('f-price',this)">Free</div>
-        <div class="tgl" data-v="negotiable" onclick="C.selTgl('f-price',this)">Negotiate</div>
-        <div class="tgl" data-v="fixed" onclick="C.selTgl('f-price',this)">Fixed</div>
-      </div>
-    </div>
-    <div class="form-group"><label class="form-label">Max Price (₦)</label><input type="number" id="f-max" class="form-input" placeholder="e.g. 50000"></div>
-    <button class="btn btn-p btn-full" onclick="C.applyFilters()">Apply</button>
-    <button class="btn btn-g btn-full mt-8" onclick="C.resetFilters()">Reset</button>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════
-     MODALS
-═══════════════════════════════════════ -->
-<div id="modal-request" class="modal-ov" style="display:none" onclick="C.closeModal(event,'modal-request')">
-  <div class="modal-sh"><div class="modal-drag"></div>
-    <h3 class="modal-ttl">Send Request</h3><p class="modal-sub">Select a skill and describe your need</p>
-    <div id="req-skill-sel"></div>
-    <div class="form-group mt-8"><label class="form-label">Message *</label><textarea id="req-msg" class="form-textarea" placeholder="What do you need? Timeline? Budget?"></textarea></div>
-    <div style="display:flex;gap:10px"><button class="btn btn-g" style="flex:1" onclick="C.closeModalById('modal-request')">Cancel</button><button class="btn btn-p" style="flex:2" onclick="C.submitRequest()">Send 🚀</button></div>
+<!-- FILTER DRAWER -->
+<div id="s-filters" class="dov" style="display:none" onclick="C.closeFilters(event)">
+  <div class="dr"><div class="mdrag"></div><div class="mt">Filter Results</div>
+    <div class="fg mt8"><label class="fl">Category</label><select id="f-cat" class="fse"><option value="">All Categories</option></select></div>
+    <div class="fg"><label class="fl">Service Type</label><div class="tgl-row" id="f-stype"><div class="tgl on" data-v="all" onclick="C.selTgl('f-stype',this)">All</div><div class="tgl" data-v="remote" onclick="C.selTgl('f-stype',this)">Remote</div><div class="tgl" data-v="physical" onclick="C.selTgl('f-stype',this)">In-Person</div></div></div>
+    <div class="fg"><label class="fl">Pricing</label><div class="tgl-row" id="f-price"><div class="tgl on" data-v="all" onclick="C.selTgl('f-price',this)">All</div><div class="tgl" data-v="free" onclick="C.selTgl('f-price',this)">Free</div><div class="tgl" data-v="negotiable" onclick="C.selTgl('f-price',this)">Negotiate</div><div class="tgl" data-v="fixed" onclick="C.selTgl('f-price',this)">Fixed</div></div></div>
+    <div class="fg"><label class="fl">Max Price (₦)</label><input type="number" id="f-max" class="fi" placeholder="e.g. 50000"></div>
+    <button class="btn btn-p btn-f" onclick="C.applyFilters()">Apply Filters</button>
+    <button class="btn btn-g btn-f mt8" onclick="C.resetFilters()">Reset</button>
   </div>
 </div>
 
-<div id="modal-refer" class="modal-ov" style="display:none" onclick="C.closeModal(event,'modal-refer')">
-  <div class="modal-sh"><div class="modal-drag"></div>
-    <h3 class="modal-ttl">Refer this person 🤝</h3><p class="modal-sub">Boost their Trust Score on Cionti</p>
-    <div class="form-group"><label class="form-label">Why recommend them?</label><textarea id="refer-ctx" class="form-textarea" placeholder="e.g. Excellent work, very professional, delivered on time..."></textarea></div>
-    <div style="display:flex;gap:10px"><button class="btn btn-g" style="flex:1" onclick="C.closeModalById('modal-refer')">Cancel</button><button class="btn btn-p" style="flex:2" onclick="C.submitReferral()">Refer 🤝</button></div>
-  </div>
-</div>
-
-<div id="modal-edit-profile" class="modal-ov" style="display:none" onclick="C.closeModal(event,'modal-edit-profile')">
-  <div class="modal-sh"><div class="modal-drag"></div>
-    <h3 class="modal-ttl">Edit Profile</h3>
-    <div class="form-group"><label class="form-label">Full Name</label><input type="text" id="ep-name" class="form-input"></div>
-    <div class="form-group"><label class="form-label">Bio</label><textarea id="ep-bio" class="form-textarea"></textarea></div>
-    <div class="form-group"><label class="form-label">City</label><input type="text" id="ep-city" class="form-input"></div>
-    <div class="form-group"><label class="form-label">State</label><input type="text" id="ep-state" class="form-input"></div>
-    <div class="form-group"><label class="form-label">Availability</label>
-      <select id="ep-avail" class="form-select"><option value="true">Available for work</option><option value="false">Not available</option></select>
-    </div>
-    <div class="form-group"><label class="form-label">New Profile Photo</label><input type="file" id="ep-photo" accept="image/*" class="form-input" style="padding:10px"></div>
-    <div style="display:flex;gap:10px"><button class="btn btn-g" style="flex:1" onclick="C.closeModalById('modal-edit-profile')">Cancel</button><button class="btn btn-p" style="flex:2" id="btn-save-ep" onclick="C.saveEditProfile()">Save</button></div>
-  </div>
-</div>
-
-<div id="modal-review" class="modal-ov" style="display:none" onclick="C.closeModal(event,'modal-review')">
-  <div class="modal-sh"><div class="modal-drag"></div>
-    <h3 class="modal-ttl">Leave a Review ⭐</h3>
-    <div class="form-group"><label class="form-label">Rating</label><div class="star-picker" id="star-picker"></div></div>
-    <div class="form-group"><label class="form-label">Comment</label><textarea id="rev-comment" class="form-textarea" placeholder="How was your experience?"></textarea></div>
-    <input type="hidden" id="rev-req-id"><input type="hidden" id="rev-prov-id">
-    <div style="display:flex;gap:10px"><button class="btn btn-g" style="flex:1" onclick="C.closeModalById('modal-review')">Cancel</button><button class="btn btn-p" style="flex:2" onclick="C.submitReview()">Submit ⭐</button></div>
-  </div>
-</div>
-
-<div id="modal-payment" class="modal-ov" style="display:none" onclick="C.closeModal(event,'modal-payment')">
-  <div class="modal-sh"><div class="modal-drag"></div>
-    <h3 class="modal-ttl">Confirm Payment 💳</h3>
-    <p class="modal-sub">Funds held in escrow until job is complete</p>
-    <div id="pay-summary" class="pay-summary"></div>
-    <div class="escrow-note mt-8">🔒 <strong>Escrow Protection</strong> — Your payment is held securely and released to the provider only after you confirm the job is done.</div>
-    <div style="display:flex;gap:10px;margin-top:16px"><button class="btn btn-g" style="flex:1" onclick="C.closeModalById('modal-payment')">Cancel</button><button class="btn btn-p" style="flex:2" id="btn-pay" onclick="C.initiatePayment()">Pay with Paystack 💳</button></div>
-  </div>
-</div>
-
-<div id="modal-notifs" class="modal-ov" style="display:none" onclick="C.closeModal(event,'modal-notifs')">
-  <div class="modal-sh"><div class="modal-drag"></div>
-    <h3 class="modal-ttl">Notifications 🔔</h3>
-    <div id="notifs-list" style="max-height:60vh;overflow-y:auto;margin:0 -24px;padding:0 24px"></div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════
-     CREATE PICKER SHEET
-═══════════════════════════════════════ -->
-<div id="create-picker" class="drawer-overlay" style="display:none" onclick="C.closeCreatePicker(event)">
-  <div class="drawer" style="padding-bottom:36px">
-    <div class="drawer-handle"></div>
-    <h3 class="drawer-title" style="margin-bottom:4px">Create Something</h3>
-    <p style="font-size:.8rem;color:var(--textl);margin-bottom:20px">What do you want to share with your community?</p>
-    <div class="create-grid">
-      <div class="create-opt" onclick="C.openCreate('post')">
-        <div class="create-opt-icon" style="background:linear-gradient(135deg,var(--p),var(--p2))">✍️</div>
-        <div class="create-opt-name">Post</div><div class="create-opt-hint">Share a thought</div>
-      </div>
-      <div class="create-opt" onclick="C.openCreate('photo')">
-        <div class="create-opt-icon" style="background:linear-gradient(135deg,#EC4899,#F97316)">📸</div>
-        <div class="create-opt-name">Photo</div><div class="create-opt-hint">Share an image</div>
-      </div>
-      <div class="create-opt" onclick="C.openCreate('skill')">
-        <div class="create-opt-icon" style="background:linear-gradient(135deg,#10B981,#059669)">🛠</div>
-        <div class="create-opt-name">Skill</div><div class="create-opt-hint">Offer a service</div>
-      </div>
-      <div class="create-opt" onclick="C.openCreate('shop')">
-        <div class="create-opt-icon" style="background:linear-gradient(135deg,var(--gold),#D97706)">🛍</div>
-        <div class="create-opt-name">Shop Item</div><div class="create-opt-hint">Sell a product</div>
-      </div>
-      <div class="create-opt" onclick="C.openCreate('deal')">
-        <div class="create-opt-icon" style="background:linear-gradient(135deg,#EF4444,#EC4899)">🔥</div>
-        <div class="create-opt-name">Deal / Promo</div><div class="create-opt-hint">Time-limited offer</div>
-      </div>
-      <div class="create-opt" onclick="C.openCreate('event')">
-        <div class="create-opt-icon" style="background:linear-gradient(135deg,#8B5CF6,var(--p))">📅</div>
-        <div class="create-opt-name">Event</div><div class="create-opt-hint">Workshop or class</div>
-      </div>
-      <div class="create-opt" onclick="C.openCreate('collab')">
-        <div class="create-opt-icon" style="background:linear-gradient(135deg,#0EA5E9,var(--p))">🤝</div>
-        <div class="create-opt-name">Collab</div><div class="create-opt-hint">Find a partner</div>
-      </div>
-      <div class="create-opt" onclick="C.openCreate('poll')">
-        <div class="create-opt-icon" style="background:linear-gradient(135deg,#6366F1,#8B5CF6)">📊</div>
-        <div class="create-opt-name">Poll</div><div class="create-opt-hint">Ask the community</div>
-      </div>
+<!-- CREATE PICKER -->
+<div id="create-picker" class="dov" style="display:none" onclick="C.closeCreatePicker(event)">
+  <div class="dr"><div class="mdrag"></div><div class="mt">Create Something</div>
+    <p style="font-size:.82rem;color:var(--tl);margin-bottom:20px">What do you want to share with your community?</p>
+    <div class="cgrid">
+      <div class="copt" onclick="C.openCreate('post')"><div class="copti" style="background:var(--inb)">✍️</div><div class="coptn">Post</div><div class="copth">Share a thought</div></div>
+      <div class="copt" onclick="C.openCreate('photo')"><div class="copti" style="background:#FCE7F3">📸</div><div class="coptn">Photo</div><div class="copth">Share an image</div></div>
+      <div class="copt" onclick="C.openCreate('skill')"><div class="copti" style="background:#D1FAE5">🛠</div><div class="coptn">Skill</div><div class="copth">Offer a service</div></div>
+      <div class="copt" onclick="C.openCreate('shop')"><div class="copti" style="background:#FEF3C7">🛍</div><div class="coptn">Shop Item</div><div class="copth">Sell a product</div></div>
+      <div class="copt" onclick="C.openCreate('deal')"><div class="copti" style="background:#FEE2E2">🔥</div><div class="coptn">Deal</div><div class="copth">Limited offer</div></div>
+      <div class="copt" onclick="C.openCreate('event')"><div class="copti" style="background:#EDE9FE">📅</div><div class="coptn">Event</div><div class="copth">Workshop or class</div></div>
+      <div class="copt" onclick="C.openCreate('collab')"><div class="copti" style="background:#DBEAFE">🤝</div><div class="coptn">Collab</div><div class="copth">Find a partner</div></div>
+      <div class="copt" onclick="C.openCreate('poll')"><div class="copti" style="background:#EDE9FE">📊</div><div class="coptn">Poll</div><div class="copth">Ask community</div></div>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     CREATE CONTENT SCREEN
-═══════════════════════════════════════ -->
-<div id="s-create" class="screen" style="flex-direction:column;background:var(--bg0)">
-  <div class="top-bar">
-    <button class="icon-btn" onclick="C.goTo(S.currentNav||'feed')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
-    <h2 id="create-title">Create Post</h2>
-    <button class="btn btn-p btn-sm" id="btn-publish" onclick="C.publishContent()">Publish</button>
-  </div>
-  <div class="screen-scroll" style="flex:1;padding:16px 20px 40px">
+<!-- CREATE EDITOR -->
+<div id="s-create" class="screen" style="background:#fff">
+  <div class="tb2"><button class="ib" onclick="C.goTo(S.currentNav||'feed')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button><h2 id="create-title">Create Post</h2><button class="btn btn-p btn-sm" id="btn-publish" onclick="C.publishContent()">Publish</button></div>
+  <div class="scroll" style="flex:1;padding:16px 20px 40px">
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
-      <div id="create-av" class="avatar av-md" style="background:var(--p);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-family:'Sora',sans-serif">O</div>
-      <div>
-        <div id="create-author" style="font-weight:700;font-size:.88rem;font-family:'Sora',sans-serif">Your Name</div>
-        <select id="create-visibility" style="font-size:.73rem;color:var(--p2);background:none;border:none;padding:0;cursor:pointer;font-weight:600;font-family:'Plus Jakarta Sans',sans-serif">
-          <option value="public">🌍 Public</option>
-          <option value="local">📍 Local area only</option>
-          <option value="followers">👥 Followers only</option>
-        </select>
-      </div>
+      <div id="create-av" class="avatar av-md" style="background:var(--in);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-family:'Sora',sans-serif">O</div>
+      <div><div id="create-author" style="font-weight:700;font-size:.88rem;font-family:'Sora',sans-serif">Your Name</div><select id="create-visibility" style="font-size:.73rem;color:var(--inm);background:none;border:none;padding:0;cursor:pointer;font-weight:600;font-family:'Plus Jakarta Sans',sans-serif"><option value="public">🌍 Public</option><option value="local">📍 Local area only</option><option value="followers">👥 Followers only</option></select></div>
     </div>
     <div id="create-fields"></div>
-    <div id="create-img-preview" style="display:none;margin-bottom:12px;border-radius:16px;overflow:hidden;max-height:240px;position:relative">
-      <img id="create-img-el" style="width:100%;object-fit:cover">
-      <button onclick="C.removeCreateImg()" style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,0.6);color:#fff;border:none;border-radius:50%;width:28px;height:28px;cursor:pointer;font-size:1rem">×</button>
-    </div>
-    <div class="form-group" id="create-tags-wrap" style="display:none">
-      <label class="form-label">Tags <span style="color:var(--textm);font-weight:400">(comma-separated)</span></label>
-      <input type="text" id="create-tags" class="form-input" placeholder="e.g. fashion, design, warri">
-    </div>
-    <div class="create-toolbar">
-      <button class="create-tool" onclick="document.getElementById('create-img-file').click()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-        Photo
-      </button>
-      <button class="create-tool" onclick="C.addLocation()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        Location
-      </button>
-      <button class="create-tool" onclick="C.addPriceTag()" id="tool-price" style="display:none">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
-        Price
-      </button>
-      <div id="create-loc-tag" style="display:none;font-size:.73rem;color:var(--p2);font-weight:600;align-items:center;gap:4px">
-        📍 <span id="create-loc-text">Detecting...</span>
-        <button onclick="C.removeLocation()" style="background:none;border:none;color:var(--textm);cursor:pointer;font-size:.85rem">×</button>
-      </div>
+    <div id="create-img-preview" style="display:none;margin-bottom:12px;border-radius:16px;overflow:hidden;max-height:240px;position:relative"><img id="create-img-el" style="width:100%;object-fit:cover"><button onclick="C.removeCreateImg()" style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,0.6);color:#fff;border:none;border-radius:50%;width:28px;height:28px;cursor:pointer;font-size:1rem">×</button></div>
+    <div class="fg" id="create-tags-wrap" style="display:none"><label class="fl">Tags <span class="tmuted" style="font-weight:400">(comma-separated)</span></label><input type="text" id="create-tags" class="fi" placeholder="e.g. fashion, design, warri"></div>
+    <div class="ctbar">
+      <button class="ctool" onclick="document.getElementById('create-img-file').click()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Photo</button>
+      <button class="ctool" onclick="C.addLocation()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Location</button>
+      <button class="ctool" onclick="C.addPriceTag()" id="tool-price" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Price</button>
+      <div id="create-loc-tag" style="display:none;font-size:.73rem;color:var(--inm);font-weight:600;align-items:center;gap:4px">📍 <span id="create-loc-text">Detecting...</span><button onclick="C.removeLocation()" style="background:none;border:none;color:var(--tm);cursor:pointer;font-size:.85rem">×</button></div>
       <input type="file" id="create-img-file" accept="image/*" style="display:none" onchange="C.previewCreateImg(this)">
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     MARKETPLACE
-═══════════════════════════════════════ -->
-<div id="s-market" class="screen main-screen" style="flex-direction:column;background:var(--bg0)">
-  <div class="top-bar">
-    <button class="icon-btn" onclick="C.navTo('discover')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
-    <h2>Marketplace</h2>
-    <div style="display:flex;gap:8px">
-      <div class="theme-btn" onclick="C.toggleTheme()">🌙</div>
-      <button class="btn btn-sm btn-p" onclick="C.openCreate('shop')">+ Sell</button>
-    </div>
-  </div>
-  <div style="padding:10px 16px;background:var(--bg1);border-bottom:1px solid var(--border);flex-shrink:0">
-    <div style="display:flex;align-items:center;gap:8px;background:var(--bg2);border:1.5px solid var(--border);border-radius:14px;padding:9px 14px">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--textm)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-      <input type="text" id="market-search" class="form-input" style="background:none;border:none;padding:0;font-size:.85rem" placeholder="Search products, shops, deals..." oninput="C.filterMarket()">
-    </div>
-  </div>
-  <div class="feed-tabs" id="market-cats" style="flex-shrink:0">
-    <button class="feed-tab on" data-mcat="all" onclick="C.filterMarketCat('all',this)">🛍 All</button>
-    <button class="feed-tab" data-mcat="products" onclick="C.filterMarketCat('products',this)">📦 Products</button>
-    <button class="feed-tab" data-mcat="deals" onclick="C.filterMarketCat('deals',this)">🔥 Deals</button>
-    <button class="feed-tab" data-mcat="events" onclick="C.filterMarketCat('events',this)">📅 Events</button>
-    <button class="feed-tab" data-mcat="collabs" onclick="C.filterMarketCat('collabs',this)">🤝 Collabs</button>
-    <button class="feed-tab" data-mcat="shops" onclick="C.filterMarketCat('shops',this)">🏪 Shops</button>
-  </div>
-  <div id="market-content" class="screen-scroll" style="flex:1;padding:12px 16px"></div>
-</div>
+<!-- MODALS -->
+<div id="modal-request" class="mo" style="display:none" onclick="C.closeModal(event,'modal-request')"><div class="ms"><div class="mdrag"></div><div class="mt">Send Request</div><p class="msub">Select a skill and describe your need</p><div id="req-skill-sel"></div><div class="fg mt8"><label class="fl">Message *</label><textarea id="req-msg" class="ft" placeholder="What do you need? Timeline? Budget?"></textarea></div><div style="display:flex;gap:10px"><button class="btn btn-g" style="flex:1" onclick="C.closeModalById('modal-request')">Cancel</button><button class="btn btn-p" style="flex:2" onclick="C.submitRequest()">Send 🚀</button></div></div></div>
+<div id="modal-refer" class="mo" style="display:none" onclick="C.closeModal(event,'modal-refer')"><div class="ms"><div class="mdrag"></div><div class="mt">Refer this person 🤝</div><p class="msub">Boost their Trust Score on Cionti</p><div class="fg"><label class="fl">Why recommend them?</label><textarea id="refer-ctx" class="ft" placeholder="e.g. Excellent work, professional..."></textarea></div><div style="display:flex;gap:10px"><button class="btn btn-g" style="flex:1" onclick="C.closeModalById('modal-refer')">Cancel</button><button class="btn btn-p" style="flex:2" onclick="C.submitReferral()">Refer 🤝</button></div></div></div>
+<div id="modal-edit-profile" class="mo" style="display:none" onclick="C.closeModal(event,'modal-edit-profile')"><div class="ms"><div class="mdrag"></div><div class="mt">Edit Profile</div><div class="fg"><label class="fl">Full Name</label><input type="text" id="ep-name" class="fi"></div><div class="fg"><label class="fl">Bio</label><textarea id="ep-bio" class="ft"></textarea></div><div class="fg"><label class="fl">City</label><input type="text" id="ep-city" class="fi"></div><div class="fg"><label class="fl">State</label><input type="text" id="ep-state" class="fi"></div><div class="fg"><label class="fl">Availability</label><select id="ep-avail" class="fse"><option value="true">Available for work</option><option value="false">Not available</option></select></div><div class="fg"><label class="fl">New Profile Photo</label><input type="file" id="ep-photo" accept="image/*" class="fi" style="padding:10px"></div><div style="display:flex;gap:10px"><button class="btn btn-g" style="flex:1" onclick="C.closeModalById('modal-edit-profile')">Cancel</button><button class="btn btn-p" style="flex:2" id="btn-save-ep" onclick="C.saveEditProfile()">Save</button></div></div></div>
+<div id="modal-review" class="mo" style="display:none" onclick="C.closeModal(event,'modal-review')"><div class="ms"><div class="mdrag"></div><div class="mt">Leave a Review ⭐</div><div class="fg"><label class="fl">Rating</label><div class="sp2" id="star-picker"></div></div><div class="fg"><label class="fl">Comment</label><textarea id="rev-comment" class="ft" placeholder="How was your experience?"></textarea></div><input type="hidden" id="rev-req-id"><input type="hidden" id="rev-prov-id"><div style="display:flex;gap:10px"><button class="btn btn-g" style="flex:1" onclick="C.closeModalById('modal-review')">Cancel</button><button class="btn btn-p" style="flex:2" onclick="C.submitReview()">Submit ⭐</button></div></div></div>
+<div id="modal-payment" class="mo" style="display:none" onclick="C.closeModal(event,'modal-payment')"><div class="ms"><div class="mdrag"></div><div class="mt">Confirm Payment 💳</div><p class="msub">Funds held in escrow until job is complete</p><div id="pay-summary" class="pay-summary"></div><div class="en mt8">🔒 <strong>Escrow Protection</strong> — Payment released only after you confirm job is done.</div><div style="display:flex;gap:10px;margin-top:16px"><button class="btn btn-g" style="flex:1" onclick="C.closeModalById('modal-payment')">Cancel</button><button class="btn btn-p" style="flex:2" id="btn-pay" onclick="C.initiatePayment()">Pay with Paystack 💳</button></div></div></div>
+<div id="modal-notifs" class="mo" style="display:none" onclick="C.closeModal(event,'modal-notifs')"><div class="ms"><div class="mdrag"></div><div class="mt">Notifications 🔔</div><div id="notifs-list" style="max-height:60vh;overflow-y:auto;margin:0 -24px;padding:0 24px"></div></div></div>
 
-<!-- ═══════════════════════════════════════
-     MY SHOP
-═══════════════════════════════════════ -->
-<div id="s-my-shop" class="screen" style="flex-direction:column;background:var(--bg0)">
-  <div class="top-bar"><button class="icon-btn" onclick="C.navTo('profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><h2>My Shop</h2><button class="btn btn-sm btn-p" onclick="C.openCreate('shop')">+ Add</button></div>
-  <div id="my-shop-content" class="screen-scroll" style="flex:1;padding:12px 16px"></div>
-</div>
-
-<!-- ═══════════════════════════════════════
-     CONTENT DETAIL
-═══════════════════════════════════════ -->
-<div id="s-content-detail" class="screen" style="flex-direction:column;background:var(--bg0)">
-  <div class="top-bar"><button class="icon-btn" id="cd-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><h2 id="cd-title">Post</h2><div style="width:40px"></div></div>
-  <div id="cd-content" class="screen-scroll" style="flex:1;padding:16px"></div>
-</div>
-
-<!-- ═══════════════════════════════════════
-     BOTTOM NAV
-═══════════════════════════════════════ -->
-<nav id="bottom-nav">
-  <div class="nav-item active" id="nav-discover" onclick="C.navTo('discover')">
-    <svg viewBox="0 0 24 24" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-    <span>Discover</span>
-  </div>
-  <div class="nav-item" id="nav-feed" onclick="C.navTo('feed')">
-    <svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    <span>Explore</span>
-  </div>
-  <div class="nav-item nav-post-wrap" onclick="C.showCreatePicker()">
-    <div class="nav-post-btn">
-      <svg viewBox="0 0 24 24" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
-    </div>
-    <span>Create</span>
-  </div>
-  <div class="nav-item" id="nav-market" onclick="C.navTo('market')">
-    <svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-    <span>Market</span>
-  </div>
-  <div class="nav-item" id="nav-profile" onclick="C.navTo('profile')">
-    <svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z"/></svg>
-    <span>Profile</span>
-  </div>
+<!-- BOTTOM NAV -->
+<nav id="bn">
+  <div class="ni active" id="nav-discover" onclick="C.navTo('discover')"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg><span>Discover</span></div>
+  <div class="ni" id="nav-feed" onclick="C.navTo('feed')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Explore</span></div>
+  <div class="ni ni-post" onclick="C.showCreatePicker()"><div class="ni-btn"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div><span>Create</span></div>
+  <div class="ni" id="nav-market" onclick="C.navTo('market')"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><span>Market</span></div>
+  <div class="ni" id="nav-profile" onclick="C.navTo('profile')"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z"/></svg><span>Profile</span></div>
 </nav>
 
 <div id="toast"></div>
 </div>
+
+<script>
+// Splash → Welcome: random 0.9–2.1s
+window.addEventListener('DOMContentLoaded',()=>{
+  const ms = 900 + Math.random()*1200;
+  setTimeout(()=>{
+    const sp=document.getElementById('s-splash');
+    sp.style.transition='opacity .4s ease';
+    sp.style.opacity='0';
+    setTimeout(()=>{
+      sp.style.display='none';
+      sp.classList.remove('active');
+      const wl=document.getElementById('s-welcome');
+      wl.style.display='flex';
+      wl.classList.add('active');
+    },400);
+  },ms);
+});
+// Account type picker
+window.selAccType=(type,el)=>{
+  window._accType=type;
+  document.querySelectorAll('.at-card').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+  const bw=document.getElementById('biz-name-wrap');
+  const bl=document.getElementById('biz-name-lbl');
+  if(type==='business'){bw.style.display='';bl.textContent='Business Name *';}
+  else if(type==='company'){bw.style.display='';bl.textContent='Company Name *';}
+  else{bw.style.display='none';}
+};
+// Service chip toggle
+window.togSvc=el=>{
+  el.classList.toggle('on');
+  const n=document.querySelectorAll('.sv-chip.on').length;
+  document.getElementById('svc-count').textContent=n+' selected';
+};
+</script>
 
 <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
