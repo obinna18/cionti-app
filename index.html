@@ -3,1328 +3,297 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#070B18">
+<meta name="theme-color" content="#06070F">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="description" content="Cionti — Community Of Talent In One Network. Find skilled people near you.">
 <title>Cionti</title>
 <link rel="manifest" href="manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,opsz,wght@0,6..30,300;0,6..30,400;0,6..30,500;0,6..30,600;0,6..30,700;1,6..30,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.Default.css">
-<style>
-/* ═══════════════════════════════════════════════════
-   CIONTI v2 — DESIGN SYSTEM
-   Community Of Talent In One Network
-   Premium dual-mode · Nigerian-born · Global-ready
-═══════════════════════════════════════════════════ */
-@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap');
-
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-
-/* ── DARK MODE (default) ── */
-:root{
-  --bg0:#070B18;
-  --bg1:#0D1526;
-  --bg2:#131D35;
-  --bg3:#1A2645;
-  --border:rgba(255,255,255,0.07);
-  --border2:rgba(255,255,255,0.12);
-  --text:#F0F4FF;
-  --textl:#8A96B8;
-  --textm:#4A5580;
-  --p:#2952FF;
-  --pd:#1A3EE0;
-  --pl:rgba(41,82,255,0.15);
-  --p2:#5B7FFF;
-  --gold:#FFB800;
-  --goldl:rgba(255,184,0,0.12);
-  --ok:#00D97E;
-  --okl:rgba(0,217,126,0.12);
-  --bad:#FF4757;
-  --badl:rgba(255,71,87,0.12);
-  --warn:#FF8C00;
-  --card:rgba(255,255,255,0.04);
-  --card2:rgba(255,255,255,0.07);
-  --glass:rgba(13,21,38,0.85);
-  --shadow:0 8px 32px rgba(0,0,0,0.4);
-  --shadowp:0 8px 32px rgba(41,82,255,0.3);
-  --navh:68px;
-  --r:16px;
-  --r2:12px;
-  --mode:dark;
-}
-
-/* ── LIGHT MODE ── */
-[data-theme="light"]{
-  --bg0:#F0F4FF;
-  --bg1:#FFFFFF;
-  --bg2:#F5F7FF;
-  --bg3:#EEF2FF;
-  --border:rgba(0,0,0,0.07);
-  --border2:rgba(0,0,0,0.12);
-  --text:#0A0F1E;
-  --textl:#5A6480;
-  --textm:#9AA0B8;
-  --pl:rgba(41,82,255,0.08);
-  --card:rgba(255,255,255,0.9);
-  --card2:rgba(41,82,255,0.06);
-  --glass:rgba(240,244,255,0.92);
-  --shadow:0 8px 32px rgba(41,82,255,0.1);
-  --mode:light;
-}
-
-html{font-size:16px;height:100%;scroll-behavior:smooth}
-body{
-  font-family:'DM Sans',sans-serif;
-  background:var(--bg0);
-  color:var(--text);
-  height:100%;overflow:hidden;
-  -webkit-font-smoothing:antialiased;
-  transition:background .3s,color .3s;
-}
-h1,h2,h3,h4,h5{font-family:'Bricolage Grotesque',sans-serif;line-height:1.15;letter-spacing:-.02em}
-a{color:inherit;text-decoration:none}
-button{cursor:pointer;font-family:'DM Sans',sans-serif;outline:none;border:none}
-input,textarea,select{font-family:'DM Sans',sans-serif;outline:none;color:var(--text)}
-img{max-width:100%;display:block}
-
-/* App shell */
-#app{
-  max-width:430px;margin:0 auto;height:100vh;
-  position:relative;overflow:hidden;
-  background:var(--bg0);
-  box-shadow:0 0 100px rgba(41,82,255,0.12);
-  transition:background .3s;
-}
-
-/* Screen system */
-.screen{
-  position:absolute;inset:0;
-  overflow:hidden;display:none;
-  flex-direction:column;
-  opacity:0;transition:opacity .22s ease;
-}
-.screen.active{display:flex;opacity:1}
-.screen-scroll{overflow-y:auto;-ms-overflow-style:none;scrollbar-width:none}
-.screen-scroll::-webkit-scrollbar{display:none}
-.main-screen{padding-bottom:calc(var(--navh) + 2px)}
-
-/* ── BOTTOM NAV ── */
-#bottom-nav{
-  position:absolute;bottom:0;left:0;right:0;
-  height:var(--navh);
-  background:var(--glass);
-  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
-  border-top:1px solid var(--border);
-  display:none;z-index:200;
-  box-shadow:0 -8px 32px rgba(0,0,0,0.2);
-}
-#bottom-nav.visible{display:flex}
-.nav-item{
-  flex:1;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  gap:4px;cursor:pointer;color:var(--textm);
-  font-size:.58rem;font-weight:600;letter-spacing:.4px;
-  text-transform:uppercase;transition:all .2s;padding:0 2px;
-}
-.nav-item svg{width:22px;height:22px;transition:all .2s;stroke:currentColor}
-.nav-item.active{color:var(--p)}
-.nav-item.active svg{transform:translateY(-2px);filter:drop-shadow(0 0 8px var(--p))}
-.nav-post-wrap{position:relative}
-.nav-post-btn{
-  width:54px;height:54px;border-radius:50%;
-  background:linear-gradient(135deg,var(--p),var(--p2));
-  display:flex;align-items:center;justify-content:center;
-  margin-top:-22px;
-  box-shadow:0 4px 24px rgba(41,82,255,0.5);
-  transition:all .2s;
-}
-.nav-post-btn:active{transform:scale(.9)}
-
-/* ── BUTTONS ── */
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;
-  gap:8px;padding:13px 20px;border-radius:var(--r2);
-  font-size:.9rem;font-weight:600;cursor:pointer;
-  transition:all .2s;border:none;outline:none;
-  white-space:nowrap;font-family:'DM Sans',sans-serif;
-  position:relative;overflow:hidden;
-}
-.btn::after{
-  content:'';position:absolute;inset:0;
-  background:rgba(255,255,255,0);
-  transition:background .15s;
-}
-.btn:active::after{background:rgba(255,255,255,0.08)}
-.btn-p{
-  background:linear-gradient(135deg,var(--p),var(--p2));
-  color:#fff;
-  box-shadow:0 4px 20px rgba(41,82,255,0.35);
-}
-.btn-p:hover{transform:translateY(-1px);box-shadow:0 8px 28px rgba(41,82,255,0.45)}
-.btn-p:active{transform:translateY(0)}
-.btn-o{background:var(--pl);color:var(--p);border:1.5px solid rgba(41,82,255,0.3)}
-.btn-o:hover{background:rgba(41,82,255,0.2)}
-.btn-g{background:var(--bg2);color:var(--text);border:1px solid var(--border)}
-.btn-g:hover{background:var(--bg3)}
-.btn-ok{background:linear-gradient(135deg,#00D97E,#00B868);color:#fff}
-.btn-bad{background:linear-gradient(135deg,var(--bad),#E0001B);color:#fff}
-.btn-gold{background:linear-gradient(135deg,var(--gold),#FF9500);color:#000}
-.btn-full{width:100%}
-.btn-sm{padding:8px 14px;font-size:.78rem;border-radius:10px}
-.btn-xs{padding:5px 10px;font-size:.72rem;border-radius:8px}
-.btn:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shadow:none!important}
-
-/* ── INPUTS ── */
-.form-group{margin-bottom:14px}
-.form-label{
-  display:block;font-size:.75rem;font-weight:600;
-  color:var(--textl);margin-bottom:6px;letter-spacing:.3px;
-  text-transform:uppercase;
-}
-.form-input,.form-select,.form-textarea{
-  width:100%;padding:13px 15px;
-  border-radius:var(--r2);
-  border:1.5px solid var(--border2);
-  background:var(--bg2);
-  font-family:'DM Sans',sans-serif;
-  font-size:.88rem;color:var(--text);
-  transition:all .2s;
-}
-.form-input:focus,.form-select:focus,.form-textarea:focus{
-  border-color:var(--p);
-  background:var(--bg1);
-  box-shadow:0 0 0 3px var(--pl);
-}
-.form-textarea{resize:vertical;min-height:80px;line-height:1.6}
-.form-select{
-  appearance:none;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%238A96B8' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right 14px center;
-  cursor:pointer;
-}
-.form-select option{background:var(--bg1)}
-
-/* ── AVATAR ── */
-.avatar{
-  border-radius:50%;object-fit:cover;display:inline-flex;
-  align-items:center;justify-content:center;
-  font-family:'Bricolage Grotesque',sans-serif;font-weight:700;
-  flex-shrink:0;overflow:hidden;
-}
-.av-xs{width:28px;height:28px;font-size:.62rem}
-.av-sm{width:40px;height:40px;font-size:.82rem}
-.av-md{width:52px;height:52px;font-size:1rem}
-.av-lg{width:72px;height:72px;font-size:1.4rem}
-.av-xl{width:88px;height:88px;font-size:1.8rem}
-.av-online{box-shadow:0 0 0 2px var(--bg0),0 0 0 4px var(--ok)}
-
-/* ── BADGES ── */
-.badge{
-  display:inline-flex;align-items:center;gap:4px;
-  padding:3px 9px;border-radius:20px;
-  font-size:.67rem;font-weight:700;letter-spacing:.3px;
-}
-.badge-p{background:var(--pl);color:var(--p2)}
-.badge-ok{background:var(--okl);color:var(--ok)}
-.badge-bad{background:var(--badl);color:var(--bad)}
-.badge-gold{background:var(--goldl);color:var(--gold)}
-.badge-n{background:var(--bg2);color:var(--textl)}
-.trust-badge{
-  background:linear-gradient(135deg,var(--gold),#FF9500);
-  color:#000;font-weight:800;
-  display:inline-flex;align-items:center;gap:3px;
-  padding:3px 9px;border-radius:20px;font-size:.67rem;
-  box-shadow:0 2px 8px rgba(255,184,0,0.3);
-}
-
-/* ── CARDS ── */
-.card{
-  background:var(--bg1);border-radius:var(--r);
-  border:1px solid var(--border);
-  transition:all .2s;
-}
-.card:hover{border-color:var(--border2);transform:translateY(-1px);box-shadow:var(--shadow)}
-.glass-card{
-  background:var(--glass);
-  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-  border:1px solid var(--border);
-  border-radius:var(--r);
-}
-
-/* ── CHIPS ── */
-.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
-.chips::-webkit-scrollbar{display:none}
-.chip{
-  display:inline-flex;align-items:center;gap:5px;
-  padding:7px 14px;border-radius:20px;
-  border:1.5px solid var(--border2);
-  background:var(--bg2);
-  font-size:.75rem;font-weight:600;cursor:pointer;
-  transition:all .18s;white-space:nowrap;flex-shrink:0;
-  color:var(--textl);
-}
-.chip.on{
-  background:var(--p);border-color:var(--p);
-  color:#fff;
-  box-shadow:0 4px 14px rgba(41,82,255,0.35);
-}
-
-/* ── TOAST ── */
-#toast{
-  position:fixed;bottom:88px;left:50%;
-  transform:translateX(-50%) translateY(12px);
-  background:var(--bg3);color:var(--text);
-  padding:11px 22px;border-radius:12px;
-  font-size:.82rem;font-weight:500;z-index:9999;
-  opacity:0;transition:all .25s;pointer-events:none;
-  white-space:nowrap;max-width:88vw;text-align:center;
-  border:1px solid var(--border2);
-  box-shadow:var(--shadow);
-}
-#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-#toast.ok{background:var(--ok);color:#fff;border-color:transparent}
-#toast.err{background:var(--bad);color:#fff;border-color:transparent}
-
-/* ── SPINNER ── */
-.spinner{
-  width:24px;height:24px;
-  border:2.5px solid var(--border2);
-  border-top-color:var(--p);border-radius:50%;
-  animation:spin .7s linear infinite;
-}
-@keyframes spin{to{transform:rotate(360deg)}}
-.loading-c{display:flex;align-items:center;justify-content:center;padding:60px 0}
-.empty-c{text-align:center;padding:56px 20px}
-.empty-c .ei{font-size:3rem;margin-bottom:14px;filter:grayscale(.4)}
-.empty-c h3{font-size:1rem;font-weight:700;margin-bottom:6px}
-.empty-c p{font-size:.82rem;color:var(--textl);line-height:1.6}
-
-/* ── MODALS ── */
-.modal-ov{
-  position:fixed;inset:0;
-  background:rgba(0,0,0,0.65);
-  backdrop-filter:blur(6px);
-  z-index:500;display:none;
-  align-items:flex-end;justify-content:center;
-}
-.modal-ov.open{display:flex}
-.modal-sh{
-  background:var(--bg1);
-  border-radius:22px 22px 0 0;
-  padding:20px 24px 36px;
-  width:100%;max-width:430px;
-  max-height:90vh;overflow-y:auto;
-  animation:slideUp .28s cubic-bezier(.34,1.2,.64,1);
-  border-top:1px solid var(--border2);
-}
-@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.modal-drag{
-  width:36px;height:4px;background:var(--border2);
-  border-radius:4px;margin:0 auto 18px;
-}
-.modal-ttl{
-  font-family:'Bricolage Grotesque',sans-serif;
-  font-size:1.1rem;font-weight:800;margin-bottom:4px;
-}
-.modal-sub{font-size:.8rem;color:var(--textl);margin-bottom:16px}
-
-/* ── TOP BAR ── */
-.top-bar{
-  position:sticky;top:0;z-index:100;
-  background:var(--glass);
-  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border);
-  padding:0 18px;height:56px;
-  display:flex;align-items:center;justify-content:space-between;flex-shrink:0;
-}
-.top-bar h2{font-size:1rem;font-weight:700}
-.icon-btn{
-  width:40px;height:40px;display:flex;align-items:center;justify-content:center;
-  border-radius:50%;background:var(--bg2);border:1px solid var(--border);
-  cursor:pointer;color:var(--textl);transition:all .15s;
-}
-.icon-btn:hover{background:var(--bg3);color:var(--text)}
-.icon-btn svg{width:19px;height:19px}
-
-/* ── TABS ── */
-.tab-bar{
-  display:flex;background:var(--bg2);
-  border-radius:14px;padding:4px;gap:4px;
-  border:1px solid var(--border);
-}
-.tab{
-  flex:1;padding:9px;border-radius:10px;
-  text-align:center;cursor:pointer;
-  font-size:.8rem;font-weight:500;
-  transition:all .2s;color:var(--textl);border:none;background:none;
-}
-.tab.on{
-  background:var(--bg1);color:var(--p);
-  font-weight:700;box-shadow:0 2px 12px rgba(0,0,0,0.15);
-}
-
-/* ── TOGGLE ── */
-.toggle-switch{
-  width:46px;height:26px;border-radius:13px;
-  background:var(--bg3);border:1.5px solid var(--border2);
-  position:relative;cursor:pointer;transition:all .2s;flex-shrink:0;
-}
-.toggle-switch.on{background:var(--p);border-color:transparent;box-shadow:0 0 12px rgba(41,82,255,0.4)}
-.toggle-thumb{
-  position:absolute;top:2px;left:2px;
-  width:18px;height:18px;border-radius:50%;
-  background:#fff;transition:left .2s;
-  box-shadow:0 1px 4px rgba(0,0,0,0.3);
-}
-.toggle-switch.on .toggle-thumb{left:22px}
-
-/* ── UTILS ── */
-.mt-8{margin-top:8px}.mt-12{margin-top:12px}.mt-16{margin-top:16px}.mt-24{margin-top:24px}
-.mb-8{margin-bottom:8px}.mb-16{margin-bottom:16px}.mb-24{margin-bottom:24px}
-.text-sm{font-size:.82rem}.text-xs{font-size:.72rem}
-.text-muted{color:var(--textl)}.text-p{color:var(--p)}
-.fw4{font-weight:400}.fw5{font-weight:500}.fw6{font-weight:600}.fw7{font-weight:700}.fw8{font-weight:800}
-.text-c{text-align:center}.w-full{width:100%}
-.divider{height:1px;background:var(--border);margin:16px 0}
-.sec-title{
-  font-size:.65rem;font-weight:700;color:var(--textm);
-  letter-spacing:1.4px;text-transform:uppercase;
-  margin-bottom:12px;margin-top:22px;
-}
-.link-p{color:var(--p);font-weight:600;cursor:pointer}
-.link-p:hover{text-decoration:underline}
-
-/* ── ANIMATIONS ── */
-@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes scaleIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-@keyframes glow{0%,100%{box-shadow:0 0 12px rgba(41,82,255,0.3)}50%{box-shadow:0 0 28px rgba(41,82,255,0.6)}}
-@keyframes shimmer{from{background-position:-200% 0}to{background-position:200% 0}}
-
-/* ── SKELETON LOADER ── */
-.skeleton{
-  background:linear-gradient(90deg,var(--bg2) 25%,var(--bg3) 50%,var(--bg2) 75%);
-  background-size:200% 100%;
-  animation:shimmer 1.5s infinite;
-  border-radius:8px;
-}
-
-/* ── DARK/LIGHT THEME TOGGLE BTN ── */
-.theme-btn{
-  width:36px;height:36px;border-radius:50%;
-  background:var(--bg2);border:1px solid var(--border);
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;font-size:1rem;transition:all .2s;flex-shrink:0;
-}
-.theme-btn:hover{background:var(--bg3);transform:rotate(20deg)}
-
-/* ── STAR PICKER ── */
-.star-picker{display:flex;gap:6px}
-.star-pick{font-size:2rem;cursor:pointer;color:var(--bg3);transition:color .12s;line-height:1;user-select:none}
-.star-pick.on{color:var(--gold);filter:drop-shadow(0 0 4px rgba(255,184,0,0.5))}
-
-/* ── PAYMENT ── */
-.pay-summary{background:var(--bg2);border-radius:var(--r2);padding:14px;margin:12px 0;border:1px solid var(--border)}
-.pay-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:.85rem}
-.pay-row:last-child{margin-bottom:0;font-weight:700;color:var(--p);font-size:.95rem;border-top:1px solid var(--border);padding-top:10px;margin-top:6px}
-.escrow-note{background:var(--pl);border-radius:var(--r2);padding:12px 14px;font-size:.78rem;line-height:1.55;border-left:3px solid var(--p)}
-
-/* ── SETTINGS ── */
-.setting-row{display:flex;align-items:center;gap:14px;padding:15px 20px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s}
-.setting-row:hover{background:var(--bg2)}
-.setting-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;background:var(--bg2)}
-.setting-name{font-weight:600;font-size:.9rem}
-.setting-desc{font-size:.73rem;color:var(--textl);margin-top:2px}
-.setting-section{font-size:.63rem;font-weight:700;color:var(--textm);letter-spacing:1.4px;text-transform:uppercase;padding:14px 20px 6px}
-
-/* ── WALLET ── */
-.wallet-card{
-  background:linear-gradient(135deg,var(--p) 0%,#5B7FFF 100%);
-  border-radius:var(--r);padding:22px;color:#fff;
-  position:relative;overflow:hidden;
-}
-.wallet-card::before{
-  content:'';position:absolute;top:-40px;right:-40px;
-  width:150px;height:150px;border-radius:50%;
-  background:rgba(255,255,255,0.06);
-}
-.wallet-card::after{
-  content:'';position:absolute;bottom:-60px;left:-20px;
-  width:200px;height:200px;border-radius:50%;
-  background:rgba(255,255,255,0.04);
-}
-
-/* ── CHAT ── */
-.chat-body{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:6px;background:var(--bg0)}
-.msg-wrap-sent{display:flex;flex-direction:column;align-items:flex-end}
-.msg-wrap-recv{display:flex;flex-direction:column;align-items:flex-start}
-.msg-bubble{max-width:78%;padding:10px 14px;border-radius:16px;font-size:.87rem;line-height:1.55;word-break:break-word}
-.msg-sent{background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;border-bottom-right-radius:4px}
-.msg-recv{background:var(--bg2);color:var(--text);border-bottom-left-radius:4px;border:1px solid var(--border)}
-.msg-time{font-size:.63rem;color:var(--textm);margin-top:3px}
-.date-sep{text-align:center;font-size:.67rem;color:var(--textm);padding:8px 0;font-weight:500}
-.chat-foot{
-  background:var(--bg1);border-top:1px solid var(--border);
-  padding:10px 14px;display:flex;align-items:flex-end;
-  gap:8px;flex-shrink:0;
-}
-.attach-btn{
-  width:38px;height:38px;border-radius:50%;
-  background:var(--bg2);border:1px solid var(--border);
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;font-size:.9rem;transition:all .15s;flex-shrink:0;
-}
-.attach-btn:hover{background:var(--bg3)}
-.chat-ta{
-  flex:1;padding:10px 14px;
-  border:1.5px solid var(--border2);border-radius:22px;
-  font-family:'DM Sans',sans-serif;font-size:.87rem;
-  resize:none;max-height:120px;
-  background:var(--bg2);color:var(--text);
-  transition:border-color .18s;line-height:1.5;
-}
-.chat-ta:focus{border-color:var(--p);background:var(--bg1)}
-.chat-ta::placeholder{color:var(--textm)}
-.send-btn{
-  width:44px;height:44px;border-radius:50%;
-  background:linear-gradient(135deg,var(--p),var(--p2));
-  border:none;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;transition:all .2s;
-  box-shadow:0 4px 14px rgba(41,82,255,0.4);
-}
-.send-btn:hover{transform:scale(1.08)}
-.send-btn:active{transform:scale(.93)}
-.chat-item{
-  display:flex;align-items:center;gap:12px;
-  padding:14px 20px;cursor:pointer;
-  transition:background .15s;border-bottom:1px solid var(--border);
-}
-.chat-item:hover{background:var(--bg2)}
-.unread-dot{width:9px;height:9px;border-radius:50%;background:var(--p);flex-shrink:0;box-shadow:0 0 8px rgba(41,82,255,0.5)}
-
-/* ── REQ CARD ── */
-.req-card{background:var(--bg1);border-radius:var(--r);border:1px solid var(--border);padding:16px;margin-bottom:12px}
-.req-actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
-
-/* ── REVIEW ── */
-.review-item{padding:14px 0;border-bottom:1px solid var(--border)}
-.review-item:last-child{border-bottom:none}
-.stars-html{color:var(--gold);letter-spacing:2px;font-size:.9rem}
-
-/* ── VP ── */
-.vp-actions{padding:14px 16px;background:var(--bg1);border-top:1px solid var(--border);display:flex;gap:10px;flex-shrink:0}
-
-/* ── SKILL CARD ── */
-.skill-card{
-  background:var(--bg1);border-radius:var(--r);
-  border:1px solid var(--border);padding:15px;
-  cursor:pointer;transition:all .2s;margin-bottom:10px;
-}
-.skill-card:hover{
-  box-shadow:var(--shadow);transform:translateY(-2px);
-  border-color:rgba(41,82,255,0.3);
-}
-.skill-card:active{transform:translateY(0)}
-
-/* ── PROFILE ── */
-.profile-hero{
-  background:linear-gradient(160deg,var(--p) 0%,var(--p2) 100%);
-  padding:22px 20px;color:#fff;position:relative;overflow:hidden;
-}
-.profile-hero::before{
-  content:'';position:absolute;top:-30px;right:-30px;
-  width:160px;height:160px;border-radius:50%;
-  background:rgba(255,255,255,0.06);
-}
-.profile-skill{
-  background:var(--bg1);border:1.5px solid var(--border);
-  border-radius:var(--r2);padding:14px;cursor:pointer;
-  transition:all .2s;margin-bottom:10px;
-}
-.profile-skill.sel{border-color:var(--p);background:var(--pl)}
-
-/* ── MAP ── */
-.map-peek{
-  position:absolute;bottom:14px;left:14px;right:14px;
-  background:var(--glass);
-  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-  border-radius:18px;padding:15px;
-  box-shadow:var(--shadow);z-index:10;
-  animation:scaleIn .2s ease;
-  border:1px solid var(--border2);
-}
-.marker-cluster-custom{
-  width:40px;height:40px;border-radius:50%;
-  background:linear-gradient(135deg,var(--p),var(--p2));
-  color:#fff;display:flex;align-items:center;justify-content:center;
-  font-weight:800;font-size:.82rem;
-  font-family:'Bricolage Grotesque',sans-serif;
-  border:2.5px solid rgba(255,255,255,0.3);
-  box-shadow:var(--shadowp);
-}
-
-/* ── AI CHAT ── */
-.ai-bubble{
-  background:var(--pl);border:1px solid rgba(41,82,255,0.2);
-  border-radius:16px 16px 16px 4px;
-  padding:12px 16px;margin-bottom:8px;
-  font-size:.87rem;line-height:1.6;color:var(--text);
-  max-width:90%;animation:fadeUp .25s ease;
-}
-.ai-bubble.user{
-  background:linear-gradient(135deg,var(--p),var(--p2));
-  color:#fff;border:none;
-  border-radius:16px 16px 4px 16px;
-  align-self:flex-end;
-}
-.ai-typing span{
-  display:inline-block;width:6px;height:6px;
-  border-radius:50%;background:var(--p);
-  animation:pulse .9s ease infinite;margin:0 2px;
-}
-.ai-typing span:nth-child(2){animation-delay:.2s}
-.ai-typing span:nth-child(3){animation-delay:.4s}
-
-/* ── JOB CARD ── */
-.job-card{
-  background:var(--bg1);border-radius:var(--r);
-  border:1px solid var(--border);padding:15px;
-  margin-bottom:10px;cursor:pointer;transition:all .2s;
-}
-.job-card:hover{border-color:rgba(41,82,255,0.3);transform:translateY(-1px);box-shadow:var(--shadow)}
-.job-logo{
-  width:44px;height:44px;border-radius:10px;
-  background:var(--bg2);border:1px solid var(--border);
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.2rem;flex-shrink:0;overflow:hidden;
-}
-
-/* ── FEED CARD ── */
-.feed-card{
-  background:var(--bg1);border-radius:var(--r);
-  border:1px solid var(--border);
-  margin-bottom:10px;overflow:hidden;
-  transition:all .2s;
-}
-.feed-card:hover{border-color:var(--border2)}
-.feed-actions{display:flex;gap:0;border-top:1px solid var(--border)}
-.feed-action-btn{
-  flex:1;padding:10px;
-  display:flex;align-items:center;justify-content:center;
-  gap:6px;font-size:.77rem;font-weight:600;color:var(--textl);
-  cursor:pointer;transition:all .15s;background:none;border:none;
-  border-right:1px solid var(--border);
-}
-.feed-action-btn:last-child{border-right:none}
-.feed-action-btn:hover{color:var(--text);background:var(--bg2)}
-.feed-action-btn.liked{color:var(--bad)}
-
-/* ── DRAWER ── */
-.drawer-overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,.55);
-  backdrop-filter:blur(6px);z-index:400;
-  display:none;align-items:flex-end;justify-content:center;
-}
-.drawer{
-  background:var(--bg1);border-radius:22px 22px 0 0;
-  padding:16px 24px 44px;width:100%;max-width:430px;
-  max-height:85vh;overflow-y:auto;
-  border-top:1px solid var(--border2);
-}
-.drawer-handle{width:36px;height:4px;background:var(--border2);border-radius:4px;margin:0 auto 18px}
-.drawer-title{font-family:'Bricolage Grotesque',sans-serif;font-size:1.05rem;font-weight:800;margin-bottom:16px}
-.tgl-row{display:flex;gap:8px;flex-wrap:wrap}
-.tgl{
-  padding:7px 14px;border-radius:20px;
-  border:1.5px solid var(--border2);background:var(--bg2);
-  font-size:.77rem;font-weight:500;cursor:pointer;transition:all .18s;color:var(--textl);
-}
-.tgl.on{background:var(--p);border-color:var(--p);color:#fff;font-weight:700}
-
-/* ── STYPE ── */
-.stype-row{display:flex;gap:8px}
-.stype-card{
-  flex:1;padding:11px 6px;border-radius:var(--r2);
-  border:1.5px solid var(--border);text-align:center;
-  cursor:pointer;font-size:.77rem;font-weight:500;
-  transition:all .2s;background:var(--bg2);color:var(--textl);
-}
-.stype-card.on{border-color:var(--p);background:var(--pl);color:var(--p);font-weight:700}
-
-/* ── OTP ── */
-.otp-row{display:flex;justify-content:center;gap:12px;margin-bottom:20px}
-.otp-box{
-  width:66px;height:76px;text-align:center;
-  background:var(--bg2);border-radius:var(--r2);
-  font-size:2rem;font-weight:800;color:var(--p);
-  border:2px solid var(--border2);
-  font-family:'Bricolage Grotesque',sans-serif;
-  transition:all .2s;-moz-appearance:textfield;appearance:textfield;
-}
-.otp-box::-webkit-outer-spin-button,.otp-box::-webkit-inner-spin-button{-webkit-appearance:none}
-.otp-box:focus{border-color:var(--p);box-shadow:0 0 0 4px var(--pl);background:var(--bg1)}
-.otp-box.err{border-color:var(--bad);box-shadow:0 0 0 3px var(--badl)}
-.otp-box.ok{border-color:var(--ok);box-shadow:0 0 0 3px var(--okl)}
-.otp-err{color:var(--bad);font-size:.8rem;margin-bottom:10px;display:none}
-.otp-ok{color:var(--ok);font-size:.8rem;margin-bottom:10px;display:none}
-
-/* ── SETUP ── */
-.setup-av{
-  width:90px;height:90px;border-radius:50%;
-  background:var(--bg2);
-  border:2.5px dashed var(--border2);
-  display:flex;align-items:center;justify-content:center;
-  font-size:2rem;margin:0 auto 8px;cursor:pointer;overflow:hidden;
-  transition:all .2s;
-}
-.setup-av:hover{border-color:var(--p);border-style:solid;background:var(--pl)}
-
-/* ── PULSE DOT ── */
-.pulse-dot{
-  width:10px;height:10px;border-radius:50%;
-  background:var(--ok);display:inline-block;
-  box-shadow:0 0 0 0 rgba(0,217,126,0.5);
-  animation:pulse-ring 2s infinite;
-}
-@keyframes pulse-ring{
-  0%{box-shadow:0 0 0 0 rgba(0,217,126,0.5)}
-  70%{box-shadow:0 0 0 8px rgba(0,217,126,0)}
-  100%{box-shadow:0 0 0 0 rgba(0,217,126,0)}
-}
-
-/* Notif btn */
-.notif-btn{
-  width:38px;height:38px;border-radius:50%;
-  background:rgba(255,255,255,0.12);
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;position:relative;transition:background .15s;flex-shrink:0;
-}
-.notif-btn:hover{background:rgba(255,255,255,0.2)}
-.notif-dot{
-  position:absolute;top:6px;right:6px;
-  width:9px;height:9px;border-radius:50%;
-  background:var(--bad);border:2px solid var(--p);
-}
-
-/* ── GOLD BUTTON ── */
-.btn-gold{background:linear-gradient(135deg,var(--gold),#F97316);color:#000;border:none;font-weight:700}
-.btn-gold:hover{opacity:.9;transform:translateY(-1px)}
-.btn-ok{background:var(--ok);color:#fff;border:none;font-weight:700}
-.btn-ok:hover{opacity:.9}
-
-/* ── MARKET / CONTENT NAV ── */
-#nav-market.active svg{stroke:var(--p)}
-#nav-market.active span{color:var(--p)}
-
-/* ── SETTING ── */
-.setting-section{padding:10px 20px 6px;font-size:.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--textm)}
-.setting-row{display:flex;align-items:center;gap:14px;padding:14px 20px;cursor:pointer;transition:background .15s;border-bottom:1px solid var(--border)}
-.setting-row:hover{background:var(--bg2)}
-.setting-icon{width:36px;height:36px;border-radius:10px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;border:1px solid var(--border)}
-.setting-name{font-weight:600;font-size:.87rem;margin-bottom:1px}
-.setting-desc{font-size:.73rem;color:var(--textl)}
-.toggle-switch{width:44px;height:24px;border-radius:12px;background:var(--bg3);position:relative;cursor:pointer;transition:background .2s;flex-shrink:0}
-.toggle-switch.on{background:var(--p)}
-.toggle-thumb{width:20px;height:20px;border-radius:50%;background:#fff;position:absolute;top:2px;left:2px;transition:left .2s;box-shadow:0 1px 4px rgba(0,0,0,0.2)}
-.toggle-switch.on .toggle-thumb{left:22px}
-
-/* ── ESCROW / PAY ── */
-.pay-summary{background:var(--bg2);border-radius:var(--r2);padding:14px}
-.pay-row{display:flex;justify-content:space-between;padding:6px 0;font-size:.85rem;border-bottom:1px solid var(--border)}
-.pay-row:last-child{border:none;font-weight:700;font-size:.95rem}
-.escrow-note{background:var(--okl);border:1px solid rgba(0,217,126,.2);border-radius:10px;padding:10px 12px;font-size:.78rem;color:var(--text);line-height:1.5}
-
-/* ── STAR PICKER ── */
-.star-pick{font-size:1.8rem;cursor:pointer;color:var(--border2);transition:color .15s;letter-spacing:4px}
-.star-pick.on{color:var(--gold)}
-
-/* ═══════════════════════════════════════════════════
-   CIONTI v2 — SCREENS
-═══════════════════════════════════════════════════ */
-
-/* ── ONBOARDING ── */
-#s-onboard{background:var(--bg0)}
-.onboard-slides{display:flex;height:100%;transition:transform .4s cubic-bezier(.4,0,.2,1)}
-.onboard-slide{min-width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 32px;text-align:center}
-.ob-illus{width:220px;height:220px;margin-bottom:32px;animation:float 4s ease-in-out infinite}
-.ob-num{font-size:.68rem;font-weight:700;letter-spacing:2px;color:var(--p);text-transform:uppercase;margin-bottom:10px}
-.ob-h{font-size:2rem;font-weight:800;margin-bottom:12px;line-height:1.1}
-.ob-sub{font-size:.9rem;color:var(--textl);line-height:1.7;max-width:300px}
-.ob-dots{display:flex;gap:8px;justify-content:center;margin-top:32px}
-.ob-dot{width:8px;height:8px;border-radius:4px;background:var(--bg3);transition:all .3s}
-.ob-dot.on{width:28px;background:var(--p)}
-.ob-actions{position:absolute;bottom:44px;left:32px;right:32px;display:flex;flex-direction:column;gap:10px}
-
-/* ── AUTH ── */
-.auth-screen{background:var(--bg0)}
-.auth-blob{position:absolute;top:0;left:0;right:0;height:280px;background:linear-gradient(160deg,var(--p) 0%,rgba(41,82,255,0) 100%);opacity:.12;pointer-events:none}
-.auth-top{padding:56px 28px 20px;position:relative;z-index:1}
-.auth-logo{font-size:1.6rem;font-weight:800;margin-bottom:4px;background:linear-gradient(135deg,var(--p2),var(--text));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.auth-tagline{font-size:.78rem;color:var(--textl);margin-bottom:28px}
-.auth-h{font-size:1.6rem;font-weight:800;margin-bottom:4px}
-.auth-sub{font-size:.85rem;color:var(--textl);margin-bottom:24px}
-.auth-body{flex:1;overflow-y:auto;padding:0 28px 40px;position:relative;z-index:1}
-.auth-footer{padding:16px 28px 28px;text-align:center;font-size:.83rem;color:var(--textl);flex-shrink:0}
-.auth-back{position:absolute;top:16px;left:20px;z-index:10;width:38px;height:38px;border-radius:50%;background:var(--bg2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--textl);font-size:1.1rem;transition:all .15s}
-.auth-back:hover{background:var(--bg3)}
-.lo-card{background:var(--bg1);border:1.5px solid var(--border);border-radius:var(--r);padding:16px 18px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:all .2s;margin-bottom:10px}
-.lo-card:hover{border-color:var(--p);background:var(--pl);transform:translateX(3px)}
-.lo-icon{width:44px;height:44px;border-radius:12px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;border:1px solid var(--border)}
-.lo-name{font-weight:700;font-size:.9rem;margin-bottom:2px}
-.lo-hint{font-size:.75rem;color:var(--textl)}
-.inp-w{position:relative}
-.inp-ic{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:.9rem;pointer-events:none;color:var(--textm)}
-.inp-ic-r{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:.9rem;cursor:pointer;color:var(--textm);transition:color .15s}
-.inp-ic-r:hover{color:var(--text)}
-.inp-w .form-input{padding-left:42px}
-.inp-w .has-r{padding-right:42px}
-.type-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.type-opt{border:1.5px solid var(--border);background:var(--bg2);border-radius:var(--r2);padding:12px 6px;text-align:center;cursor:pointer;font-size:.78rem;font-weight:600;transition:all .2s;color:var(--textl)}
-.type-opt.on{border-color:var(--p);background:var(--pl);color:var(--p)}
-.or-row{text-align:center;position:relative;font-size:.75rem;color:var(--textm);margin:18px 0}
-.or-row::before,.or-row::after{content:'';position:absolute;top:50%;width:calc(50% - 24px);height:1px;background:var(--border)}
-.or-row::before{left:0}.or-row::after{right:0}
-.social-row{display:flex;justify-content:center;gap:14px}
-.social-btn{width:50px;height:50px;border-radius:50%;background:var(--bg2);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.2rem;cursor:pointer;transition:all .2s;font-weight:800}
-.social-btn:hover{border-color:var(--p);background:var(--pl);transform:scale(1.08)}
-.p-err{color:var(--bad);font-size:.78rem;margin-top:6px;display:none}
-.p-err.show{display:block}
-.check-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:18px;cursor:pointer;font-size:.83rem;color:var(--textl);line-height:1.5}
-.check-row input[type="checkbox"]{width:18px;height:18px;border-radius:5px;accent-color:var(--p);flex-shrink:0;margin-top:2px;cursor:pointer}
-
-/* ── VERIFY ── */
-#s-verify{background:var(--bg0)}
-.verify-icon{font-size:3.5rem;margin-bottom:16px;animation:float 3s ease infinite}
-
-/* ── SETUP ── */
-#s-setup{background:var(--bg0)}
-.setup-av{width:90px;height:90px;border-radius:50%;background:var(--bg2);border:2.5px dashed var(--border2);display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 8px;cursor:pointer;overflow:hidden;transition:all .2s}
-.setup-av:hover{border-color:var(--p);border-style:solid;background:var(--pl)}
-.loc-ok{color:var(--ok);font-size:.8rem;margin-bottom:8px;display:none}
-.loc-ok.show{display:block}
-
-/* ── DISCOVER ── */
-#s-discover{background:var(--bg0)}
-.disc-header{background:linear-gradient(160deg,var(--p) 0%,#1A3EE0 100%);padding:14px 18px 16px;flex-shrink:0;position:relative;overflow:hidden}
-.disc-header::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,0.06)}
-.disc-loc-lbl{font-size:.73rem;color:rgba(255,255,255,.65);margin-bottom:1px;font-weight:500}
-.disc-name-lbl{font-size:1.1rem;font-weight:800;color:#fff;font-family:'Bricolage Grotesque',sans-serif}
-.disc-av{width:42px;height:42px;border-radius:50%;overflow:hidden;cursor:pointer;flex-shrink:0;border:2.5px solid rgba(255,255,255,0.3);background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#fff}
-.disc-top-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;position:relative;z-index:1}
-.search-pill{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.13);border-radius:14px;padding:10px 14px;margin-bottom:12px;position:relative;z-index:1;border:1px solid rgba(255,255,255,0.12);backdrop-filter:blur(10px)}
-.search-pill input{flex:1;background:none;border:none;font-size:.85rem;color:#fff;outline:none;font-family:'DM Sans',sans-serif}
-.search-pill input::placeholder{color:rgba(255,255,255,0.45)}
-.view-toggle-bar{display:flex;align-items:center;gap:10px;padding:10px 16px;background:var(--bg1);border-bottom:1px solid var(--border);flex-shrink:0}
-.vt-btn{padding:7px 16px;border-radius:20px;font-size:.78rem;font-weight:600;cursor:pointer;border:1.5px solid var(--border);background:none;color:var(--textl);transition:all .18s}
-.vt-btn.on{background:var(--p);border-color:var(--p);color:#fff}
-.radius-wrap{margin-left:auto;display:flex;align-items:center;gap:8px}
-.radius-wrap input[type=range]{width:90px;accent-color:var(--p);cursor:pointer;height:4px}
-.radius-wrap span{font-size:.75rem;font-weight:700;color:var(--p);min-width:30px}
-.map-peek{position:absolute;bottom:14px;left:14px;right:14px;background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:18px;padding:15px;box-shadow:var(--shadow);z-index:10;animation:scaleIn .2s ease;border:1px solid var(--border2)}
-
-/* ── FEED ── */
-#s-feed{background:var(--bg0)}
-.feed-tabs{display:flex;background:var(--bg1);border-bottom:1px solid var(--border);overflow-x:auto;flex-shrink:0;scrollbar-width:none}
-.feed-tabs::-webkit-scrollbar{display:none}
-.feed-tab{padding:13px 16px;font-size:.8rem;font-weight:600;color:var(--textl);white-space:nowrap;cursor:pointer;border-bottom:2.5px solid transparent;transition:all .18s;flex-shrink:0;background:none;border-top:none;border-left:none;border-right:none}
-.feed-tab.on{color:var(--p);border-bottom-color:var(--p)}
-.feed-card{background:var(--bg1);border-radius:var(--r);border:1px solid var(--border);margin-bottom:10px;overflow:hidden;transition:all .2s}
-.feed-card:hover{border-color:var(--border2)}
-.feed-actions{display:flex;border-top:1px solid var(--border)}
-.feed-action-btn{flex:1;padding:10px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:.77rem;font-weight:600;color:var(--textl);cursor:pointer;transition:all .15s;background:none;border:none;border-right:1px solid var(--border)}
-.feed-action-btn:last-child{border-right:none}
-.feed-action-btn:hover{color:var(--text);background:var(--bg2)}
-.feed-action-btn.liked{color:var(--bad)}
-.job-card{background:var(--bg1);border-radius:var(--r);border:1px solid var(--border);padding:15px;margin-bottom:10px;cursor:pointer;transition:all .2s}
-.job-card:hover{border-color:rgba(41,82,255,0.3);transform:translateY(-1px);box-shadow:var(--shadow)}
-.job-logo{width:44px;height:44px;border-radius:10px;background:var(--bg2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;overflow:hidden}
-
-/* ── AI ── */
-#s-ai{background:var(--bg0)}
-.ai-header{background:linear-gradient(160deg,var(--p) 0%,#1A3EE0 100%);padding:20px 20px 22px;flex-shrink:0}
-.ai-title{font-size:1.1rem;font-weight:800;color:#fff;font-family:'Bricolage Grotesque',sans-serif}
-.ai-sub{font-size:.78rem;color:rgba(255,255,255,.65);margin-top:2px}
-.ai-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:8px}
-.ai-input-row{padding:10px 14px;background:var(--bg1);border-top:1px solid var(--border);display:flex;align-items:flex-end;gap:8px}
-.ai-inp{flex:1;padding:10px 14px;border-radius:22px;border:1.5px solid var(--border2);background:var(--bg2);font-family:'DM Sans',sans-serif;font-size:.87rem;resize:none;max-height:100px;line-height:1.5;color:var(--text)}
-.ai-inp:focus{border-color:var(--p);background:var(--bg1)}
-.ai-inp::placeholder{color:var(--textm)}
-.ai-send{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--p2));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(41,82,255,0.4);transition:all .2s;flex-shrink:0}
-.ai-send:hover{transform:scale(1.08)}
-.ai-bubble{background:var(--pl);border:1px solid rgba(41,82,255,0.2);border-radius:16px 16px 16px 4px;padding:12px 16px;font-size:.87rem;line-height:1.6;color:var(--text);max-width:90%;animation:fadeUp .25s ease}
-.ai-bubble.user{background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;border:none;border-radius:16px 16px 4px 16px;align-self:flex-end}
-.ai-typing span{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--p);animation:pulse .9s ease infinite;margin:0 2px}
-.ai-typing span:nth-child(2){animation-delay:.2s}
-.ai-typing span:nth-child(3){animation-delay:.4s}
-.ai-suggestion{background:var(--bg2);border:1px solid var(--border);border-radius:22px;padding:8px 16px;font-size:.78rem;cursor:pointer;white-space:nowrap;transition:all .15s;color:var(--text)}
-.ai-suggestion:hover{border-color:var(--p);background:var(--pl);color:var(--p)}
-.ai-result-card{background:var(--bg1);border:1.5px solid rgba(41,82,255,0.25);border-radius:var(--r);padding:14px;cursor:pointer;transition:all .2s;margin-top:4px}
-.ai-result-card:hover{border-color:var(--p);transform:translateY(-1px);box-shadow:var(--shadow)}
-
-/* ── PROFILE ── */
-.profile-hero{background:linear-gradient(160deg,var(--p) 0%,var(--p2) 100%);padding:22px 20px;color:#fff;position:relative;overflow:hidden}
-.profile-hero::before{content:'';position:absolute;top:-30px;right:-30px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,0.06)}
-.profile-skill{background:var(--bg1);border:1.5px solid var(--border);border-radius:var(--r2);padding:14px;cursor:pointer;transition:all .2s;margin-bottom:10px}
-.profile-skill.sel{border-color:var(--p);background:var(--pl)}
-.vp-actions{padding:14px 16px;background:var(--bg1);border-top:1px solid var(--border);display:flex;gap:10px;flex-shrink:0}
-
-/* ── WALLET ── */
-.wallet-card{background:linear-gradient(135deg,var(--p) 0%,#5B7FFF 100%);border-radius:var(--r);padding:22px;color:#fff;position:relative;overflow:hidden}
-.wallet-card::before{content:'';position:absolute;top:-40px;right:-40px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,0.06)}
-.wallet-card::after{content:'';position:absolute;bottom:-60px;left:-20px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.04)}
-
-/* ── REQUESTS ── */
-.req-card{background:var(--bg1);border-radius:var(--r);border:1px solid var(--border);padding:16px;margin-bottom:12px}
-.req-actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
-
-/* ── CHAT ── */
-.chat-item{display:flex;align-items:center;gap:12px;padding:14px 20px;cursor:pointer;transition:background .15s;border-bottom:1px solid var(--border)}
-.chat-item:hover{background:var(--bg2)}
-.unread-dot{width:9px;height:9px;border-radius:50%;background:var(--p);flex-shrink:0;box-shadow:0 0 8px rgba(41,82,255,0.5)}
-.review-item{padding:14px 0;border-bottom:1px solid var(--border)}
-.review-item:last-child{border-bottom:none}
-.stars-html{color:var(--gold);letter-spacing:2px;font-size:.9rem}
-.skill-card{background:var(--bg1);border-radius:var(--r);border:1px solid var(--border);padding:15px;cursor:pointer;transition:all .2s;margin-bottom:10px}
-.skill-card:hover{box-shadow:var(--shadow);transform:translateY(-2px);border-color:rgba(41,82,255,0.3)}
-.skill-card:active{transform:translateY(0)}
-
-/* ── GENDER / TOGGLE ROW ── */
-.tgl-row{display:flex;gap:8px;flex-wrap:wrap}
-.tgl{
-  padding:8px 16px;border-radius:20px;
-  border:1.5px solid var(--border);background:var(--bg2);
-  font-size:.8rem;font-weight:600;cursor:pointer;
-  color:var(--textl);transition:all .18s;
-}
-.tgl.on{background:var(--p);border-color:var(--p);color:#fff}
-
-/* ── STYPE CARD ── */
-.stype-row{display:flex;gap:8px}
-.stype-card{flex:1;padding:11px 6px;border-radius:var(--r2);border:1.5px solid var(--border);text-align:center;cursor:pointer;font-size:.77rem;font-weight:500;transition:all .2s;background:var(--bg2);color:var(--textl)}
-.stype-card.on{border-color:var(--p);background:var(--pl);color:var(--p);font-weight:700}
-
-/* ═══════════════════════════════
-   CREATE SYSTEM
-═══════════════════════════════ */
-.create-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.create-opt{
-  display:flex;flex-direction:column;align-items:center;
-  gap:6px;cursor:pointer;padding:10px 4px;
-  border-radius:14px;transition:all .18s;
-  border:1.5px solid transparent;text-align:center;
-}
-.create-opt:hover{background:var(--bg2);border-color:var(--border)}
-.create-opt:active{transform:scale(.96)}
-.create-opt-icon{
-  width:48px;height:48px;border-radius:14px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.4rem;box-shadow:0 4px 12px rgba(0,0,0,0.2);
-}
-.create-opt-name{font-weight:700;font-size:.73rem;color:var(--text)}
-.create-opt-hint{font-size:.62rem;color:var(--textm);line-height:1.3}
-
-/* Create editor */
-.create-toolbar{
-  display:flex;align-items:center;gap:4px;
-  padding:10px 0;border-top:1px solid var(--border);
-  margin-top:12px;flex-wrap:wrap;
-}
-.create-tool{
-  display:flex;align-items:center;gap:5px;padding:7px 12px;
-  border-radius:20px;border:1.5px solid var(--border);
-  background:none;cursor:pointer;font-size:.76rem;
-  font-weight:600;color:var(--textl);transition:all .15s;
-  font-family:'DM Sans',sans-serif;
-}
-.create-tool svg{width:14px;height:14px;flex-shrink:0}
-.create-tool:hover{border-color:var(--p);color:var(--p);background:var(--pl)}
-
-/* Post composer text area */
-.post-composer{
-  width:100%;min-height:120px;resize:none;
-  background:none;border:none;outline:none;
-  font-size:1rem;line-height:1.7;color:var(--text);
-  font-family:'DM Sans',sans-serif;
-  placeholder-color:var(--textm);
-}
-.post-composer::placeholder{color:var(--textm)}
-
-/* Char counter */
-.char-counter{
-  text-align:right;font-size:.72rem;
-  color:var(--textm);margin-top:4px;
-}
-.char-counter.warn{color:var(--warn)}
-.char-counter.err{color:var(--bad)}
-
-/* ═══════════════════════════════
-   MARKETPLACE
-═══════════════════════════════ */
-.market-card{
-  background:var(--bg1);border-radius:var(--r);
-  border:1px solid var(--border);overflow:hidden;
-  margin-bottom:10px;cursor:pointer;transition:all .2s;
-}
-.market-card:hover{box-shadow:var(--shadow);border-color:var(--border2);transform:translateY(-1px)}
-.market-card:active{transform:none}
-
-.market-img{
-  width:100%;height:180px;object-fit:cover;
-  background:var(--bg2);display:flex;align-items:center;
-  justify-content:center;font-size:3rem;
-}
-.market-badge{
-  position:absolute;top:10px;left:10px;
-  padding:4px 10px;border-radius:20px;
-  font-size:.68rem;font-weight:700;
-}
-.badge-deal{background:#EF4444;color:#fff}
-.badge-new{background:var(--p);color:#fff}
-.badge-event{background:#8B5CF6;color:#fff}
-.badge-collab{background:#0EA5E9;color:#fff}
-.badge-shop{background:var(--gold);color:#000}
-
-.product-card-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.product-card-sm{
-  background:var(--bg1);border:1px solid var(--border);
-  border-radius:var(--r2);overflow:hidden;cursor:pointer;
-  transition:all .2s;
-}
-.product-card-sm:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
-.product-card-sm img{width:100%;height:120px;object-fit:cover;background:var(--bg2)}
-.product-card-sm-body{padding:10px 10px 12px}
-
-/* Deals card */
-.deal-card{
-  background:linear-gradient(135deg,#EF4444,#EC4899);
-  border-radius:var(--r);padding:16px;color:#fff;
-  margin-bottom:10px;cursor:pointer;position:relative;overflow:hidden;
-}
-.deal-card::before{
-  content:'DEAL';position:absolute;right:-18px;top:12px;
-  font-size:4rem;font-weight:800;opacity:.1;letter-spacing:-2px;
-  font-family:'Bricolage Grotesque',sans-serif;
-  transform:rotate(-15deg);
-}
-.deal-timer{
-  display:inline-flex;align-items:center;gap:6px;
-  background:rgba(255,255,255,.2);border-radius:20px;
-  padding:4px 10px;font-size:.72rem;font-weight:700;
-  margin-bottom:8px;
-}
-
-/* Event card */
-.event-card{
-  background:var(--bg1);border:1px solid var(--border);
-  border-radius:var(--r);padding:14px;margin-bottom:10px;
-  cursor:pointer;display:flex;gap:12px;transition:all .2s;
-}
-.event-card:hover{border-color:rgba(139,92,246,.4);box-shadow:0 4px 20px rgba(139,92,246,.1)}
-.event-date-box{
-  width:52px;height:52px;border-radius:12px;
-  background:linear-gradient(135deg,#8B5CF6,#6366F1);
-  display:flex;flex-direction:column;align-items:center;
-  justify-content:center;flex-shrink:0;color:#fff;
-}
-.event-date-d{font-size:1.3rem;font-weight:800;line-height:1}
-.event-date-m{font-size:.58rem;font-weight:700;text-transform:uppercase;opacity:.8}
-
-/* Collab card */
-.collab-card{
-  background:var(--bg1);border:1.5px solid rgba(14,165,233,.2);
-  border-radius:var(--r);padding:14px;margin-bottom:10px;cursor:pointer;
-  transition:all .2s;
-}
-.collab-card:hover{border-color:rgba(14,165,233,.5);box-shadow:0 4px 20px rgba(14,165,233,.1)}
-
-/* Shop banner */
-.shop-banner{
-  background:linear-gradient(135deg,var(--gold),#F97316);
-  border-radius:var(--r);padding:18px;color:#000;margin-bottom:14px;
-  display:flex;align-items:center;gap:14px;cursor:pointer;
-}
-.shop-av{width:54px;height:54px;border-radius:50%;background:rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0}
-
-/* Poll card */
-.poll-opt{
-  border:1.5px solid var(--border);border-radius:10px;
-  padding:11px 14px;margin-bottom:8px;cursor:pointer;
-  position:relative;overflow:hidden;transition:all .2s;font-size:.87rem;
-}
-.poll-opt:hover{border-color:var(--p)}
-.poll-opt-bar{
-  position:absolute;left:0;top:0;bottom:0;
-  background:var(--pl);z-index:0;transition:width .6s ease;
-}
-.poll-opt-text{position:relative;z-index:1;display:flex;justify-content:space-between;align-items:center}
-.poll-voted{border-color:var(--p);background:var(--pl)}
-
-/* Content post card */
-.content-card{
-  background:var(--bg1);border:1px solid var(--border);
-  border-radius:var(--r);overflow:hidden;margin-bottom:10px;
-}
-.content-card-head{display:flex;align-items:center;gap:10px;padding:12px 14px 10px}
-.content-card-body{padding:0 14px 10px;font-size:.87rem;line-height:1.7;color:var(--text)}
-.content-card-img{width:100%;max-height:300px;object-fit:cover}
-.content-card-actions{
-  display:flex;border-top:1px solid var(--border);
-}
-.cc-action{
-  flex:1;padding:10px 4px;display:flex;align-items:center;
-  justify-content:center;gap:5px;font-size:.74rem;font-weight:600;
-  color:var(--textl);cursor:pointer;background:none;border:none;
-  border-right:1px solid var(--border);font-family:'DM Sans',sans-serif;
-  transition:all .15s;
-}
-.cc-action:last-child{border-right:none}
-.cc-action:hover{color:var(--text);background:var(--bg2)}
-.cc-action.liked{color:var(--bad)}
-.cc-action.saved{color:var(--gold)}
-
-/* ═══════════════════════════════
-   HOME TABS
-═══════════════════════════════ */
-.home-tab{
-  flex-shrink:0;padding:7px 14px;border-radius:20px;
-  border:1.5px solid rgba(255,255,255,.2);
-  background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);
-  font-size:.73rem;font-weight:700;cursor:pointer;
-  white-space:nowrap;transition:all .2s;
-  font-family:'DM Sans',sans-serif;
-}
-.home-tab.on{background:#fff;color:#0A0F1E;border-color:#fff}
-
-/* People grid */
-.pro-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.pro-card{
-  background:var(--bg1);border:1px solid var(--border);
-  border-radius:var(--r);padding:16px;text-align:center;
-  cursor:pointer;transition:all .2s;
-}
-.pro-card:hover,.pro-card:active{border-color:var(--p);transform:translateY(-2px);box-shadow:var(--shadow)}
-.pro-av{width:56px;height:56px;border-radius:50%;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:800;color:#fff;border:3px solid var(--bg0)}
-.pro-name{font-weight:700;font-size:.85rem;margin-bottom:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.pro-skill{font-size:.72rem;color:var(--textl);margin-bottom:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.pro-loc{font-size:.68rem;color:var(--textm)}
-.pro-avail{width:10px;height:10px;border-radius:50%;background:var(--ok);margin:6px auto 0;box-shadow:0 0 6px var(--ok)}
-
-/* Events */
-.event-row-card{
-  background:var(--bg1);border:1px solid var(--border);
-  border-radius:var(--r2);padding:14px;margin-bottom:10px;
-  display:flex;gap:12px;cursor:pointer;transition:all .2s;
-}
-.event-row-card:hover{border-color:rgba(139,92,246,.4)}
-
-/* Jobs */
-.job-card{
-  background:var(--bg1);border:1px solid var(--border);
-  border-radius:var(--r2);padding:14px;margin-bottom:10px;
-  cursor:pointer;transition:all .2s;
-}
-.job-card:hover{border-color:var(--p);transform:translateY(-1px)}
-.job-card-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:8px}
-.job-logo{width:44px;height:44px;border-radius:10px;background:var(--bg2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
-.job-tags{display:flex;flex-wrap:wrap;gap:6px}
-
-/* Request card */
-.request-card{
-  background:var(--bg1);border:1.5px solid rgba(41,82,255,.15);
-  border-radius:var(--r2);padding:12px 14px;margin-bottom:8px;
-  cursor:pointer;display:flex;gap:10px;align-items:center;
-  transition:all .2s;
-}
-.request-card:hover{border-color:rgba(41,82,255,.4);background:var(--pl)}
-
-/* Weather */
-#weather-card{display:flex !important}
-
-/* Community post card (home preview) */
-.home-post{background:var(--bg1);border:1px solid var(--border);border-radius:var(--r2);padding:14px;margin-bottom:10px}
-.home-post-head{display:flex;gap:10px;align-items:center;margin-bottom:10px}
-.home-post-body{font-size:.87rem;line-height:1.7;color:var(--text)}
-
-
-.ai-mode-tab{padding:7px 14px;border-radius:20px;font-size:.75rem;font-weight:700;background:var(--bg2);color:var(--textl);border:1.5px solid var(--border);cursor:pointer;white-space:nowrap;transition:all .18s;flex-shrink:0}
-.ai-mode-tab.active{background:var(--p);color:#fff;border-color:var(--p)}
-.ai-result-card{background:var(--bg1);border:1.5px solid var(--border);border-radius:14px;padding:12px 14px;margin:6px 0;cursor:pointer;transition:all .18s}
-.ai-result-card:active{transform:scale(.98);background:var(--bg2)}
-.ai-result-card .arc-name{font-weight:700;font-size:.88rem;margin-bottom:2px}
-.ai-result-card .arc-meta{font-size:.75rem;color:var(--textl);display:flex;gap:10px;flex-wrap:wrap}
-
-</style>
+<link rel="stylesheet" href="design.css">
+<link rel="stylesheet" href="screens.css">
 </head>
 <body>
 <div id="app">
 
-<!-- ONBOARDING -->
-<div id="s-onboard" class="screen active" style="flex-direction:column;position:relative">
+<!-- ═══════════════════════════════════════
+     ONBOARDING
+═══════════════════════════════════════ -->
+<div id="s-onboard" class="screen active" style="flex-direction:column;position:relative;overflow:hidden">
   <div class="onboard-slides" id="ob-slides">
+
     <!-- Slide 1 -->
     <div class="onboard-slide">
-      <svg class="ob-illus" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <radialGradient id="g1" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#2952FF" stop-opacity=".18"/>
-            <stop offset="100%" stop-color="#2952FF" stop-opacity="0"/>
-          </radialGradient>
-        </defs>
-        <circle cx="110" cy="110" r="100" fill="url(#g1)"/>
-        <circle cx="110" cy="80" r="28" fill="#2952FF" opacity=".15"/>
-        <circle cx="110" cy="80" r="20" fill="#2952FF" opacity=".3"/>
-        <text x="98" y="88" font-size="22">📍</text>
-        <circle cx="60" cy="140" r="16" fill="#FFB347" opacity=".9"/>
-        <rect x="50" y="157" width="20" height="30" rx="4" fill="#3A86FF"/>
-        <circle cx="160" cy="135" r="16" fill="#E8A87C" opacity=".9"/>
-        <rect x="150" y="152" width="20" height="30" rx="4" fill="#9B59B6"/>
-        <circle cx="110" cy="145" r="18" fill="#C48B4A" opacity=".9"/>
-        <rect x="100" y="163" width="20" height="32" rx="4" fill="#FF8C42"/>
-        <path d="M76 138 Q110 120 144 133" stroke="#2952FF" stroke-width="1.5" fill="none" stroke-dasharray="4,3" opacity=".5"/>
-        <circle cx="60" cy="140" r="26" fill="none" stroke="#2952FF" stroke-width="1" stroke-dasharray="3,4" opacity=".3"/>
-        <circle cx="160" cy="135" r="26" fill="none" stroke="#2952FF" stroke-width="1" stroke-dasharray="3,4" opacity=".3"/>
-        <text x="88" y="210" font-size="11" fill="#2952FF" opacity=".6" font-family="sans-serif" font-weight="700">EFFURUN • WARRI • DELTA</text>
-      </svg>
-      <div class="ob-num">01 / 03</div>
-      <h1 class="ob-h">Talent lives<br><span style="color:var(--p)">near you</span></h1>
-      <p class="ob-sub">Discover skilled people on a live map — developers, tailors, plumbers, designers — all in your community.</p>
-      <div class="ob-dots" id="ob-dots">
-        <div class="ob-dot on"></div><div class="ob-dot"></div><div class="ob-dot"></div>
+      <div class="ob-illus-wrap">
+        <svg class="ob-illus" viewBox="0 0 320 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="og1" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#4F46E5" stop-opacity=".09"/>
+              <stop offset="100%" stop-color="#4F46E5" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <circle cx="160" cy="140" r="130" fill="url(#og1)"/>
+          <line x1="40" y1="80" x2="280" y2="80" stroke="#4F46E5" stroke-width=".8" opacity=".18"/>
+          <line x1="40" y1="110" x2="280" y2="110" stroke="#4F46E5" stroke-width=".8" opacity=".18"/>
+          <line x1="40" y1="140" x2="280" y2="140" stroke="#4F46E5" stroke-width=".8" opacity=".18"/>
+          <line x1="40" y1="170" x2="280" y2="170" stroke="#4F46E5" stroke-width=".8" opacity=".18"/>
+          <line x1="80" y1="50" x2="80" y2="240" stroke="#4F46E5" stroke-width=".8" opacity=".18"/>
+          <line x1="120" y1="50" x2="120" y2="240" stroke="#4F46E5" stroke-width=".8" opacity=".18"/>
+          <line x1="160" y1="50" x2="160" y2="240" stroke="#4F46E5" stroke-width=".8" opacity=".18"/>
+          <line x1="200" y1="50" x2="200" y2="240" stroke="#4F46E5" stroke-width=".8" opacity=".18"/>
+          <line x1="240" y1="50" x2="240" y2="240" stroke="#4F46E5" stroke-width=".8" opacity=".18"/>
+          <path d="M58 155 Q118 122 160 142 Q202 162 262 132" stroke="#4F46E5" stroke-width="3" opacity=".3" stroke-linecap="round" fill="none"/>
+          <circle cx="160" cy="100" r="24" fill="rgba(79,70,229,.12)"/>
+          <circle cx="160" cy="100" r="16" fill="rgba(79,70,229,.22)"/>
+          <circle cx="160" cy="100" r="11" fill="#4F46E5"/>
+          <circle cx="160" cy="100" r="4.5" fill="white" opacity=".95"/>
+          <line x1="160" y1="111" x2="160" y2="122" stroke="#4F46E5" stroke-width="2.5"/>
+          <ellipse cx="160" cy="124" rx="5" ry="2.5" fill="#4F46E5" opacity=".4"/>
+          <circle cx="82" cy="142" r="11" fill="rgba(129,140,248,.18)"/>
+          <circle cx="82" cy="142" r="7.5" fill="#818CF8" opacity=".85"/>
+          <circle cx="82" cy="142" r="3" fill="white" opacity=".9"/>
+          <circle cx="222" cy="126" r="11" fill="rgba(16,185,129,.18)"/>
+          <circle cx="222" cy="126" r="7.5" fill="#10B981" opacity=".85"/>
+          <circle cx="222" cy="126" r="3" fill="white" opacity=".9"/>
+          <circle cx="140" cy="178" r="10" fill="rgba(245,158,11,.18)"/>
+          <circle cx="140" cy="178" r="7" fill="#F59E0B" opacity=".85"/>
+          <circle cx="140" cy="178" r="2.8" fill="white" opacity=".9"/>
+          <line x1="89" y1="142" x2="149" y2="107" stroke="#4F46E5" stroke-width="1.4" stroke-dasharray="5,4" opacity=".55" fill="none"/>
+          <line x1="171" y1="107" x2="215" y2="126" stroke="#4F46E5" stroke-width="1.4" stroke-dasharray="5,4" opacity=".55" fill="none"/>
+          <circle cx="192" cy="80" r="17" fill="#0C0D1D"/>
+          <circle cx="192" cy="80" r="16" fill="none" stroke="#4F46E5" stroke-width="1.5"/>
+          <circle cx="192" cy="76" r="5" fill="#818CF8"/>
+          <path d="M183 91 Q192 87 201 91" fill="#818CF8" opacity=".85"/>
+          <circle cx="60" cy="155" r="14" fill="#0C0D1D"/>
+          <circle cx="60" cy="155" r="13" fill="none" stroke="#818CF8" stroke-width="1.3"/>
+          <circle cx="60" cy="152" r="4" fill="#4F46E5"/>
+          <path d="M53 162 Q60 158 67 162" fill="#4F46E5" opacity=".8"/>
+          <circle cx="244" cy="112" r="14" fill="#0C0D1D"/>
+          <circle cx="244" cy="112" r="13" fill="none" stroke="#10B981" stroke-width="1.3"/>
+          <circle cx="244" cy="109" r="4" fill="#10B981"/>
+          <path d="M237 119 Q244 115 251 119" fill="#10B981" opacity=".8"/>
+          <rect x="94" y="218" width="132" height="22" rx="11" fill="rgba(79,70,229,.13)" stroke="rgba(79,70,229,.3)" stroke-width="1"/>
+          <text x="160" y="232" font-size="9.5" fill="#818CF8" font-family="sans-serif" font-weight="700" text-anchor="middle" letter-spacing="2">WARRI · EFFURUN · LAGOS</text>
+        </svg>
+        <div class="ob-illus-fade"></div>
+      </div>
+      <div class="ob-content">
+        <div class="ob-num">01 / 03</div>
+        <h1 class="ob-h">Talent lives<br><span style="color:var(--p2)">near you</span></h1>
+        <p class="ob-sub">Discover skilled people on a live map — developers, tailors, plumbers, designers — all in your community.</p>
+        <div class="ob-dots" id="ob-dots">
+          <div class="ob-dot on"></div><div class="ob-dot"></div><div class="ob-dot"></div>
+        </div>
       </div>
     </div>
+
     <!-- Slide 2 -->
     <div class="onboard-slide">
-      <svg class="ob-illus" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="110" cy="110" r="100" fill="url(#g1)"/>
-        <rect x="55" y="55" width="110" height="80" rx="14" fill="#0D1526" stroke="#2952FF" stroke-width="1.5" opacity=".8"/>
-        <rect x="63" y="65" width="94" height="10" rx="5" fill="#2952FF" opacity=".3"/>
-        <rect x="63" y="82" width="70" height="8" rx="4" fill="#2952FF" opacity=".2"/>
-        <rect x="63" y="97" width="50" height="8" rx="4" fill="#2952FF" opacity=".15"/>
-        <circle cx="155" cy="100" r="14" fill="#FFB800" opacity=".9"/>
-        <text x="148" y="106" font-size="14">⚡</text>
-        <rect x="70" y="148" width="80" height="36" rx="10" fill="#2952FF"/>
-        <text x="88" y="171" font-size="13" fill="white" font-family="sans-serif" font-weight="700">AI MATCH</text>
-        <path d="M110 135 L110 148" stroke="#2952FF" stroke-width="2" stroke-dasharray="3,3"/>
-        <text x="86" y="208" font-size="10" fill="#2952FF" opacity=".6" font-family="sans-serif" font-weight="700">DESCRIBE · MATCH · HIRE</text>
-      </svg>
-      <div class="ob-num">02 / 03</div>
-      <h1 class="ob-h">AI finds the<br><span style="color:var(--p)">right match</span></h1>
-      <p class="ob-sub">Tell our AI what you need in plain English. It searches thousands of local profiles and finds your perfect fit instantly.</p>
-      <div class="ob-dots">
-        <div class="ob-dot"></div><div class="ob-dot on"></div><div class="ob-dot"></div>
+      <div class="ob-illus-wrap">
+        <svg class="ob-illus" viewBox="0 0 320 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="160" cy="128" r="92" fill="rgba(79,70,229,.06)"/>
+          <circle cx="160" cy="128" r="38" fill="rgba(79,70,229,.12)"/>
+          <circle cx="160" cy="128" r="27" fill="rgba(79,70,229,.22)"/>
+          <circle cx="160" cy="128" r="18" fill="#4F46E5"/>
+          <circle cx="154" cy="122" r="2.5" fill="white" opacity=".9"/>
+          <circle cx="166" cy="122" r="2.5" fill="white" opacity=".9"/>
+          <circle cx="154" cy="134" r="2.5" fill="white" opacity=".9"/>
+          <circle cx="166" cy="134" r="2.5" fill="white" opacity=".9"/>
+          <circle cx="160" cy="128" r="2" fill="white"/>
+          <line x1="154" y1="122" x2="166" y2="122" stroke="white" stroke-width="1" opacity=".55"/>
+          <line x1="154" y1="134" x2="166" y2="134" stroke="white" stroke-width="1" opacity=".55"/>
+          <line x1="154" y1="122" x2="154" y2="134" stroke="white" stroke-width="1" opacity=".55"/>
+          <line x1="166" y1="122" x2="166" y2="134" stroke="white" stroke-width="1" opacity=".55"/>
+          <circle cx="160" cy="128" r="50" stroke="#4F46E5" stroke-width="1" opacity=".28" stroke-dasharray="3,5"/>
+          <circle cx="160" cy="128" r="72" stroke="#4F46E5" stroke-width=".8" opacity=".14" stroke-dasharray="4,8"/>
+          <rect x="28" y="88" width="82" height="64" rx="15" fill="#0C0D1D" stroke="rgba(79,70,229,.45)" stroke-width="1.5"/>
+          <circle cx="69" cy="107" r="11" fill="#818CF8" opacity=".82"/>
+          <rect x="43" y="123" width="52" height="5" rx="2.5" fill="#4F46E5" opacity=".42"/>
+          <rect x="50" y="132" width="38" height="4" rx="2" fill="#4F46E5" opacity=".25"/>
+          <rect x="210" y="88" width="82" height="64" rx="15" fill="#0C0D1D" stroke="rgba(16,185,129,.6)" stroke-width="2"/>
+          <circle cx="251" cy="107" r="11" fill="#10B981" opacity=".85"/>
+          <rect x="225" y="123" width="52" height="5" rx="2.5" fill="#10B981" opacity=".45"/>
+          <rect x="232" y="132" width="38" height="4" rx="2" fill="#10B981" opacity=".28"/>
+          <rect x="218" y="144" width="47" height="14" rx="7" fill="rgba(16,185,129,.2)" stroke="rgba(16,185,129,.45)" stroke-width="1"/>
+          <text x="241" y="154" font-size="7.5" fill="#10B981" font-family="sans-serif" font-weight="700" text-anchor="middle">98% MATCH</text>
+          <circle cx="286" cy="89" r="9" fill="#10B981"/>
+          <path d="M282 89 l3 3 l5-5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <line x1="110" y1="118" x2="138" y2="124" stroke="#4F46E5" stroke-width="1.8" stroke-dasharray="4,3" opacity=".65"/>
+          <line x1="182" y1="124" x2="210" y2="118" stroke="#10B981" stroke-width="2.2" opacity=".8"/>
+          <circle cx="210" cy="118" r="4.5" fill="#10B981" opacity=".7"/>
+          <rect x="80" y="196" width="160" height="46" rx="15" fill="#0C0D1D" stroke="rgba(79,70,229,.38)" stroke-width="1.5"/>
+          <text x="100" y="215" font-size="8.5" fill="#9896C0" font-family="sans-serif">"Find a tailor near Effurun..."</text>
+          <rect x="100" y="221" width="96" height="5" rx="2.5" fill="#4F46E5" opacity=".35"/>
+          <rect x="100" y="230" width="68" height="5" rx="2.5" fill="#4F46E5" opacity=".2"/>
+        </svg>
+        <div class="ob-illus-fade"></div>
+      </div>
+      <div class="ob-content">
+        <div class="ob-num">02 / 03</div>
+        <h1 class="ob-h">AI finds the<br><span style="color:var(--p2)">right match</span></h1>
+        <p class="ob-sub">Describe what you need in plain English. Our AI searches thousands of local profiles and finds your perfect fit instantly.</p>
+        <div class="ob-dots">
+          <div class="ob-dot"></div><div class="ob-dot on"></div><div class="ob-dot"></div>
+        </div>
       </div>
     </div>
+
     <!-- Slide 3 -->
     <div class="onboard-slide">
-      <svg class="ob-illus" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="110" cy="110" r="100" fill="url(#g1)"/>
-        <rect x="50" y="60" width="120" height="100" rx="14" fill="#0D1526" stroke="#FFB800" stroke-width="1.5" opacity=".7"/>
-        <circle cx="80" cy="90" r="14" fill="#FFB347"/>
-        <rect x="66" y="106" width="28" height="32" rx="5" fill="#3A86FF"/>
-        <text x="62" y="155" font-size="9" fill="#FFB800" font-family="sans-serif" font-weight="700">★★★★★</text>
-        <rect x="105" y="72" width="55" height="7" rx="3.5" fill="#2952FF" opacity=".4"/>
-        <rect x="105" y="85" width="40" height="6" rx="3" fill="#2952FF" opacity=".25"/>
-        <rect x="105" y="97" width="48" height="6" rx="3" fill="#2952FF" opacity=".2"/>
-        <circle cx="100" cy="155" r="12" fill="#00D97E" opacity=".9"/>
-        <text x="93" y="161" font-size="13">✓</text>
-        <text x="74" y="185" font-size="10" fill="#00D97E" opacity=".8" font-family="sans-serif" font-weight="700">VERIFIED · TRUSTED · PAID</text>
-      </svg>
-      <div class="ob-num">03 / 03</div>
-      <h1 class="ob-h">Safe, trusted<br><span style="color:var(--gold)">every time</span></h1>
-      <p class="ob-sub">Our Trust Score, escrow payments, and verified reviews mean you're always protected — whether you're hiring or being hired.</p>
-      <div class="ob-dots">
-        <div class="ob-dot"></div><div class="ob-dot"></div><div class="ob-dot on"></div>
+      <div class="ob-illus-wrap">
+        <svg class="ob-illus" viewBox="0 0 320 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="160" cy="122" r="105" fill="rgba(79,70,229,.05)"/>
+          <path d="M160 48 L226 74 L226 124 C226 162 198 190 160 206 C122 190 94 162 94 124 L94 74 Z" fill="rgba(79,70,229,.12)"/>
+          <path d="M160 56 L218 80 L218 124 C218 158 193 184 160 198 C127 184 102 158 102 124 L102 80 Z" fill="rgba(79,70,229,.18)" stroke="#4F46E5" stroke-width="1.8"/>
+          <path d="M160 65 L210 87 L210 124 C210 154 188 178 160 191 C132 178 110 154 110 124 L110 87 Z" fill="#0C0D1D"/>
+          <path d="M138 124 l16 16 l26-28" stroke="#10B981" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <text x="64" y="84" font-size="18" opacity=".75" fill="#F59E0B">★</text>
+          <text x="238" y="90" font-size="15" opacity=".7" fill="#F59E0B">★</text>
+          <text x="68" y="172" font-size="12" opacity=".5" fill="#F59E0B">★</text>
+          <text x="242" y="162" font-size="13" opacity=".6" fill="#F59E0B">★</text>
+          <rect x="118" y="212" width="84" height="26" rx="13" fill="rgba(245,158,11,.14)" stroke="rgba(245,158,11,.4)" stroke-width="1"/>
+          <text x="160" y="229" font-size="10.5" fill="#F59E0B" font-family="sans-serif" font-weight="700" text-anchor="middle">★ 4.9 TRUSTED</text>
+          <rect x="44" y="200" width="64" height="30" rx="11" fill="rgba(16,185,129,.1)" stroke="rgba(16,185,129,.32)" stroke-width="1"/>
+          <text x="76" y="212" font-size="7.5" fill="#10B981" font-family="sans-serif" font-weight="700" text-anchor="middle">ESCROW</text>
+          <text x="76" y="223" font-size="7.5" fill="#10B981" font-family="sans-serif" text-anchor="middle">PROTECTED</text>
+          <rect x="212" y="200" width="64" height="30" rx="11" fill="rgba(79,70,229,.1)" stroke="rgba(79,70,229,.32)" stroke-width="1"/>
+          <text x="244" y="212" font-size="7.5" fill="#818CF8" font-family="sans-serif" font-weight="700" text-anchor="middle">VERIFIED</text>
+          <text x="244" y="223" font-size="7.5" fill="#818CF8" font-family="sans-serif" text-anchor="middle">PROVIDER</text>
+        </svg>
+        <div class="ob-illus-fade"></div>
+      </div>
+      <div class="ob-content">
+        <div class="ob-num">03 / 03</div>
+        <h1 class="ob-h">Safe, trusted<br><span style="color:var(--gold)">every time</span></h1>
+        <p class="ob-sub">Trust Score, escrow payments, and verified reviews mean you are always protected — whether hiring or being hired.</p>
+        <div class="ob-dots">
+          <div class="ob-dot"></div><div class="ob-dot"></div><div class="ob-dot on"></div>
+        </div>
       </div>
     </div>
   </div>
+
   <div class="ob-actions" id="ob-actions">
-    <button class="btn btn-p btn-full" id="ob-next-btn" onclick="C.obNext()">Next →</button>
+    <button class="btn btn-p btn-full" id="ob-next-btn" onclick="C.obNext()">Next</button>
     <button class="btn btn-g btn-full" onclick="C.goTo('login-options')">Skip</button>
   </div>
 </div>
 
-<!-- LOGIN OPTIONS -->
+<!-- ═══════════════════════════════════════
+     LOGIN OPTIONS
+═══════════════════════════════════════ -->
 <div id="s-login-options" class="screen auth-screen" style="flex-direction:column">
-  <div class="auth-blob"></div>
-  <button class="auth-back" onclick="C.goTo('onboard')">←</button>
+  <div class="auth-top-deco"></div>
+  <button class="auth-back" onclick="C.goTo('onboard')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+  </button>
   <div class="auth-top">
-    <div class="auth-logo">Cionti</div>
+    <div class="auth-logo-wrap">
+      <div class="auth-logo-icon">
+        <svg viewBox="0 0 28 28" fill="none" width="22" height="22">
+          <circle cx="14" cy="11" r="7" stroke="white" stroke-width="2.5" stroke-dasharray="100" stroke-dashoffset="28" stroke-linecap="round"/>
+          <circle cx="14" cy="11" r="2.5" fill="white"/>
+          <line x1="14" y1="18" x2="14" y2="24" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="auth-logo">Cionti</div>
+    </div>
     <div class="auth-tagline">Community Of Talent In One Network</div>
-    <h2 class="auth-h">Welcome back 👋</h2>
-    <p class="auth-sub">Choose how you'd like to sign in</p>
+    <h2 class="auth-h">Welcome back</h2>
+    <p class="auth-sub">Choose how you would like to sign in</p>
   </div>
   <div class="auth-body">
     <div class="lo-card" onclick="C.goTo('login')">
-      <div class="lo-icon">✉️</div>
-      <div style="flex:1"><div class="lo-name">Email & Password</div><div class="lo-hint">Sign in with your email</div></div>
-      <span style="color:var(--textm)">→</span>
+      <div class="lo-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </div>
+      <div style="flex:1"><div class="lo-name">Email and Password</div><div class="lo-hint">Sign in with your email address</div></div>
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--textm)" stroke-width="2" width="16" height="16" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
     </div>
     <div class="lo-card" onclick="C.goTo('phone-login')">
-      <div class="lo-icon">📱</div>
-      <div style="flex:1"><div class="lo-name">Phone Number</div><div class="lo-hint">Get a one-time SMS code</div></div>
-      <span style="color:var(--textm)">→</span>
+      <div class="lo-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+      </div>
+      <div style="flex:1"><div class="lo-name">Phone Number</div><div class="lo-hint">Receive a one-time SMS code</div></div>
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--textm)" stroke-width="2" width="16" height="16" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
     </div>
     <div class="lo-card" onclick="C.loginGoogle()">
-      <div class="lo-icon" style="font-weight:800;font-family:sans-serif;font-size:1.3rem;color:#EA4335">G</div>
-      <div style="flex:1"><div class="lo-name">Continue with Google</div><div class="lo-hint">Fast & secure</div></div>
-      <span style="color:var(--textm)">→</span>
+      <div class="lo-icon" style="font-weight:800;font-size:1.25rem;color:#EA4335;font-family:'Sora',sans-serif">G</div>
+      <div style="flex:1"><div class="lo-name">Continue with Google</div><div class="lo-hint">Fast and secure sign-in</div></div>
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--textm)" stroke-width="2" width="16" height="16" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
     </div>
-    <div style="margin-top:16px;text-align:center">
-      <span class="badge badge-ok" style="cursor:pointer" onclick="C.browseGuest()">👁 Browse as guest — no account needed</span>
+    <div style="margin-top:18px;text-align:center">
+      <span class="badge badge-ok" style="cursor:pointer;padding:6px 14px;font-size:.72rem" onclick="C.browseGuest()">Browse as guest — no account needed</span>
     </div>
   </div>
-  <div class="auth-footer">Don't have an account? <span class="link-p" onclick="C.goTo('register')">Sign Up</span></div>
+  <div class="auth-footer">No account yet? <span class="link-p" onclick="C.goTo('register')">Sign Up free</span></div>
 </div>
 
-<!-- LOGIN -->
+<!-- ═══════════════════════════════════════
+     LOGIN
+═══════════════════════════════════════ -->
 <div id="s-login" class="screen auth-screen" style="flex-direction:column">
-  <div class="auth-blob"></div>
-  <button class="auth-back" onclick="C.goTo('login-options')">←</button>
+  <div class="auth-top-deco"></div>
+  <button class="auth-back" onclick="C.goTo('login-options')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+  </button>
   <div class="auth-top">
-    <div class="auth-logo">Cionti</div>
+    <div class="auth-logo-wrap">
+      <div class="auth-logo-icon">
+        <svg viewBox="0 0 28 28" fill="none" width="22" height="22"><circle cx="14" cy="11" r="7" stroke="white" stroke-width="2.5" stroke-dasharray="100" stroke-dashoffset="28" stroke-linecap="round"/><circle cx="14" cy="11" r="2.5" fill="white"/><line x1="14" y1="18" x2="14" y2="24" stroke="white" stroke-width="2.5" stroke-linecap="round"/></svg>
+      </div>
+      <div class="auth-logo">Cionti</div>
+    </div>
     <h2 class="auth-h">Sign in</h2>
-    <p class="auth-sub">Welcome back!</p>
+    <p class="auth-sub">Welcome back — good to see you again</p>
   </div>
   <div class="auth-body">
     <div class="form-group">
       <label class="form-label">Email address</label>
-      <div class="inp-w"><span class="inp-ic">✉️</span><input type="email" id="l-email" class="form-input" placeholder="your@email.com" autocomplete="email"></div>
+      <div class="inp-w">
+        <span class="inp-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
+        <input type="email" id="l-email" class="form-input" placeholder="your@email.com" autocomplete="email">
+      </div>
     </div>
     <div class="form-group">
       <label class="form-label">Password</label>
-      <div class="inp-w"><span class="inp-ic">🔒</span><input type="password" id="l-pw" class="form-input has-r" placeholder="••••••••" autocomplete="current-password"><span class="inp-ic-r" onclick="C.togglePw('l-pw',this)">👁</span></div>
-      <div style="text-align:right;margin-top:6px"><span class="link-p text-sm" onclick="C.forgotPw()">Forgot password?</span></div>
+      <div class="inp-w">
+        <span class="inp-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></span>
+        <input type="password" id="l-pw" class="form-input has-r" placeholder="Your password" autocomplete="current-password">
+        <span class="inp-ic-r" onclick="C.togglePw('l-pw',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span>
+      </div>
+      <div style="text-align:right;margin-top:7px"><span class="link-p text-sm" onclick="C.forgotPw()">Forgot password?</span></div>
     </div>
     <div id="l-err" class="p-err"></div>
     <button class="btn btn-p btn-full" id="btn-login" onclick="C.login()">Sign In</button>
     <div class="or-row">Or continue with</div>
     <div class="social-row">
-      <div class="social-btn" onclick="C.loginGoogle()" style="color:#EA4335">G</div>
-      <div class="social-btn" onclick="C.goTo('phone-login')">📱</div>
+      <div class="social-btn" onclick="C.loginGoogle()" style="color:#EA4335;font-weight:800;font-family:'Sora',sans-serif;font-size:1.1rem">G</div>
+      <div class="social-btn" onclick="C.goTo('phone-login')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
     </div>
   </div>
   <div class="auth-footer">No account? <span class="link-p" onclick="C.goTo('register')">Sign Up free</span></div>
 </div>
 
-<!-- PHONE LOGIN -->
+<!-- ═══════════════════════════════════════
+     PHONE LOGIN
+═══════════════════════════════════════ -->
 <div id="s-phone-login" class="screen auth-screen" style="flex-direction:column">
-  <div class="auth-blob"></div>
-  <button class="auth-back" onclick="C.goTo('login-options')">←</button>
+  <div class="auth-top-deco"></div>
+  <button class="auth-back" onclick="C.goTo('login-options')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
   <div class="auth-top">
-    <div class="auth-logo">Cionti</div>
+    <div class="auth-logo-wrap"><div class="auth-logo-icon"><svg viewBox="0 0 28 28" fill="none" width="22" height="22"><circle cx="14" cy="11" r="7" stroke="white" stroke-width="2.5" stroke-dasharray="100" stroke-dashoffset="28" stroke-linecap="round"/><circle cx="14" cy="11" r="2.5" fill="white"/><line x1="14" y1="18" x2="14" y2="24" stroke="white" stroke-width="2.5" stroke-linecap="round"/></svg></div><div class="auth-logo">Cionti</div></div>
     <h2 class="auth-h">Phone login</h2>
-    <p class="auth-sub">We'll send a 6-digit code via SMS</p>
+    <p class="auth-sub">We will send a 6-digit code via SMS</p>
   </div>
   <div class="auth-body">
     <div class="form-group">
       <label class="form-label">Phone Number</label>
-      <div class="inp-w"><span class="inp-ic">📱</span><input type="tel" id="ph-num" class="form-input" placeholder="+234 800 000 0000"></div>
+      <div class="inp-w"><span class="inp-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></span><input type="tel" id="ph-num" class="form-input" placeholder="+234 800 000 0000"></div>
     </div>
     <div id="recaptcha-phone"></div>
     <div id="ph-err" class="p-err"></div>
@@ -1332,14 +301,16 @@ img{max-width:100%;display:block}
   </div>
 </div>
 
-<!-- REGISTER -->
+<!-- ═══════════════════════════════════════
+     REGISTER
+═══════════════════════════════════════ -->
 <div id="s-register" class="screen auth-screen" style="flex-direction:column">
-  <div class="auth-blob"></div>
-  <button class="auth-back" onclick="C.goTo('login-options')">←</button>
-  <div class="auth-top" style="padding-top:48px">
-    <div class="auth-logo">Cionti</div>
+  <div class="auth-top-deco"></div>
+  <button class="auth-back" onclick="C.goTo('login-options')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+  <div class="auth-top" style="padding-top:46px">
+    <div class="auth-logo-wrap"><div class="auth-logo-icon"><svg viewBox="0 0 28 28" fill="none" width="22" height="22"><circle cx="14" cy="11" r="7" stroke="white" stroke-width="2.5" stroke-dasharray="100" stroke-dashoffset="28" stroke-linecap="round"/><circle cx="14" cy="11" r="2.5" fill="white"/><line x1="14" y1="18" x2="14" y2="24" stroke="white" stroke-width="2.5" stroke-linecap="round"/></svg></div><div class="auth-logo">Cionti</div></div>
     <h2 class="auth-h">Create Account</h2>
-    <p class="auth-sub">Join thousands of talents in Nigeria</p>
+    <p class="auth-sub">Join thousands of talents across Nigeria</p>
   </div>
   <div class="auth-body">
     <div class="form-group"><label class="form-label">Full Name *</label><input type="text" id="r-name" class="form-input" placeholder="e.g. Obinna Egenti" autocomplete="name"></div>
@@ -1355,44 +326,40 @@ img{max-width:100%;display:block}
     <div class="form-group"><label class="form-label">Address / Area</label><input type="text" id="r-address" class="form-input" placeholder="e.g. Refinery Road, Effurun"></div>
     <div class="form-group"><label class="form-label">City *</label><input type="text" id="r-city" class="form-input" placeholder="e.g. Effurun, Warri, Lagos"></div>
     <div class="form-group"><label class="form-label">State</label><input type="text" id="r-state" class="form-input" placeholder="e.g. Delta State"></div>
-    <div class="form-group">
-      <label class="form-label">I want to...</label>
+    <div class="form-group"><label class="form-label">I want to...</label>
       <div class="type-grid">
         <div class="type-opt on" id="to-both" onclick="C.selType('both')">🤝 Both</div>
         <div class="type-opt" id="to-provider" onclick="C.selType('provider')">🛠 Offer Skills</div>
         <div class="type-opt" id="to-seeker" onclick="C.selType('seeker')">🔍 Find Talent</div>
       </div>
     </div>
-    <div class="form-group">
-      <label class="form-label">Password *</label>
-      <div style="position:relative"><input type="password" id="r-pw" class="form-input" placeholder="Min. 6 characters" autocomplete="new-password"><span class="inp-ic-r" onclick="C.togglePw('r-pw',this)">👁</span></div>
+    <div class="form-group"><label class="form-label">Password *</label>
+      <div style="position:relative"><input type="password" id="r-pw" class="form-input" placeholder="Min. 6 characters" autocomplete="new-password" style="padding-right:44px"><span class="inp-ic-r" onclick="C.togglePw('r-pw',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span></div>
     </div>
     <label class="check-row"><input type="checkbox" id="r-terms"><span>I agree to the <a class="link-p" href="#">Terms of Service</a> and <a class="link-p" href="#">Privacy Policy</a></span></label>
     <div id="r-err" class="p-err"></div>
-    <button class="btn btn-p btn-full" id="btn-register" onclick="C.register()">Send Verification Code 📨</button>
+    <button class="btn btn-p btn-full" id="btn-register" onclick="C.register()">Send Verification Code</button>
     <p style="font-size:.75rem;color:var(--textl);text-align:center;margin-top:10px">A 4-digit code will be sent to your email</p>
   </div>
   <div class="auth-footer">Already have an account? <span class="link-p" onclick="C.goTo('login')">Sign In</span></div>
 </div>
 
-<!-- OTP VERIFY -->
+<!-- ═══════════════════════════════════════
+     OTP VERIFY
+═══════════════════════════════════════ -->
 <div id="s-verify" class="screen" style="flex-direction:column;background:var(--bg0)">
   <div class="top-bar">
-    <button class="icon-btn" onclick="S.pendingPhone ? C.goTo('phone-login') : C.goTo('register')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-    </button>
-    <h2>Verify Code</h2>
-    <div style="width:40px"></div>
+    <button class="icon-btn" onclick="S.pendingPhone ? C.goTo('phone-login') : C.goTo('register')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+    <h2>Verify Code</h2><div style="width:40px"></div>
   </div>
-  <div class="screen-scroll" style="flex:1;display:flex;flex-direction:column;align-items:center;padding:28px 24px;text-align:center">
+  <div class="screen-scroll" style="flex:1;display:flex;flex-direction:column;align-items:center;padding:32px 24px;text-align:center">
     <div class="verify-icon">📨</div>
-    <h3 style="font-size:1.2rem;font-weight:800;margin-bottom:8px">Enter your code</h3>
-    <p style="font-size:.85rem;color:var(--textl);margin-bottom:6px">Code sent to <strong id="v-dest" class="text-p"></strong></p>
-    <!-- Info box — shows OTP for email reg or SMS note for phone -->
-    <div id="dev-otp-box" style="background:var(--pl);border:1.5px solid var(--p);border-radius:12px;padding:10px 18px;margin-bottom:20px;display:none;width:100%;box-sizing:border-box">
-      <div style="font-size:.68rem;font-weight:700;color:var(--textl);margin-bottom:4px;text-transform:uppercase;letter-spacing:1px">Your verification code</div>
-      <div id="dev-otp-code" style="font-size:2rem;font-weight:800;color:var(--p);letter-spacing:8px;font-family:'Bricolage Grotesque',sans-serif"></div>
-      <div style="font-size:.68rem;color:var(--textm);margin-top:4px">⚠️ Shown here because email is not yet configured</div>
+    <h3 style="font-size:1.25rem;font-weight:800;margin-bottom:9px;font-family:'Sora',sans-serif;letter-spacing:-.025em">Check your inbox</h3>
+    <p style="font-size:.86rem;color:var(--textl);margin-bottom:8px">Code sent to <strong id="v-dest" class="text-p"></strong></p>
+    <div id="dev-otp-box" style="background:var(--pl);border:1.5px solid var(--p);border-radius:14px;padding:12px 20px;margin-bottom:22px;display:none;width:100%">
+      <div style="font-size:.67rem;font-weight:700;color:var(--textl);margin-bottom:5px;text-transform:uppercase;letter-spacing:1.2px">Your verification code</div>
+      <div id="dev-otp-code" style="font-size:2.2rem;font-weight:800;color:var(--p2);letter-spacing:10px;font-family:'Sora',sans-serif"></div>
+      <div style="font-size:.67rem;color:var(--textm);margin-top:5px">Shown here because email is not yet configured</div>
     </div>
     <div class="otp-row">
       <input class="otp-box" type="tel" maxlength="1" id="otp-0" oninput="C.otpIn(0)" onkeydown="C.otpKey(event,0)" inputmode="numeric">
@@ -1400,36 +367,47 @@ img{max-width:100%;display:block}
       <input class="otp-box" type="tel" maxlength="1" id="otp-2" oninput="C.otpIn(2)" onkeydown="C.otpKey(event,2)" inputmode="numeric">
       <input class="otp-box" type="tel" maxlength="1" id="otp-3" oninput="C.otpIn(3)" onkeydown="C.otpKey(event,3)" inputmode="numeric">
     </div>
-    <p id="otp-err" class="otp-err" style="display:none;color:var(--bad);font-size:.82rem;margin:10px 0"></p>
-    <p id="otp-ok" style="display:none;color:var(--ok);font-size:.82rem;margin:10px 0;font-weight:600"></p>
-    <button class="btn btn-p btn-full" id="btn-verify" onclick="C.verifyOtp()" style="margin-bottom:14px">Verify & Continue →</button>
-    <p class="text-sm" style="color:var(--textl)">Didn't get it? <span class="link-p" id="resend-lnk" onclick="C.resendOtp()" style="font-weight:700;cursor:pointer">Resend</span></p>
-    <p id="resend-tmr" style="display:none;font-size:.75rem;color:var(--textm);margin-top:6px"></p>
+    <p id="otp-err" class="otp-err" style="display:none;color:var(--bad);font-size:.83rem;margin:10px 0"></p>
+    <p id="otp-ok" style="display:none;color:var(--ok);font-size:.83rem;margin:10px 0;font-weight:600"></p>
+    <button class="btn btn-p btn-full" id="btn-verify" onclick="C.verifyOtp()" style="margin-bottom:16px">Verify and Continue</button>
+    <p class="text-sm" style="color:var(--textl)">Did not get it? <span class="link-p" id="resend-lnk" onclick="C.resendOtp()" style="font-weight:700;cursor:pointer">Resend</span></p>
+    <p id="resend-tmr" style="display:none;font-size:.75rem;color:var(--textm);margin-top:7px"></p>
   </div>
 </div>
 
-<!-- SETUP -->
+<!-- ═══════════════════════════════════════
+     SETUP PROFILE
+═══════════════════════════════════════ -->
 <div id="s-setup" class="screen" style="flex-direction:column;background:var(--bg0)">
-  <div class="top-bar"><button class="icon-btn" onclick="C.goTo('login-options')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><h2>Your Profile</h2><span class="link-p fw6 text-sm" onclick="C.skipSetup()">Skip</span></div>
-  <div class="screen-scroll" style="flex:1;padding:20px 24px 40px">
-    <div style="text-align:center;margin-bottom:24px">
-      <div id="setup-av" class="setup-av" onclick="document.getElementById('setup-ph').click()">📷</div>
-      <span class="link-p text-sm fw6" onclick="document.getElementById('setup-ph').click()">Add photo</span>
+  <div class="top-bar">
+    <button class="icon-btn" onclick="C.goTo('login-options')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+    <h2>Your Profile</h2>
+    <span class="link-p fw6 text-sm" onclick="C.skipSetup()" style="cursor:pointer">Skip</span>
+  </div>
+  <div class="screen-scroll" style="flex:1;padding:22px 24px 44px">
+    <div style="text-align:center;margin-bottom:26px">
+      <div id="setup-av" class="setup-av" onclick="document.getElementById('setup-ph').click()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28" opacity=".5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
+      </div>
+      <span class="link-p text-sm fw6" onclick="document.getElementById('setup-ph').click()" style="cursor:pointer">Add photo</span>
       <input type="file" id="setup-ph" accept="image/*" style="display:none" onchange="C.previewSetupAv(this)">
     </div>
     <div class="form-group"><label class="form-label">Bio</label><textarea id="setup-bio" class="form-textarea" placeholder="Tell people about yourself — skills, experience, what you offer..."></textarea></div>
     <div class="form-group"><label class="form-label">City / Area *</label><input type="text" id="setup-city" class="form-input" placeholder="e.g. Effurun, Warri, Lagos Island"></div>
     <div class="form-group"><label class="form-label">State</label><input type="text" id="setup-state" class="form-input" placeholder="e.g. Delta State"></div>
-    <button class="btn btn-g btn-full mb-8" onclick="C.detectLoc()">📍 Auto-detect location</button>
-    <div id="loc-ok" class="loc-ok">✅ Location detected</div>
-    <button class="btn btn-p btn-full" onclick="C.saveSetup()">Continue →</button>
+    <button class="btn btn-g btn-full mb-8" onclick="C.detectLoc()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+      Auto-detect location
+    </button>
+    <div id="loc-ok" class="loc-ok">Location detected</div>
+    <button class="btn btn-p btn-full" onclick="C.saveSetup()">Continue</button>
   </div>
 </div>
 
-<!-- DISCOVER / HOME -->
+<!-- ═══════════════════════════════════════
+     DISCOVER / HOME
+═══════════════════════════════════════ -->
 <div id="s-discover" class="screen main-screen" style="flex-direction:column;background:var(--bg0)">
-
-  <!-- STICKY HEADER -->
   <div class="disc-header">
     <div class="disc-top-row">
       <div>
@@ -1439,18 +417,17 @@ img{max-width:100%;display:block}
       <div style="display:flex;align-items:center;gap:10px">
         <div class="theme-btn" onclick="C.toggleTheme()" id="theme-toggle">🌙</div>
         <div class="notif-btn" onclick="C.openNotifs()">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg>
           <span class="notif-dot" id="notif-dot" style="display:none"></span>
         </div>
         <div id="disc-av" class="disc-av" onclick="C.navTo('profile')"></div>
       </div>
     </div>
     <div class="search-pill">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
       <input type="text" id="disc-search" placeholder="Search skills, people, services..." oninput="C.filterSkills()">
-      <span onclick="C.openFilters()" style="cursor:pointer;padding:4px 10px;background:rgba(255,255,255,.15);border-radius:8px;font-size:.72rem;color:#fff;white-space:nowrap">Filter ⚙</span>
+      <span onclick="C.openFilters()" style="cursor:pointer;padding:4px 12px;background:rgba(255,255,255,.14);border-radius:8px;font-size:.72rem;color:#fff;white-space:nowrap;font-weight:600">Filter</span>
     </div>
-    <!-- HOME SECTION TABS (not categories) -->
     <div style="display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px" id="home-tabs">
       <button class="home-tab on" data-htab="feed" onclick="C.switchHomeTab('feed',this)">🔥 Feed</button>
       <button class="home-tab" data-htab="people" onclick="C.switchHomeTab('people',this)">👥 People</button>
@@ -1460,104 +437,73 @@ img{max-width:100%;display:block}
     </div>
   </div>
 
-  <!-- TAB: FEED (default) -->
   <div id="htab-feed" class="screen-scroll" style="flex:1;padding-bottom:8px">
-
-    <!-- STATS ROW -->
     <div id="home-stats" style="display:flex;gap:8px;padding:12px 16px 0;overflow-x:auto;scrollbar-width:none"></div>
-
-    <!-- QUOTE OF THE DAY -->
-    <div id="quote-card" style="margin:12px 16px 0;border-radius:16px;background:linear-gradient(135deg,var(--p),#8B5CF6);padding:14px 16px;color:#fff;display:none">
+    <div id="quote-card" style="margin:12px 16px 0;border-radius:18px;background:linear-gradient(135deg,var(--p),#7C3AED);padding:15px 18px;color:#fff;display:none">
       <div style="font-size:.65rem;opacity:.7;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">💡 Tip of the Day</div>
-      <div id="quote-text" style="font-size:.9rem;font-weight:600;line-height:1.6;font-style:italic"></div>
+      <div id="quote-text" style="font-size:.9rem;font-weight:600;line-height:1.65;font-style:italic"></div>
       <div id="quote-author" style="font-size:.72rem;opacity:.7;margin-top:6px"></div>
     </div>
-
-    <!-- QUICK ACTIONS -->
-    <div style="padding:14px 16px 0">
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px" id="quick-actions"></div>
-    </div>
-
-    <!-- TRENDING SKILLS -->
+    <div style="padding:14px 16px 0"><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px" id="quick-actions"></div></div>
     <div style="padding:14px 16px 0">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-        <div style="font-weight:800;font-size:.9rem">🔥 Trending Skills</div>
-        <span class="link-p" style="font-size:.78rem;font-weight:600;cursor:pointer" onclick="C.switchHomeTab('people',document.querySelector('[data-htab=people]'))">See all →</span>
+        <div style="font-weight:800;font-size:.9rem;font-family:'Sora',sans-serif">🔥 Trending Skills</div>
+        <span class="link-p" style="font-size:.78rem;font-weight:700;cursor:pointer" onclick="C.switchHomeTab('people',document.querySelector('[data-htab=people]'))">See all</span>
       </div>
       <div id="trending-scroll" style="display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px"></div>
     </div>
-
-    <!-- REQUESTS NEAR YOU (demand signals) -->
     <div style="padding:14px 16px 0">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-        <div style="font-weight:800;font-size:.9rem">📢 Requests Near You</div>
+        <div style="font-weight:800;font-size:.9rem;font-family:'Sora',sans-serif">📢 Requests Near You</div>
         <button class="btn btn-sm btn-p" style="font-size:.7rem;padding:5px 10px" onclick="C.showCreatePicker()">+ Post Request</button>
       </div>
       <div id="requests-near"></div>
     </div>
-
-    <!-- LIVE ACTIVITY FEED -->
     <div style="padding:14px 16px 0">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-        <div style="font-weight:800;font-size:.9rem">⚡ Live Activity</div>
+        <div style="font-weight:800;font-size:.9rem;font-family:'Sora',sans-serif">⚡ Live Activity</div>
         <span class="badge" style="background:var(--okl);color:var(--ok);font-size:.63rem;font-weight:700">● LIVE</span>
       </div>
       <div id="activity-feed"></div>
     </div>
-
-    <!-- COMMUNITY POSTS (from Firebase) -->
     <div style="padding:14px 16px 0">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-        <div style="font-weight:800;font-size:.9rem">🌍 Community Posts</div>
-        <span class="link-p" style="font-size:.78rem;font-weight:600;cursor:pointer" onclick="C.navTo('feed')">See all →</span>
+        <div style="font-weight:800;font-size:.9rem;font-family:'Sora',sans-serif">🌍 Community Posts</div>
+        <span class="link-p" style="font-size:.78rem;font-weight:700;cursor:pointer" onclick="C.navTo('feed')">See all</span>
       </div>
       <div id="community-posts-home"></div>
     </div>
-
-    <!-- WEATHER WIDGET -->
-    <div id="weather-card" style="margin:14px 16px 0;display:none;border-radius:14px;border:1px solid var(--border);background:var(--bg1);padding:14px 16px;display:flex;align-items:center;gap:14px">
+    <div id="weather-card" style="margin:14px 16px 0;display:none;border-radius:16px;border:1px solid var(--border);background:var(--bg1);padding:15px 16px;display:flex;align-items:center;gap:14px">
       <div id="weather-icon" style="font-size:2.2rem">🌤</div>
-      <div>
-        <div id="weather-temp" style="font-size:1.3rem;font-weight:800"></div>
-        <div id="weather-desc" style="font-size:.76rem;color:var(--textl);margin-top:2px"></div>
-        <div id="weather-note" style="font-size:.7rem;color:var(--textm);margin-top:2px"></div>
-      </div>
+      <div><div id="weather-temp" style="font-size:1.3rem;font-weight:800;font-family:'Sora',sans-serif"></div><div id="weather-desc" style="font-size:.76rem;color:var(--textl);margin-top:2px"></div><div id="weather-note" style="font-size:.7rem;color:var(--textm);margin-top:2px"></div></div>
     </div>
-
-    <!-- SKILL TIPS FROM DEV.TO -->
     <div style="padding:14px 16px">
-      <div style="font-weight:800;font-size:.9rem;margin-bottom:10px">📚 Skill Tips & Guides</div>
+      <div style="font-weight:800;font-size:.9rem;margin-bottom:10px;font-family:'Sora',sans-serif">📚 Skill Tips and Guides</div>
       <div id="articles-list"></div>
     </div>
-
   </div>
 
-  <!-- TAB: PEOPLE -->
   <div id="htab-people" class="screen-scroll" style="flex:1;padding:12px 16px;display:none">
-    <!-- FEATURED PROFESSIONALS (randomuser.me seeded) -->
-    <div style="font-weight:800;font-size:.9rem;margin-bottom:12px">⭐ Featured Professionals</div>
+    <div style="font-weight:800;font-size:.9rem;margin-bottom:12px;font-family:'Sora',sans-serif">⭐ Featured Professionals</div>
     <div id="featured-pros-grid"></div>
-    <div style="font-weight:800;font-size:.9rem;margin:14px 0 12px">🗂 Browse by Skill</div>
+    <div style="font-weight:800;font-size:.9rem;margin:14px 0 12px;font-family:'Sora',sans-serif">🗂 Browse by Skill</div>
     <div id="cat-chips-people" class="chips" style="flex-wrap:wrap"></div>
     <div id="people-skill-list" style="margin-top:12px"></div>
   </div>
 
-  <!-- TAB: EVENTS -->
   <div id="htab-events" class="screen-scroll" style="flex:1;padding:12px 16px;display:none">
-    <div style="font-weight:800;font-size:.9rem;margin-bottom:12px">📅 Events Near You</div>
+    <div style="font-weight:800;font-size:.9rem;margin-bottom:12px;font-family:'Sora',sans-serif">📅 Events Near You</div>
     <div id="events-list"><div class="loading-c"><div class="spinner"></div></div></div>
   </div>
 
-  <!-- TAB: JOBS -->
   <div id="htab-jobs" class="screen-scroll" style="flex:1;padding:12px 16px;display:none">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-      <div style="font-weight:800;font-size:.9rem">💼 Remote Opportunities</div>
+      <div style="font-weight:800;font-size:.9rem;font-family:'Sora',sans-serif">💼 Remote Opportunities</div>
       <span id="jobs-count" class="badge badge-n" style="font-size:.65rem"></span>
     </div>
     <div id="jobs-list"><div class="loading-c"><div class="spinner"></div></div></div>
   </div>
 
-  <!-- TAB: MAP -->
   <div id="htab-map" style="flex:1;display:none;flex-direction:column">
     <div style="display:flex;align-items:center;gap:8px;padding:10px 16px;flex-shrink:0;border-bottom:1px solid var(--border)">
       <button class="vt-btn on" id="vt-map" onclick="C.switchView('map')" style="font-size:.75rem">🗺 Map</button>
@@ -1565,27 +511,26 @@ img{max-width:100%;display:block}
       <div style="display:flex;align-items:center;gap:6px;margin-left:auto">
         <span style="font-size:.72rem;color:var(--textl)">Radius:</span>
         <input type="range" id="rad-slider" min="1" max="50" value="10" oninput="C.updateRadius(this.value)" style="width:80px;accent-color:var(--p)">
-        <span id="rad-label" style="font-size:.75rem;font-weight:700;color:var(--p);min-width:32px">10km</span>
+        <span id="rad-label" style="font-size:.75rem;font-weight:700;color:var(--p2);min-width:32px">10km</span>
       </div>
     </div>
     <div id="map-view" style="flex:1;position:relative;min-height:0">
       <div id="cionti-map" style="width:100%;height:100%;min-height:400px"></div>
       <div id="map-peek" class="map-peek" style="display:none"></div>
     </div>
-    <div id="list-view" style="display:none;flex:1;overflow-y:auto;padding:12px 16px">
-      <div id="skill-list"></div>
-    </div>
+    <div id="list-view" style="display:none;flex:1;overflow-y:auto;padding:12px 16px"><div id="skill-list"></div></div>
   </div>
-
 </div>
 
-<!-- FEED / EXPLORE -->
+<!-- ═══════════════════════════════════════
+     FEED / EXPLORE
+═══════════════════════════════════════ -->
 <div id="s-feed" class="screen main-screen" style="flex-direction:column">
   <div class="top-bar">
     <h2>Explore</h2>
     <div style="display:flex;gap:8px">
       <div class="theme-btn" onclick="C.toggleTheme()" id="theme-toggle-feed">🌙</div>
-      <div class="icon-btn" onclick="C.openNotifs()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg></div>
+      <div class="icon-btn" onclick="C.openNotifs()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg></div>
     </div>
   </div>
   <div class="feed-tabs" id="feed-tabs">
@@ -1599,21 +544,21 @@ img{max-width:100%;display:block}
   <div id="feed-content" class="screen-scroll" style="flex:1;padding:12px 16px"></div>
 </div>
 
-<!-- AI MATCHER -->
+<!-- ═══════════════════════════════════════
+     AI MATCHER
+═══════════════════════════════════════ -->
 <div id="s-ai" class="screen main-screen" style="flex-direction:column">
-  <!-- HEADER -->
   <div class="ai-header" style="padding-bottom:0">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
       <div style="display:flex;align-items:center;gap:10px">
-        <div style="width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#2952FF,#8B5CF6);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0">🤖</div>
-        <div>
-          <div class="ai-title">Cionti AI</div>
-          <div class="ai-sub" id="ai-mode-label">Powered by Llama 3 · Open Source</div>
-        </div>
+        <div style="width:40px;height:40px;border-radius:13px;background:linear-gradient(135deg,var(--p),#7C3AED);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0">🤖</div>
+        <div><div class="ai-title">Cionti AI</div><div class="ai-sub" id="ai-mode-label">Powered by Llama 3 · Open Source</div></div>
       </div>
-      <div style="display:flex;gap:6px"><button class="icon-btn" onclick="C.navTo('discover')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><button class="btn btn-sm btn-o" onclick="C.resetAI()" style="font-size:.72rem">↺ Reset</button></div>
+      <div style="display:flex;gap:6px">
+        <button class="icon-btn" onclick="C.navTo('discover')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+        <button class="btn btn-sm btn-o" onclick="C.resetAI()" style="font-size:.72rem">Reset</button>
+      </div>
     </div>
-    <!-- MODE TABS -->
     <div style="display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:10px">
       <button class="ai-mode-tab active" data-mode="chat" onclick="C.switchAIMode('chat',this)">💬 Chat</button>
       <button class="ai-mode-tab" data-mode="match" onclick="C.switchAIMode('match',this)">🎯 Job Match</button>
@@ -1622,45 +567,43 @@ img{max-width:100%;display:block}
       <button class="ai-mode-tab" data-mode="advisor" onclick="C.switchAIMode('advisor',this)">🧠 Advisor</button>
     </div>
   </div>
-  <!-- MESSAGES -->
   <div class="ai-msgs" id="ai-msgs"></div>
-  <!-- QUICK SUGGESTIONS -->
   <div style="padding:8px 14px 4px;background:var(--bg1);border-top:1px solid var(--border);overflow-x:auto;scrollbar-width:none">
     <div id="ai-suggestions" style="display:flex;gap:6px;padding-bottom:4px"></div>
   </div>
-  <!-- INPUT ROW -->
   <div class="ai-input-row">
     <textarea class="ai-inp" id="ai-inp" placeholder="Ask Cionti AI anything..." rows="1" onkeydown="C.aiKey(event)" oninput="C.aiTyping(this)"></textarea>
-    <button class="ai-send" onclick="C.sendAiMsg()"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+    <button class="ai-send" onclick="C.sendAiMsg()"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
   </div>
 </div>
 
-<!-- REQUESTS -->
+<!-- ═══════════════════════════════════════
+     REQUESTS
+═══════════════════════════════════════ -->
 <div id="s-requests" class="screen main-screen" style="flex-direction:column">
-  <div class="top-bar"><button class="icon-btn" onclick="C.navTo('discover')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><h2>Requests</h2><div style="width:40px"></div></div>
-  <div style="padding:12px 20px 0;flex-shrink:0">
-    <div class="tab-bar">
-      <button class="tab on" id="tab-recv" onclick="C.switchReqTab('recv')">📩 Received</button>
-      <button class="tab" id="tab-sent" onclick="C.switchReqTab('sent')">📤 Sent</button>
-    </div>
-  </div>
+  <div class="top-bar"><button class="icon-btn" onclick="C.navTo('discover')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><h2>Requests</h2><div style="width:40px"></div></div>
+  <div style="padding:12px 20px 0;flex-shrink:0"><div class="tab-bar"><button class="tab on" id="tab-recv" onclick="C.switchReqTab('recv')">📩 Received</button><button class="tab" id="tab-sent" onclick="C.switchReqTab('sent')">📤 Sent</button></div></div>
   <div id="req-list" class="screen-scroll" style="flex:1;padding:12px 16px"></div>
 </div>
 
-<!-- MESSAGES -->
+<!-- ═══════════════════════════════════════
+     MESSAGES
+═══════════════════════════════════════ -->
 <div id="s-messages" class="screen main-screen" style="flex-direction:column">
-  <div class="top-bar"><button class="icon-btn" onclick="C.navTo('discover')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><h2>Messages</h2><div style="width:40px"></div></div>
+  <div class="top-bar"><button class="icon-btn" onclick="C.navTo('discover')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><h2>Messages</h2><div style="width:40px"></div></div>
   <div id="chats-list" class="screen-scroll" style="flex:1"></div>
 </div>
 
-<!-- CHAT -->
+<!-- ═══════════════════════════════════════
+     CHAT
+═══════════════════════════════════════ -->
 <div id="s-chat" class="screen" style="flex-direction:column;padding-bottom:0!important;background:var(--bg0)">
   <div class="top-bar" style="flex-shrink:0">
-    <button class="icon-btn" id="chat-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+    <button class="icon-btn" id="chat-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
     <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:0">
       <div id="chat-av" class="avatar av-sm"></div>
       <div style="min-width:0">
-        <div id="chat-name" style="font-weight:700;font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"></div>
+        <div id="chat-name" style="font-weight:700;font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:'Sora',sans-serif"></div>
         <div id="chat-status" style="font-size:.7rem;color:var(--ok)"></div>
       </div>
     </div>
@@ -1668,17 +611,19 @@ img{max-width:100%;display:block}
   </div>
   <div id="chat-msgs" class="chat-body"></div>
   <div class="chat-foot">
-    <button class="attach-btn" onclick="document.getElementById('chat-img').click()">📎</button>
+    <button class="attach-btn" onclick="document.getElementById('chat-img').click()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/></svg></button>
     <input type="file" id="chat-img" accept="image/*" style="display:none" onchange="C.sendImg(this)">
     <textarea id="chat-inp" class="chat-ta" placeholder="Type a message..." rows="1" oninput="C.chatTyping()" onkeydown="C.chatKey(event)"></textarea>
-    <button class="send-btn" onclick="C.sendMsg()"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+    <button class="send-btn" onclick="C.sendMsg()"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
   </div>
 </div>
 
-<!-- VIEW PROFILE -->
+<!-- ═══════════════════════════════════════
+     VIEW PROFILE
+═══════════════════════════════════════ -->
 <div id="s-view-profile" class="screen" style="flex-direction:column;background:var(--bg0)">
   <div class="top-bar">
-    <button class="icon-btn" id="vp-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+    <button class="icon-btn" id="vp-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
     <h2>Profile</h2>
     <button class="btn btn-sm btn-o" onclick="C.openReferModal()">Refer 🤝</button>
   </div>
@@ -1689,12 +634,11 @@ img{max-width:100%;display:block}
   </div>
 </div>
 
-<!-- POST SKILL -->
+<!-- ═══════════════════════════════════════
+     POST SKILL
+═══════════════════════════════════════ -->
 <div id="s-post-skill" class="screen" style="flex-direction:column;background:var(--bg0)">
-  <div class="top-bar">
-    <button class="icon-btn" id="ps-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
-    <h2 id="ps-title">Post a Skill</h2><div style="width:40px"></div>
-  </div>
+  <div class="top-bar"><button class="icon-btn" id="ps-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><h2 id="ps-title">Post a Skill</h2><div style="width:40px"></div></div>
   <div class="screen-scroll" style="flex:1;padding:20px 24px 40px">
     <div class="form-group"><label class="form-label">Skill Title *</label><input type="text" id="ps-skill-title" class="form-input" placeholder="e.g. Android Developer, Fashion Designer"></div>
     <div class="form-group"><label class="form-label">Category *</label><select id="ps-cat" class="form-select"><option value="">Choose category...</option></select></div>
@@ -1717,7 +661,7 @@ img{max-width:100%;display:block}
     <div class="form-group"><label class="form-label">Tags <span class="text-muted fw4">(comma-separated)</span></label><input type="text" id="ps-tags" class="form-input" placeholder="e.g. android, flutter, firebase"></div>
     <div class="form-group">
       <label class="form-label">Portfolio Image <span class="text-muted fw4">(optional)</span></label>
-      <div id="portfolio-prev" style="display:none;margin-bottom:8px;border-radius:12px;overflow:hidden;max-height:180px"></div>
+      <div id="portfolio-prev" style="display:none;margin-bottom:8px;border-radius:14px;overflow:hidden;max-height:180px"></div>
       <button class="btn btn-g btn-full" onclick="document.getElementById('ps-portfolio').click()">📷 Add Portfolio Image</button>
       <input type="file" id="ps-portfolio" accept="image/*" style="display:none" onchange="C.prevPortfolio(this)">
     </div>
@@ -1726,32 +670,37 @@ img{max-width:100%;display:block}
   </div>
 </div>
 
-<!-- MY PROFILE -->
+<!-- ═══════════════════════════════════════
+     MY PROFILE
+═══════════════════════════════════════ -->
 <div id="s-profile" class="screen main-screen" style="flex-direction:column;background:var(--bg0)">
   <div class="top-bar">
-    <button class="icon-btn" onclick="C.navTo('discover')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+    <button class="icon-btn" onclick="C.navTo('discover')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
     <h2>My Profile</h2>
-    <div style="display:flex;gap:8px">
-      <div class="theme-btn" onclick="C.toggleTheme()">🌙</div>
-      <button class="btn btn-sm btn-o" onclick="C.openEditProfile()">Edit</button>
-    </div>
+    <div style="display:flex;gap:8px"><div class="theme-btn" onclick="C.toggleTheme()">🌙</div><button class="btn btn-sm btn-o" onclick="C.openEditProfile()">Edit</button></div>
   </div>
   <div id="my-profile" class="screen-scroll" style="flex:1"></div>
 </div>
 
-<!-- WALLET -->
+<!-- ═══════════════════════════════════════
+     WALLET
+═══════════════════════════════════════ -->
 <div id="s-wallet" class="screen" style="flex-direction:column;background:var(--bg0)">
-  <div class="top-bar"><button class="icon-btn" onclick="C.navTo('profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><h2>Wallet</h2><div style="width:40px"></div></div>
+  <div class="top-bar"><button class="icon-btn" onclick="C.navTo('profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><h2>Wallet</h2><div style="width:40px"></div></div>
   <div id="wallet-content" class="screen-scroll" style="flex:1;padding:16px 20px"></div>
 </div>
 
-<!-- SETTINGS -->
+<!-- ═══════════════════════════════════════
+     SETTINGS
+═══════════════════════════════════════ -->
 <div id="s-settings" class="screen" style="flex-direction:column;background:var(--bg0)">
-  <div class="top-bar"><button class="icon-btn" onclick="C.navTo('profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><h2>Settings</h2><div style="width:40px"></div></div>
+  <div class="top-bar"><button class="icon-btn" onclick="C.navTo('profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><h2>Settings</h2><div style="width:40px"></div></div>
   <div id="settings-content" class="screen-scroll" style="flex:1;padding:8px 0"></div>
 </div>
 
-<!-- FILTER DRAWER -->
+<!-- ═══════════════════════════════════════
+     FILTER DRAWER
+═══════════════════════════════════════ -->
 <div id="s-filters" class="drawer-overlay" style="display:none" onclick="C.closeFilters(event)">
   <div class="drawer">
     <div class="drawer-handle"></div>
@@ -1778,10 +727,12 @@ img{max-width:100%;display:block}
   </div>
 </div>
 
-<!-- MODALS -->
+<!-- ═══════════════════════════════════════
+     MODALS
+═══════════════════════════════════════ -->
 <div id="modal-request" class="modal-ov" style="display:none" onclick="C.closeModal(event,'modal-request')">
   <div class="modal-sh"><div class="modal-drag"></div>
-    <h3 class="modal-ttl">Send Request</h3><p class="modal-sub">Select skill and describe your need</p>
+    <h3 class="modal-ttl">Send Request</h3><p class="modal-sub">Select a skill and describe your need</p>
     <div id="req-skill-sel"></div>
     <div class="form-group mt-8"><label class="form-label">Message *</label><textarea id="req-msg" class="form-textarea" placeholder="What do you need? Timeline? Budget?"></textarea></div>
     <div style="display:flex;gap:10px"><button class="btn btn-g" style="flex:1" onclick="C.closeModalById('modal-request')">Cancel</button><button class="btn btn-p" style="flex:2" onclick="C.submitRequest()">Send 🚀</button></div>
@@ -1804,7 +755,7 @@ img{max-width:100%;display:block}
     <div class="form-group"><label class="form-label">City</label><input type="text" id="ep-city" class="form-input"></div>
     <div class="form-group"><label class="form-label">State</label><input type="text" id="ep-state" class="form-input"></div>
     <div class="form-group"><label class="form-label">Availability</label>
-      <select id="ep-avail" class="form-select"><option value="true">✅ Available for work</option><option value="false">⏸ Not available</option></select>
+      <select id="ep-avail" class="form-select"><option value="true">Available for work</option><option value="false">Not available</option></select>
     </div>
     <div class="form-group"><label class="form-label">New Profile Photo</label><input type="file" id="ep-photo" accept="image/*" class="form-input" style="padding:10px"></div>
     <div style="display:flex;gap:10px"><button class="btn btn-g" style="flex:1" onclick="C.closeModalById('modal-edit-profile')">Cancel</button><button class="btn btn-p" style="flex:2" id="btn-save-ep" onclick="C.saveEditProfile()">Save</button></div>
@@ -1824,7 +775,7 @@ img{max-width:100%;display:block}
 <div id="modal-payment" class="modal-ov" style="display:none" onclick="C.closeModal(event,'modal-payment')">
   <div class="modal-sh"><div class="modal-drag"></div>
     <h3 class="modal-ttl">Confirm Payment 💳</h3>
-    <p class="modal-sub">Funds held in escrow until job complete</p>
+    <p class="modal-sub">Funds held in escrow until job is complete</p>
     <div id="pay-summary" class="pay-summary"></div>
     <div class="escrow-note mt-8">🔒 <strong>Escrow Protection</strong> — Your payment is held securely and released to the provider only after you confirm the job is done.</div>
     <div style="display:flex;gap:10px;margin-top:16px"><button class="btn btn-g" style="flex:1" onclick="C.closeModalById('modal-payment')">Cancel</button><button class="btn btn-p" style="flex:2" id="btn-pay" onclick="C.initiatePayment()">Pay with Paystack 💳</button></div>
@@ -1839,141 +790,122 @@ img{max-width:100%;display:block}
 </div>
 
 <!-- ═══════════════════════════════════════
-     NEW SCREENS: CREATE, MARKET, SHOP
+     CREATE PICKER SHEET
 ═══════════════════════════════════════ -->
-
-<!-- CREATE PICKER SHEET -->
 <div id="create-picker" class="drawer-overlay" style="display:none" onclick="C.closeCreatePicker(event)">
-  <div class="drawer" style="padding-bottom:32px">
+  <div class="drawer" style="padding-bottom:36px">
     <div class="drawer-handle"></div>
     <h3 class="drawer-title" style="margin-bottom:4px">Create Something</h3>
     <p style="font-size:.8rem;color:var(--textl);margin-bottom:20px">What do you want to share with your community?</p>
     <div class="create-grid">
       <div class="create-opt" onclick="C.openCreate('post')">
-        <div class="create-opt-icon" style="background:linear-gradient(135deg,#2952FF,#5B7FFF)">✍️</div>
-        <div class="create-opt-name">Post</div>
-        <div class="create-opt-hint">Share a thought or update</div>
+        <div class="create-opt-icon" style="background:linear-gradient(135deg,var(--p),var(--p2))">✍️</div>
+        <div class="create-opt-name">Post</div><div class="create-opt-hint">Share a thought</div>
       </div>
       <div class="create-opt" onclick="C.openCreate('photo')">
         <div class="create-opt-icon" style="background:linear-gradient(135deg,#EC4899,#F97316)">📸</div>
-        <div class="create-opt-name">Photo</div>
-        <div class="create-opt-hint">Share an image</div>
+        <div class="create-opt-name">Photo</div><div class="create-opt-hint">Share an image</div>
       </div>
       <div class="create-opt" onclick="C.openCreate('skill')">
-        <div class="create-opt-icon" style="background:linear-gradient(135deg,#00D97E,#059669)">🛠</div>
-        <div class="create-opt-name">Skill</div>
-        <div class="create-opt-hint">Offer a service</div>
+        <div class="create-opt-icon" style="background:linear-gradient(135deg,#10B981,#059669)">🛠</div>
+        <div class="create-opt-name">Skill</div><div class="create-opt-hint">Offer a service</div>
       </div>
       <div class="create-opt" onclick="C.openCreate('shop')">
-        <div class="create-opt-icon" style="background:linear-gradient(135deg,#FFB800,#F97316)">🛍</div>
-        <div class="create-opt-name">Shop Item</div>
-        <div class="create-opt-hint">Sell a product</div>
+        <div class="create-opt-icon" style="background:linear-gradient(135deg,var(--gold),#D97706)">🛍</div>
+        <div class="create-opt-name">Shop Item</div><div class="create-opt-hint">Sell a product</div>
       </div>
       <div class="create-opt" onclick="C.openCreate('deal')">
         <div class="create-opt-icon" style="background:linear-gradient(135deg,#EF4444,#EC4899)">🔥</div>
-        <div class="create-opt-name">Deal / Promo</div>
-        <div class="create-opt-hint">Time-limited offer</div>
+        <div class="create-opt-name">Deal / Promo</div><div class="create-opt-hint">Time-limited offer</div>
       </div>
       <div class="create-opt" onclick="C.openCreate('event')">
-        <div class="create-opt-icon" style="background:linear-gradient(135deg,#8B5CF6,#2952FF)">📅</div>
-        <div class="create-opt-name">Event</div>
-        <div class="create-opt-hint">Workshop, class or meetup</div>
+        <div class="create-opt-icon" style="background:linear-gradient(135deg,#8B5CF6,var(--p))">📅</div>
+        <div class="create-opt-name">Event</div><div class="create-opt-hint">Workshop or class</div>
       </div>
       <div class="create-opt" onclick="C.openCreate('collab')">
-        <div class="create-opt-icon" style="background:linear-gradient(135deg,#0EA5E9,#2952FF)">🤝</div>
-        <div class="create-opt-name">Collab</div>
-        <div class="create-opt-hint">Find a partner or co-founder</div>
+        <div class="create-opt-icon" style="background:linear-gradient(135deg,#0EA5E9,var(--p))">🤝</div>
+        <div class="create-opt-name">Collab</div><div class="create-opt-hint">Find a partner</div>
       </div>
       <div class="create-opt" onclick="C.openCreate('poll')">
         <div class="create-opt-icon" style="background:linear-gradient(135deg,#6366F1,#8B5CF6)">📊</div>
-        <div class="create-opt-name">Poll</div>
-        <div class="create-opt-hint">Ask the community</div>
+        <div class="create-opt-name">Poll</div><div class="create-opt-hint">Ask the community</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- CREATE CONTENT SCREEN (unified editor) -->
+<!-- ═══════════════════════════════════════
+     CREATE CONTENT SCREEN
+═══════════════════════════════════════ -->
 <div id="s-create" class="screen" style="flex-direction:column;background:var(--bg0)">
   <div class="top-bar">
-    <button class="icon-btn" onclick="C.goTo(S.currentNav||'feed')">×</button>
+    <button class="icon-btn" onclick="C.goTo(S.currentNav||'feed')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
     <h2 id="create-title">Create Post</h2>
     <button class="btn btn-p btn-sm" id="btn-publish" onclick="C.publishContent()">Publish</button>
   </div>
   <div class="screen-scroll" style="flex:1;padding:16px 20px 40px">
-
-    <!-- Author row -->
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
-      <div id="create-av" class="avatar av-md" style="background:var(--p);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">O</div>
+      <div id="create-av" class="avatar av-md" style="background:var(--p);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-family:'Sora',sans-serif">O</div>
       <div>
-        <div id="create-author" style="font-weight:700;font-size:.88rem">Your Name</div>
-        <select id="create-visibility" style="font-size:.73rem;color:var(--textl);background:none;border:none;padding:0;cursor:pointer;color:var(--p);font-weight:600">
+        <div id="create-author" style="font-weight:700;font-size:.88rem;font-family:'Sora',sans-serif">Your Name</div>
+        <select id="create-visibility" style="font-size:.73rem;color:var(--p2);background:none;border:none;padding:0;cursor:pointer;font-weight:600;font-family:'Plus Jakarta Sans',sans-serif">
           <option value="public">🌍 Public</option>
           <option value="local">📍 Local area only</option>
           <option value="followers">👥 Followers only</option>
         </select>
       </div>
     </div>
-
-    <!-- DYNAMIC FIELDS by type -->
-    <div id="create-fields">
-      <!-- Rendered by JS based on type -->
-    </div>
-
-    <!-- Image preview -->
-    <div id="create-img-preview" style="display:none;margin-bottom:12px;border-radius:14px;overflow:hidden;max-height:240px;position:relative">
+    <div id="create-fields"></div>
+    <div id="create-img-preview" style="display:none;margin-bottom:12px;border-radius:16px;overflow:hidden;max-height:240px;position:relative">
       <img id="create-img-el" style="width:100%;object-fit:cover">
       <button onclick="C.removeCreateImg()" style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,0.6);color:#fff;border:none;border-radius:50%;width:28px;height:28px;cursor:pointer;font-size:1rem">×</button>
     </div>
-
-    <!-- Common tags -->
     <div class="form-group" id="create-tags-wrap" style="display:none">
       <label class="form-label">Tags <span style="color:var(--textm);font-weight:400">(comma-separated)</span></label>
       <input type="text" id="create-tags" class="form-input" placeholder="e.g. fashion, design, warri">
     </div>
-
-    <!-- Toolbar -->
     <div class="create-toolbar">
-      <button class="create-tool" onclick="document.getElementById('create-img-file').click()" title="Add image">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      <button class="create-tool" onclick="document.getElementById('create-img-file').click()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
         Photo
       </button>
-      <button class="create-tool" onclick="C.addLocation()" title="Add location">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <button class="create-tool" onclick="C.addLocation()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
         Location
       </button>
       <button class="create-tool" onclick="C.addPriceTag()" id="tool-price" style="display:none">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
         Price
       </button>
-      <div id="create-loc-tag" style="display:none;font-size:.73rem;color:var(--p);font-weight:600;align-items:center;gap:4px">
+      <div id="create-loc-tag" style="display:none;font-size:.73rem;color:var(--p2);font-weight:600;align-items:center;gap:4px">
         📍 <span id="create-loc-text">Detecting...</span>
         <button onclick="C.removeLocation()" style="background:none;border:none;color:var(--textm);cursor:pointer;font-size:.85rem">×</button>
       </div>
       <input type="file" id="create-img-file" accept="image/*" style="display:none" onchange="C.previewCreateImg(this)">
     </div>
-
   </div>
 </div>
 
-<!-- MARKETPLACE SCREEN -->
+<!-- ═══════════════════════════════════════
+     MARKETPLACE
+═══════════════════════════════════════ -->
 <div id="s-market" class="screen main-screen" style="flex-direction:column;background:var(--bg0)">
   <div class="top-bar">
-    <button class="icon-btn" onclick="C.navTo('discover')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+    <button class="icon-btn" onclick="C.navTo('discover')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
     <h2>Marketplace</h2>
     <div style="display:flex;gap:8px">
       <div class="theme-btn" onclick="C.toggleTheme()">🌙</div>
       <button class="btn btn-sm btn-p" onclick="C.openCreate('shop')">+ Sell</button>
     </div>
   </div>
-  <!-- Search -->
   <div style="padding:10px 16px;background:var(--bg1);border-bottom:1px solid var(--border);flex-shrink:0">
     <div style="display:flex;align-items:center;gap:8px;background:var(--bg2);border:1.5px solid var(--border);border-radius:14px;padding:9px 14px">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--textm)" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--textm)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
       <input type="text" id="market-search" class="form-input" style="background:none;border:none;padding:0;font-size:.85rem" placeholder="Search products, shops, deals..." oninput="C.filterMarket()">
     </div>
   </div>
-  <!-- Category tabs -->
   <div class="feed-tabs" id="market-cats" style="flex-shrink:0">
     <button class="feed-tab on" data-mcat="all" onclick="C.filterMarketCat('all',this)">🛍 All</button>
     <button class="feed-tab" data-mcat="products" onclick="C.filterMarketCat('products',this)">📦 Products</button>
@@ -1985,43 +917,47 @@ img{max-width:100%;display:block}
   <div id="market-content" class="screen-scroll" style="flex:1;padding:12px 16px"></div>
 </div>
 
-<!-- MY SHOP -->
+<!-- ═══════════════════════════════════════
+     MY SHOP
+═══════════════════════════════════════ -->
 <div id="s-my-shop" class="screen" style="flex-direction:column;background:var(--bg0)">
-  <div class="top-bar">
-    <button class="icon-btn" onclick="C.navTo('profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
-    <h2>My Shop</h2>
-    <button class="btn btn-sm btn-p" onclick="C.openCreate('shop')">+ Add</button>
-  </div>
+  <div class="top-bar"><button class="icon-btn" onclick="C.navTo('profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><h2>My Shop</h2><button class="btn btn-sm btn-p" onclick="C.openCreate('shop')">+ Add</button></div>
   <div id="my-shop-content" class="screen-scroll" style="flex:1;padding:12px 16px"></div>
 </div>
 
-<!-- VIEW CONTENT DETAIL -->
+<!-- ═══════════════════════════════════════
+     CONTENT DETAIL
+═══════════════════════════════════════ -->
 <div id="s-content-detail" class="screen" style="flex-direction:column;background:var(--bg0)">
-  <div class="top-bar">
-    <button class="icon-btn" id="cd-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
-    <h2 id="cd-title">Post</h2>
-    <div style="width:40px"></div>
-  </div>
+  <div class="top-bar"><button class="icon-btn" id="cd-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><h2 id="cd-title">Post</h2><div style="width:40px"></div></div>
   <div id="cd-content" class="screen-scroll" style="flex:1;padding:16px"></div>
 </div>
 
-<!-- BOTTOM NAV (updated with Market tab) -->
+<!-- ═══════════════════════════════════════
+     BOTTOM NAV
+═══════════════════════════════════════ -->
 <nav id="bottom-nav">
   <div class="nav-item active" id="nav-discover" onclick="C.navTo('discover')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg><span>Discover</span>
+    <svg viewBox="0 0 24 24" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+    <span>Discover</span>
   </div>
   <div class="nav-item" id="nav-feed" onclick="C.navTo('feed')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Explore</span>
+    <svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <span>Explore</span>
   </div>
   <div class="nav-item nav-post-wrap" onclick="C.showCreatePicker()">
-    <div class="nav-post-btn"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></div>
+    <div class="nav-post-btn">
+      <svg viewBox="0 0 24 24" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+    </div>
     <span>Create</span>
   </div>
   <div class="nav-item" id="nav-market" onclick="C.navTo('market')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><span>Market</span>
+    <svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+    <span>Market</span>
   </div>
   <div class="nav-item" id="nav-profile" onclick="C.navTo('profile')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z"/></svg><span>Profile</span>
+    <svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z"/></svg>
+    <span>Profile</span>
   </div>
 </nav>
 
